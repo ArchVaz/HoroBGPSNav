@@ -209,15 +209,30 @@
       height: 100%;
       background: #0d0d0d;
       border-radius: 8px;
+      transition: transform 0.2s linear;
     }
 
     .nav-user-heading-icon {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       background: var(--accent-blue);
       border: 2px solid #ffffff;
       border-radius: 50%;
       box-shadow: 0 0 10px var(--accent-blue);
+      position: relative;
+    }
+
+    .nav-user-heading-icon::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 7px solid var(--accent-blue);
     }
 
     .turn-banner {
@@ -537,6 +552,7 @@
       loadLayoutPreferences();
       loadRideHistory();
       initMap();
+      loadOfflineRoute();
       setupHoldToStop();
       requestWakeLock();
     });
@@ -611,7 +627,7 @@
         document.getElementById('btnThemeDark').classList.add('active');
       }
 
-      if (routePolyline) routePolyline.setStyle({ color: trackColor });
+      if (routePolyline) routePolyline.setStyle({ color: navTrackColor });
       if (userMarker) userMarker.setStyle({ color: trackColor, fillColor: trackColor });
       if (navRoutePolyline) navRoutePolyline.setStyle({ color: navTrackColor });
       if (navUserMarker) navUserMarker.setStyle({ color: navTrackColor, fillColor: navTrackColor });
@@ -671,13 +687,12 @@
 
     function initMap() {
       if (typeof L === 'undefined') return;
-      const trackColor = currentTheme === 'sun' ? '#00ff66' : '#30d158';
       const navTrackColor = currentTheme === 'sun' ? '#00e5ff' : '#0a84ff';
 
       if (!map) {
         map = L.map('map', { zoomControl: false, attributionControl: false }).setView([20, 0], 2);
         L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(map);
-        routePolyline = L.polyline([], { color: trackColor, weight: 4 }).addTo(map);
+        routePolyline = L.polyline([], { color: navTrackColor, weight: 5 }).addTo(map);
       }
 
       if (!navMap) {
@@ -702,15 +717,32 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- MULTI-LOCATION SEARCH & ROUTING ENGINE ---
+    // --- LOCALIZED SEARCH & OFFLINE ROUTING ENGINE ---
 
     async function searchDestinationRoute() {
       const input = document.getElementById('destSearchInput').value.trim();
       const container = document.getElementById('routeResultsContainer');
       if (!input) return;
 
+      // Offline Fallback Search Check
+      if (!navigator.onLine) {
+        const offlineRoute = localStorage.getItem('horo_offline_route');
+        if (offlineRoute) {
+          const cachedData = JSON.parse(offlineRoute);
+          container.innerHTML = `
+            <div style="background: #0a0a0a; border: 1px solid var(--accent-orange); border-radius: 8px; padding: 10px;">
+              <div style="font-size: 10px; font-weight: 800; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 2px;">OFFLINE MODE ACTIVE</div>
+              <div style="font-size: 13px; font-weight: 800; color: var(--accent-green); margin-bottom: 2px;">${cachedData.title}</div>
+              <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">Saved Route Available Offline</div>
+              <button class="history-btn gpx-btn" style="width: 100%; padding: 8px 0; font-size: 11px;" onclick="loadOfflineRouteAndNavigate()">LOAD OFFLINE ROUTE</button>
+            </div>
+          `;
+          return;
+        }
+      }
+
       if (!lastPosition) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-orange); text-align: center; padding: 12px;">Acquiring one-time GPS fix...</div>`;
+        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-orange); text-align: center; padding: 12px;">Acquiring current GPS location...</div>`;
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             (pos) => {
@@ -718,7 +750,7 @@
               searchDestinationRoute();
             },
             () => {
-              container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">GPS permission required for searching routes.</div>`;
+              container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">GPS location permission required to search nearby destinations.</div>`;
             },
             { enableHighAccuracy: true, timeout: 5000 }
           );
@@ -726,19 +758,27 @@
         return;
       }
 
-      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching locations for "${input}"...</div>`;
+      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching nearby places for "${input}"...</div>`;
 
       try {
-        const viewbox = `${lastPosition.longitude - 0.5},${lastPosition.latitude + 0.5},${lastPosition.longitude + 0.5},${lastPosition.latitude - 0.5}`;
-        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=5&viewbox=${viewbox}&q=${encodeURIComponent(input)}`;
+        const userLat = lastPosition.latitude;
+        const userLon = lastPosition.longitude;
+        const boundRadius = 0.15;
+        const viewbox = `${userLon - boundRadius},${userLat + boundRadius},${userLon + boundRadius},${userLat - boundRadius}`;
         
-        const geoRes = await fetch(geoUrl, {
-          headers: { 'User-Agent': 'HoroBikeNavApp/1.0' }
-        });
-        const geoData = await geoRes.json();
+        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=6&bounded=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
+        
+        const geoRes = await fetch(geoUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
+        let geoData = await geoRes.json();
 
         if (!geoData || geoData.length === 0) {
-          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Location not found. Try a specific name or street.</div>`;
+          const fallbackUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=5&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
+          const fbRes = await fetch(fallbackUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
+          geoData = await fbRes.json();
+        }
+
+        if (!geoData || geoData.length === 0) {
+          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">No nearby places found matching "${input}".</div>`;
           return;
         }
 
@@ -761,7 +801,21 @@
         }).join('');
 
       } catch (err) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Error connecting to search service.</div>`;
+        // Fallback search if offline during fetch attempt
+        const offlineRoute = localStorage.getItem('horo_offline_route');
+        if (offlineRoute) {
+          const cachedData = JSON.parse(offlineRoute);
+          container.innerHTML = `
+            <div style="background: #0a0a0a; border: 1px solid var(--accent-orange); border-radius: 8px; padding: 10px;">
+              <div style="font-size: 10px; font-weight: 800; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 2px;">OFFLINE MODE ACTIVE</div>
+              <div style="font-size: 13px; font-weight: 800; color: var(--accent-green); margin-bottom: 2px;">${cachedData.title}</div>
+              <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">Saved Route Available Offline</div>
+              <button class="history-btn gpx-btn" style="width: 100%; padding: 8px 0; font-size: 11px;" onclick="loadOfflineRouteAndNavigate()">LOAD OFFLINE ROUTE</button>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Network error. No offline route cached.</div>`;
+        }
       }
     }
 
@@ -786,10 +840,24 @@
         const durationMins = Math.round(route.duration / 60);
 
         activeRouteSteps = route.legs[0].steps;
-        
         const coords = route.geometry.coordinates.map(c => [c[1], c[0]]);
+
+        // Render route on BOTH Nav Map and Main Screen Map
         navRoutePolyline.setLatLngs(coords);
-        navMap.fitBounds(navRoutePolyline.getBounds(), { padding: [30, 30] });
+        routePolyline.setLatLngs(coords);
+
+        if (navMap) navMap.fitBounds(navRoutePolyline.getBounds(), { padding: [30, 30] });
+        if (map) map.fitBounds(routePolyline.getBounds(), { padding: [20, 20] });
+
+        // Save route to localStorage for offline access
+        const routeOfflineData = {
+          title: title,
+          coords: coords,
+          steps: activeRouteSteps,
+          distanceKm: distanceKm,
+          durationMins: durationMins
+        };
+        localStorage.setItem('horo_offline_route', JSON.stringify(routeOfflineData));
 
         container.innerHTML = `
           <div style="background: #0a0a0a; border: 1px solid var(--accent-green); border-radius: 8px; padding: 10px;">
@@ -805,6 +873,21 @@
       } catch (err) {
         container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Error connecting to routing service.</div>`;
       }
+    }
+
+    function loadOfflineRoute() {
+      const savedRoute = localStorage.getItem('horo_offline_route');
+      if (savedRoute && navRoutePolyline && routePolyline) {
+        const data = JSON.parse(savedRoute);
+        activeRouteSteps = data.steps || [];
+        navRoutePolyline.setLatLngs(data.coords || []);
+        routePolyline.setLatLngs(data.coords || []);
+      }
+    }
+
+    function loadOfflineRouteAndNavigate() {
+      loadOfflineRoute();
+      startNavigationMode();
     }
 
     function startNavigationMode() {
@@ -998,7 +1081,6 @@
 
           gpxTrackPoints.push({ lat, lon, alt, speed: smoothedSpeedMps, distance: totalDistanceMeters, grade: currentGrade, time: new Date().toISOString() });
           
-          if (isMapTileEnabled && routePolyline) routePolyline.addLatLng([lat, lon]);
           lastPosition = { latitude: lat, longitude: lon, altitude: alt, time: now };
         }
 
@@ -1006,7 +1088,6 @@
       }
 
       const trackColor = currentTheme === 'sun' ? '#00ff66' : '#30d158';
-      const navTrackColor = currentTheme === 'sun' ? '#00e5ff' : '#0a84ff';
 
       if (isMapTileEnabled && map) {
         if (!userMarker) {
@@ -1022,18 +1103,21 @@
         if (!navUserMarker) {
           const navIcon = L.divIcon({
             className: 'nav-user-heading-icon',
-            iconSize: [20, 20],
-            iconAnchor: [10, 10]
+            iconSize: [22, 22],
+            iconAnchor: [11, 11]
           });
           navUserMarker = L.marker([lat, lon], { icon: navIcon }).addTo(navMap);
           navMap.setView([lat, lon], 18);
         } else {
           navUserMarker.setLatLng([lat, lon]);
-          if (heading !== null && heading !== undefined) {
-            const el = navUserMarker.getElement();
-            if (el) el.style.transform = `${el.style.transform.replace(/rotate\([^)]*\)/, '')} rotate(${heading}deg)`;
-          }
           if (rideState === 'RUNNING') navMap.panTo([lat, lon]);
+        }
+
+        if (heading !== null && heading !== undefined && !isNaN(heading)) {
+          const navMapEl = document.getElementById('navMap');
+          if (navMapEl) {
+            navMapEl.style.transform = `rotate(${-heading}deg)`;
+          }
         }
       }
 
