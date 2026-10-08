@@ -162,11 +162,12 @@
     .card { background-color: var(--card-bg); border-radius: 8px; padding: 4px 6px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; }
     .card.hidden { display: none !important; }
 
-    .primary-metric { flex: 1.2; max-height: 20vh; min-height: 75px; padding: 2px 6px; justify-content: center; }
+    .primary-metric { flex: 1.4; max-height: 22vh; min-height: 80px; padding: 2px 6px; justify-content: center; }
     
-    .speed-value { font-size: 82px; font-weight: 800; line-height: 0.82; letter-spacing: -2px; }
+    /* Increased Main Dashboard Speed Display */
+    .speed-value { font-size: 98px; font-weight: 800; line-height: 0.82; letter-spacing: -2px; }
     body.map-disabled .primary-metric { flex: 1.8; max-height: 28vh; }
-    body.map-disabled .speed-value { font-size: 105px; }
+    body.map-disabled .speed-value { font-size: 120px; }
     body.theme-sun .speed-value { color: var(--accent-green); }
 
     .metric-label { font-size: 9px; font-weight: 700; letter-spacing: 0.8px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 1px; }
@@ -188,7 +189,7 @@
     body.theme-sun .leaflet-tile { filter: none !important; }
 
     .nav-card-speed {
-      flex: 0 0 70px;
+      flex: 0 0 80px;
       border: 1px solid var(--border-subtle);
       background: #000000;
       padding: 4px;
@@ -452,7 +453,7 @@
     <div id="viewNav" class="view-pane">
       <div class="card nav-card-speed">
         <div class="metric-label">Current Speed</div>
-        <div id="navSpeedVal" class="speed-value" style="font-size: 48px;">0.0</div>
+        <div id="navSpeedVal" class="speed-value" style="font-size: 60px;">0.0</div>
         <div id="navUnitLabel" class="unit-label">KM/H</div>
       </div>
 
@@ -724,7 +725,6 @@
       const container = document.getElementById('routeResultsContainer');
       if (!input) return;
 
-      // Offline Fallback Search Check
       if (!navigator.onLine) {
         const offlineRoute = localStorage.getItem('horo_offline_route');
         if (offlineRoute) {
@@ -801,7 +801,6 @@
         }).join('');
 
       } catch (err) {
-        // Fallback search if offline during fetch attempt
         const offlineRoute = localStorage.getItem('horo_offline_route');
         if (offlineRoute) {
           const cachedData = JSON.parse(offlineRoute);
@@ -842,14 +841,12 @@
         activeRouteSteps = route.legs[0].steps;
         const coords = route.geometry.coordinates.map(c => [c[1], c[0]]);
 
-        // Render route on BOTH Nav Map and Main Screen Map
         navRoutePolyline.setLatLngs(coords);
         routePolyline.setLatLngs(coords);
 
         if (navMap) navMap.fitBounds(navRoutePolyline.getBounds(), { padding: [30, 30] });
         if (map) map.fitBounds(routePolyline.getBounds(), { padding: [20, 20] });
 
-        // Save route to localStorage for offline access
         const routeOfflineData = {
           title: title,
           coords: coords,

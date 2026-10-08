@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v30-mainroute-offlinenav';
+const CACHE_NAME = 'horo-v31-speed-and-offline-sync';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
@@ -33,12 +33,12 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
 
-  // Bypass cache for live routing network calls if online
+  // Bypass cache for live routing/directions API calls when online
   if (url.pathname.includes('/route/') || url.pathname.includes('/directions/')) {
     return;
   }
 
-  // Cache OSM tiles locally for offline navigation map usage
+  // Cache OpenStreetMap vector/raster tiles for offline map viewing
   if (url.hostname.includes('tile.openstreetmap.org') || url.pathname.endsWith('.png')) {
     e.respondWith(
       caches.open(TILE_CACHE_NAME).then((cache) => {
@@ -57,6 +57,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
+  // Default Cache-First strategy for App Shell
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {
