@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v33-tijuana-smooth-route';
+const CACHE_NAME = 'horo-v34-global-city-search';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
