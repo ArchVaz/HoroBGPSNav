@@ -1,5 +1,5 @@
-const CACHE_NAME = 'horo-v26-nav-sunlight-novoice';
-const TILE_CACHE_NAME = 'horo-map-tiles-v1';
+const CACHE_NAME = 'horo-v27-nocarto-nav3d';
+const TILE_CACHE_NAME = 'horo-map-tiles-v2';
 
 const ASSETS = [
   './',
@@ -33,16 +33,11 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
 
-  // 1. Bypass cache for live routing/navigation APIs
   if (url.pathname.includes('/route/') || url.pathname.includes('/directions/')) {
     return;
   }
 
-  // 2. OpenStreetMap Tile Strategy (Free, Keyless)
-  if (
-    url.hostname.includes('tile.openstreetmap.org') || 
-    url.pathname.endsWith('.png')
-  ) {
+  if (url.hostname.includes('tile.openstreetmap.org') || url.pathname.endsWith('.png')) {
     e.respondWith(
       caches.open(TILE_CACHE_NAME).then((cache) => {
         return cache.match(e.request).then((cachedResponse) => {
@@ -60,7 +55,6 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // 3. Default Strategy for App Shell (Cache First)
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {
