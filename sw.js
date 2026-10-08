@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v32-city-search-update';
+const CACHE_NAME = 'horo-v33-tijuana-smooth-route';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
@@ -33,12 +33,12 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
 
-  // Bypass cache for live routing/directions API calls when online
+  // Bypass cache for live routing network calls
   if (url.pathname.includes('/route/') || url.pathname.includes('/directions/')) {
     return;
   }
 
-  // Cache OpenStreetMap tiles locally for offline map viewing
+  // Cache OpenStreetMap tiles locally for offline navigation map usage
   if (url.hostname.includes('tile.openstreetmap.org') || url.pathname.endsWith('.png')) {
     e.respondWith(
       caches.open(TILE_CACHE_NAME).then((cache) => {
@@ -57,7 +57,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Default Cache-First strategy for App Shell
+  // Cache-first strategy for main assets
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {

@@ -202,14 +202,19 @@
       overflow: hidden;
       min-height: 0;
       width: 100%;
+      background: #000000;
     }
 
+    /* HW Accelerated Smoother Map Rotation Fix */
     #navMap {
       width: 100%;
       height: 100%;
       background: #0d0d0d;
       border-radius: 8px;
-      transition: transform 0.2s linear;
+      will-change: transform;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transition: transform 0.15s cubic-bezier(0.25, 0.1, 0.25, 1.0);
     }
 
     .nav-user-heading-icon {
@@ -405,7 +410,7 @@
 
       <div id="tabContentRoute" class="tab-content">
         <div class="route-planner-box">
-          <input type="text" id="destSearchInput" class="search-input" placeholder="Search destination (e.g. Starbucks or Central Park)">
+          <input type="text" id="destSearchInput" class="search-input" placeholder="Search destination in Tijuana...">
           <button id="btnSearchRoute" class="search-btn">SEARCH</button>
         </div>
         <div id="routeResultsContainer" style="display: flex; flex-direction: column; gap: 6px;">
@@ -690,13 +695,13 @@
       const navTrackColor = currentTheme === 'sun' ? '#00e5ff' : '#0a84ff';
 
       if (!map) {
-        map = L.map('map', { zoomControl: false, attributionControl: false }).setView([20, 0], 2);
+        map = L.map('map', { zoomControl: false, attributionControl: false }).setView([32.5149, -117.0382], 13);
         L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(map);
         routePolyline = L.polyline([], { color: navTrackColor, weight: 5 }).addTo(map);
       }
 
       if (!navMap) {
-        navMap = L.map('navMap', { zoomControl: false, attributionControl: false, touchZoom: 'rotate' }).setView([20, 0], 2);
+        navMap = L.map('navMap', { zoomControl: false, attributionControl: false, touchZoom: 'rotate' }).setView([32.5149, -117.0382], 16);
         L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(navMap);
         navRoutePolyline = L.polyline([], { color: navTrackColor, weight: 8 }).addTo(navMap);
       }
@@ -717,7 +722,7 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- CITY-PRIORITIZED SEARCH ENGINE ---
+    // --- TIJUANA BOUNDED SEARCH ENGINE ---
 
     async function searchDestinationRoute() {
       const input = document.getElementById('destSearchInput').value.trim();
@@ -740,48 +745,30 @@
         }
       }
 
-      if (!lastPosition) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-orange); text-align: center; padding: 12px;">Acquiring current GPS location...</div>`;
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (pos) => {
-              lastPosition = { latitude: pos.coords.latitude, longitude: pos.coords.longitude, altitude: pos.coords.altitude, time: Date.now() };
-              searchDestinationRoute();
-            },
-            () => {
-              container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">GPS location permission required to search nearby destinations.</div>`;
-            },
-            { enableHighAccuracy: true, timeout: 5000 }
-          );
-        }
-        return;
-      }
+      const userLat = lastPosition ? lastPosition.latitude : 32.5149;
+      const userLon = lastPosition ? lastPosition.longitude : -117.0382;
 
-      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching local city places for "${input}"...</div>`;
+      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching Tijuana places for "${input}"...</div>`;
 
       try {
-        const userLat = lastPosition.latitude;
-        const userLon = lastPosition.longitude;
-        
-        // City-level bounding box (~20km radius centered on user)
-        const cityBoundRadius = 0.20;
-        const viewbox = `${userLon - cityBoundRadius},${userLat + cityBoundRadius},${userLon + cityBoundRadius},${userLat - cityBoundRadius}`;
-        
-        // Query bounded strictly to user city radius first, with detailed address breakdown
-        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=8&bounded=1&addressdetails=1&extratags=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
+        // Strict Tijuana bounding box prevents US/San Diego results
+        const tjMinLon = -117.1300, tjMaxLon = -116.8000;
+        const tjMinLat = 32.3800, tjMaxLat = 32.5500;
+        const viewbox = `${tjMinLon},${tjMaxLat},${tjMaxLon},${tjMinLat}`;
+
+        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=8&bounded=1&countrycodes=mx&addressdetails=1&extratags=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
         
         const geoRes = await fetch(geoUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
         let geoData = await geoRes.json();
 
-        // Fallback to un-bounded search anchored by lat/lon if strict city box returns empty
         if (!geoData || geoData.length === 0) {
-          const fallbackUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=6&addressdetails=1&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
+          const fallbackUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=6&countrycodes=mx&addressdetails=1&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input + ' Tijuana')}`;
           const fbRes = await fetch(fallbackUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
           geoData = await fbRes.json();
         }
 
         if (!geoData || geoData.length === 0) {
-          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">No local places found matching "${input}".</div>`;
+          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">No places found in Tijuana matching "${input}".</div>`;
           return;
         }
 
@@ -790,7 +777,7 @@
           const title = parts[0].trim();
           const address = parts.slice(1, 4).join(',').trim();
           
-          const rawDistKm = (calcDistance(lastPosition.latitude, lastPosition.longitude, parseFloat(item.lat), parseFloat(item.lon)) / 1000);
+          const rawDistKm = (calcDistance(userLat, userLon, parseFloat(item.lat), parseFloat(item.lon)) / 1000);
           const distStr = isMetric 
             ? `${rawDistKm.toFixed(1)} km away` 
             : `${(rawDistKm * 0.621371).toFixed(1)} mi away`;
@@ -825,6 +812,8 @@
       }
     }
 
+    // --- ACCURATE STREET-SNAPPED ROUTING ---
+
     async function calculateAndPreviewRoute(destLat, destLon, encodedTitle) {
       const container = document.getElementById('routeResultsContainer');
       const title = decodeURIComponent(encodedTitle);
@@ -832,7 +821,11 @@
       container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Calculating cycling route to ${title}...</div>`;
 
       try {
-        const osrmUrl = `https://router.project-osrm.org/route/v1/biking/${lastPosition.longitude},${lastPosition.latitude};${destLon},${destLat}?steps=true&geometries=geojson`;
+        const startLat = lastPosition ? lastPosition.latitude : 32.5149;
+        const startLon = lastPosition ? lastPosition.longitude : -117.0382;
+
+        // overview=full & geometries=geojson ensures 100% street shape snapping without building shortcuts
+        const osrmUrl = `https://router.project-osrm.org/route/v1/biking/${startLon},${startLat};${destLon},${destLat}?steps=true&overview=full&geometries=geojson`;
         const routeRes = await fetch(osrmUrl);
         const routeData = await routeRes.json();
 
@@ -906,7 +899,7 @@
     }
 
     function updateNavigationBanner() {
-      if (!isNavigating || !activeRouteSteps || activeRouteSteps.length === 0) return;
+      if (!isNavigating || !activeRouteSteps || activeRouteSteps.length === 0 || !lastPosition) return;
 
       if (currentStepIndex >= activeRouteSteps.length) {
         document.getElementById('turnIcon').innerText = '🏁';
@@ -1117,10 +1110,11 @@
           if (rideState === 'RUNNING') navMap.panTo([lat, lon]);
         }
 
+        // Smooth HW-Accelerated Map Rotation scale(1.4) prevents box clipping
         if (heading !== null && heading !== undefined && !isNaN(heading)) {
           const navMapEl = document.getElementById('navMap');
           if (navMapEl) {
-            navMapEl.style.transform = `rotate(${-heading}deg)`;
+            navMapEl.style.transform = `scale(1.4) rotate(${-heading}deg)`;
           }
         }
       }
