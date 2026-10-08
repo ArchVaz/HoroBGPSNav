@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v25-nav-sunlight-novoice';
+const CACHE_NAME = 'horo-v26-nav-sunlight-novoice';
 const TILE_CACHE_NAME = 'horo-map-tiles-v1';
 
 const ASSETS = [
@@ -38,10 +38,9 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // 2. Map Tiles Strategy (CartoDB Light / Dark & OpenStreetMap)
+  // 2. OpenStreetMap Tile Strategy (Free, Keyless)
   if (
     url.hostname.includes('tile.openstreetmap.org') || 
-    url.hostname.includes('basemaps.cartocdn.com') ||
     url.pathname.endsWith('.png')
   ) {
     e.respondWith(
