@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v31-speed-and-offline-sync';
+const CACHE_NAME = 'horo-v32-city-search-update';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
@@ -38,7 +38,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Cache OpenStreetMap vector/raster tiles for offline map viewing
+  // Cache OpenStreetMap tiles locally for offline map viewing
   if (url.hostname.includes('tile.openstreetmap.org') || url.pathname.endsWith('.png')) {
     e.respondWith(
       caches.open(TILE_CACHE_NAME).then((cache) => {

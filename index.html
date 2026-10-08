@@ -164,7 +164,6 @@
 
     .primary-metric { flex: 1.4; max-height: 22vh; min-height: 80px; padding: 2px 6px; justify-content: center; }
     
-    /* Increased Main Dashboard Speed Display */
     .speed-value { font-size: 98px; font-weight: 800; line-height: 0.82; letter-spacing: -2px; }
     body.map-disabled .primary-metric { flex: 1.8; max-height: 28vh; }
     body.map-disabled .speed-value { font-size: 120px; }
@@ -718,7 +717,7 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- LOCALIZED SEARCH & OFFLINE ROUTING ENGINE ---
+    // --- CITY-PRIORITIZED SEARCH ENGINE ---
 
     async function searchDestinationRoute() {
       const input = document.getElementById('destSearchInput').value.trim();
@@ -758,27 +757,31 @@
         return;
       }
 
-      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching nearby places for "${input}"...</div>`;
+      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching local city places for "${input}"...</div>`;
 
       try {
         const userLat = lastPosition.latitude;
         const userLon = lastPosition.longitude;
-        const boundRadius = 0.15;
-        const viewbox = `${userLon - boundRadius},${userLat + boundRadius},${userLon + boundRadius},${userLat - boundRadius}`;
         
-        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=6&bounded=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
+        // City-level bounding box (~20km radius centered on user)
+        const cityBoundRadius = 0.20;
+        const viewbox = `${userLon - cityBoundRadius},${userLat + cityBoundRadius},${userLon + cityBoundRadius},${userLat - cityBoundRadius}`;
+        
+        // Query bounded strictly to user city radius first, with detailed address breakdown
+        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=8&bounded=1&addressdetails=1&extratags=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
         
         const geoRes = await fetch(geoUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
         let geoData = await geoRes.json();
 
+        // Fallback to un-bounded search anchored by lat/lon if strict city box returns empty
         if (!geoData || geoData.length === 0) {
-          const fallbackUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=5&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
+          const fallbackUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=6&addressdetails=1&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
           const fbRes = await fetch(fallbackUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
           geoData = await fbRes.json();
         }
 
         if (!geoData || geoData.length === 0) {
-          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">No nearby places found matching "${input}".</div>`;
+          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">No local places found matching "${input}".</div>`;
           return;
         }
 
@@ -786,13 +789,17 @@
           const parts = item.display_name.split(',');
           const title = parts[0].trim();
           const address = parts.slice(1, 4).join(',').trim();
-          const distFromUser = (calcDistance(lastPosition.latitude, lastPosition.longitude, parseFloat(item.lat), parseFloat(item.lon)) / 1000).toFixed(1);
+          
+          const rawDistKm = (calcDistance(lastPosition.latitude, lastPosition.longitude, parseFloat(item.lat), parseFloat(item.lon)) / 1000);
+          const distStr = isMetric 
+            ? `${rawDistKm.toFixed(1)} km away` 
+            : `${(rawDistKm * 0.621371).toFixed(1)} mi away`;
 
           return `
             <div style="background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 4px;">
               <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div style="font-size: 12px; font-weight: 800; color: var(--text-white);">${title}</div>
-                <div style="font-size: 10px; font-weight: 700; color: var(--accent-green); flex-shrink: 0; background: #111; padding: 2px 6px; border-radius: 4px;">~${distFromUser} km away</div>
+                <div style="font-size: 10px; font-weight: 700; color: var(--accent-green); flex-shrink: 0; background: #111; padding: 2px 6px; border-radius: 4px;">${distStr}</div>
               </div>
               <div style="font-size: 10px; color: var(--text-dim); line-height: 1.2;">${address}</div>
               <button class="history-btn gpx-btn" style="width: 100%; padding: 6px 0; margin-top: 4px; font-size: 10px;" onclick="calculateAndPreviewRoute(${item.lat}, ${item.lon}, '${encodeURIComponent(title)}')">SELECT ROUTE</button>
