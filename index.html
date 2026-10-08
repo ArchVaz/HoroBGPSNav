@@ -44,12 +44,12 @@
       background-color: var(--bg-black);
       color: var(--text-white);
       font-family: 'Roboto Condensed', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-      display: flex; flex-direction: column; padding: 8px; gap: 6px;
+      display: flex; flex-direction: column; padding: 6px; gap: 4px;
     }
 
     .header { display: flex; align-items: center; justify-content: space-between; padding: 2px 4px; flex-shrink: 0; }
-    .logo-img { height: 22px; width: auto; object-fit: contain; }
-    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .logo-img { height: 20px; width: auto; object-fit: contain; }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
 
     .app-mode-switch {
       display: flex;
@@ -63,9 +63,9 @@
       background: none;
       border: none;
       color: var(--text-dim);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 6px;
       cursor: pointer;
       text-transform: uppercase;
@@ -78,181 +78,172 @@
     }
 
     .status-badge {
-      font-size: 11px; letter-spacing: 1.2px; color: var(--text-dim); font-weight: 700;
-      display: flex; align-items: center; gap: 6px; text-transform: uppercase;
+      font-size: 10px; letter-spacing: 1px; color: var(--text-dim); font-weight: 700;
+      display: flex; align-items: center; gap: 5px; text-transform: uppercase;
     }
 
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background-color: var(--text-dim); }
-    .status-dot.active { background-color: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background-color: var(--text-dim); }
+    .status-dot.active { background-color: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
 
-    .menu-btn { background: none; border: none; color: var(--text-white); font-size: 20px; cursor: pointer; padding: 4px 8px; }
+    .menu-btn { background: none; border: none; color: var(--text-white); font-size: 18px; cursor: pointer; padding: 2px 6px; }
 
     .toast-notification {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+      position: fixed; top: 15px; left: 50%; transform: translateX(-50%) translateY(-100px);
       background: #111111; border: 1px solid var(--accent-green); color: var(--accent-green);
-      padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1px;
       z-index: 10000; opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; pointer-events: none;
     }
     .toast-notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
     .modal-overlay {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(8px);
-      z-index: 9999; display: none; align-items: center; justify-content: center; padding: 16px;
+      z-index: 9999; display: none; align-items: center; justify-content: center; padding: 12px;
     }
     .modal-overlay.active { display: flex !important; }
 
     .modal-content {
-      background: var(--bg-black); border-radius: 16px; width: 100%; max-width: 380px;
-      height: 480px; max-height: 80vh; display: flex; flex-direction: column; padding: 16px;
+      background: var(--bg-black); border-radius: 14px; width: 100%; max-width: 360px;
+      height: 440px; max-height: 80vh; display: flex; flex-direction: column; padding: 14px;
     }
 
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px; flex-shrink: 0; }
-    .modal-title { font-size: 14px; font-weight: 700; letter-spacing: 1.2px; }
-    .close-btn { background: none; border: none; color: var(--text-dim); font-size: 18px; cursor: pointer; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px; flex-shrink: 0; }
+    .modal-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; }
+    .close-btn { background: none; border: none; color: var(--text-dim); font-size: 16px; cursor: pointer; }
 
     .confirm-modal-content {
-      background: #0d0d0d; border: 1px solid var(--border-subtle); border-radius: 16px; width: 100%; max-width: 320px; padding: 20px;
-      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px;
+      background: #0d0d0d; border: 1px solid var(--border-subtle); border-radius: 14px; width: 100%; max-width: 300px; padding: 16px;
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
     }
-    .confirm-title { font-size: 15px; font-weight: 800; letter-spacing: 1px; color: var(--accent-red); text-transform: uppercase; }
-    .confirm-desc { font-size: 13px; color: var(--text-dim); line-height: 1.4; }
-    .confirm-actions { display: flex; gap: 10px; width: 100%; margin-top: 8px; }
+    .confirm-title { font-size: 14px; font-weight: 800; letter-spacing: 1px; color: var(--accent-red); text-transform: uppercase; }
+    .confirm-desc { font-size: 12px; color: var(--text-dim); line-height: 1.3; }
+    .confirm-actions { display: flex; gap: 8px; width: 100%; margin-top: 6px; }
     
-    .confirm-btn { flex: 1; padding: 12px 0; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; border: 1px solid var(--border-subtle); }
+    .confirm-btn { flex: 1; padding: 10px 0; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer; border: 1px solid var(--border-subtle); }
     .confirm-btn.cancel { background: #181818; color: var(--text-white); }
     .confirm-btn.danger { background: rgba(255, 69, 58, 0.15); color: var(--accent-red); border-color: rgba(255, 69, 58, 0.4); }
 
-    .menu-tabs { display: flex; background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 10px; flex-shrink: 0; }
-    .tab-btn { flex: 1; padding: 8px 0; background: none; border: none; color: var(--text-dim); font-size: 11px; font-weight: 700; cursor: pointer; }
+    .menu-tabs { display: flex; background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 8px; flex-shrink: 0; }
+    .tab-btn { flex: 1; padding: 7px 0; background: none; border: none; color: var(--text-dim); font-size: 10px; font-weight: 700; cursor: pointer; }
     .tab-btn.active { background: #181818; color: var(--text-white); }
 
-    .tab-content { display: none; flex-direction: column; gap: 8px; overflow-y: auto; flex: 1; min-height: 0; }
+    .tab-content { display: none; flex-direction: column; gap: 6px; overflow-y: auto; flex: 1; min-height: 0; }
     .tab-content.active { display: flex; }
 
-    .toggle-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: #0a0a0a; border-radius: 8px; border: 1px solid var(--border-subtle); }
-    .toggle-label { font-size: 13px; font-weight: 600; }
+    .toggle-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; background: #0a0a0a; border-radius: 6px; border: 1px solid var(--border-subtle); }
+    .toggle-label { font-size: 12px; font-weight: 600; }
 
-    .unit-selector { display: flex; background: #000; border: 1px solid var(--border-subtle); border-radius: 6px; }
-    .unit-opt { padding: 5px 8px; font-size: 10px; font-weight: 700; color: var(--text-dim); cursor: pointer; background: none; border: none; }
+    .unit-selector { display: flex; background: #000; border: 1px solid var(--border-subtle); border-radius: 5px; }
+    .unit-opt { padding: 4px 7px; font-size: 10px; font-weight: 700; color: var(--text-dim); cursor: pointer; background: none; border: none; }
     .unit-opt.active { background: #222; color: var(--text-white); }
 
-    .switch { position: relative; display: inline-block; width: 38px; height: 20px; }
+    .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #2c2c2e; border-radius: 20px; transition: .2s; }
-    .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .2s; }
+    .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .2s; }
     input:checked + .slider { background-color: var(--accent-green); }
-    input:checked + .slider:before { transform: translateX(18px); }
+    input:checked + .slider:before { transform: translateX(16px); }
 
-    .history-item { background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
-    .history-date { font-size: 11px; color: var(--text-dim); font-weight: 700; margin-bottom: 2px; }
-    .history-stats { font-size: 13px; font-weight: 700; }
-    .history-actions { display: flex; gap: 6px; }
-    .history-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 5px 8px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; }
+    .history-item { background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .history-date { font-size: 10px; color: var(--text-dim); font-weight: 700; margin-bottom: 2px; }
+    .history-stats { font-size: 12px; font-weight: 700; }
+    .history-actions { display: flex; gap: 4px; }
+    .history-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 4px 6px; font-size: 9px; font-weight: 700; border-radius: 4px; cursor: pointer; }
     .history-btn.gpx-btn { color: var(--accent-green); border-color: rgba(48, 209, 88, 0.3); }
 
-    .dashboard-container { flex: 1; display: flex; flex-direction: column; gap: 6px; min-height: 0; }
-    .view-pane { display: none; flex-direction: column; gap: 6px; flex: 1; min-height: 0; }
+    .dashboard-container { flex: 1; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
+    .view-pane { display: none; flex-direction: column; gap: 4px; flex: 1; min-height: 0; }
     .view-pane.active { display: flex; }
 
-    .grid-row { display: grid; gap: 6px; width: 100%; flex: 1; min-height: 0; }
+    .grid-row { display: grid; gap: 4px; width: 100%; flex: 0.8; min-height: 0; }
     .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
     .grid-2 { grid-template-columns: 1fr 1fr; }
     .grid-1 { grid-template-columns: 1fr; }
 
-    .card { background-color: var(--card-bg); border-radius: 10px; padding: 6px 8px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; }
+    .card { background-color: var(--card-bg); border-radius: 8px; padding: 4px 6px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; }
     .card.hidden { display: none !important; }
 
-    .primary-metric { flex: 1.4; max-height: 25vh; min-height: 95px; padding: 4px 8px; justify-content: center; transition: max-height 0.2s ease, flex 0.2s ease; }
+    .primary-metric { flex: 1.2; max-height: 20vh; min-height: 75px; padding: 2px 6px; justify-content: center; }
     
-    .speed-value { font-size: 110px; font-weight: 800; line-height: 0.82; letter-spacing: -3px; }
-    body.map-disabled .primary-metric { flex: 2.2; max-height: 35vh; }
-    body.map-disabled .speed-value { font-size: 135px; }
+    .speed-value { font-size: 82px; font-weight: 800; line-height: 0.82; letter-spacing: -2px; }
+    body.map-disabled .primary-metric { flex: 1.8; max-height: 28vh; }
+    body.map-disabled .speed-value { font-size: 105px; }
     body.theme-sun .speed-value { color: var(--accent-green); }
 
-    .metric-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 2px; }
-    .unit-label { font-size: 12px; color: var(--text-dim); font-weight: 700; margin-top: 1px; }
+    .metric-label { font-size: 9px; font-weight: 700; letter-spacing: 0.8px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 1px; }
+    .unit-label { font-size: 11px; color: var(--text-dim); font-weight: 700; margin-top: 1px; }
 
-    .sub-metric { text-align: center; padding: 4px 2px; flex: 1; }
-    .sub-value { font-size: 20px; font-weight: 700; line-height: 1.1; }
-    .sub-value span { font-size: 11px; color: var(--text-dim); }
+    .sub-metric { text-align: center; padding: 2px 2px; flex: 1; }
+    .sub-value { font-size: 17px; font-weight: 700; line-height: 1; }
+    .sub-value span { font-size: 10px; color: var(--text-dim); }
 
-    .card-time-container { flex: 0.8; min-height: 48px; }
-    .time-display { font-size: 28px; font-weight: 800; text-align: center; line-height: 1; }
+    .card-time-container { flex: 0.6; min-height: 38px; }
+    .time-display { font-size: 22px; font-weight: 800; text-align: center; line-height: 1; }
 
-    #card-map { flex: 1.5; min-height: 100px; padding: 2px; }
+    #card-map { flex: 1.1; min-height: 90px; padding: 0; overflow: hidden; }
     #map { width: 100%; height: 100%; border-radius: 8px; background: #0d0d0d; }
 
-    /* OpenStreetMap Dark Matrix Filter (Zero API Key Needed) */
     body:not(.theme-sun) .leaflet-tile {
       filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7) !important;
     }
-    body.theme-sun .leaflet-tile {
-      filter: none !important;
-    }
+    body.theme-sun .leaflet-tile { filter: none !important; }
 
     .nav-card-speed {
-      flex: 0 0 100px;
+      flex: 0 0 70px;
       border: 1px solid var(--border-subtle);
       background: #000000;
+      padding: 4px;
     }
     
-    /* Vertical 3D Navigation Perspective Container */
     .nav-map-container {
       flex: 1;
       position: relative;
-      border: 2px solid var(--border-subtle);
-      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
       overflow: hidden;
       min-height: 0;
-      perspective: 800px;
+      width: 100%;
     }
 
-    /* Google-Maps Vertical Tilt Perspective */
     #navMap {
       width: 100%;
-      height: 125%;
-      margin-top: -10%;
+      height: 100%;
       background: #0d0d0d;
-      transform: rotateX(45deg) scale(1.15);
-      transform-origin: 50% 80%;
-      transition: transform 0.3s ease;
+      border-radius: 8px;
     }
 
-    /* Navigation Marker Pulse */
     .nav-user-heading-icon {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       background: var(--accent-blue);
-      border: 3px solid #ffffff;
+      border: 2px solid #ffffff;
       border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent-blue);
-      transition: transform 0.2s linear;
+      box-shadow: 0 0 10px var(--accent-blue);
     }
 
     .turn-banner {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
+      top: 8px;
+      left: 8px;
+      right: 8px;
       background: #000000;
-      border: 2px solid var(--accent-green);
-      box-shadow: 0 0 12px rgba(0, 255, 102, 0.25);
-      border-radius: 12px;
-      padding: 12px 14px;
+      border: 1.5px solid var(--accent-green);
+      box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+      border-radius: 8px;
+      padding: 8px 10px;
       z-index: 1000;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
 
     body.theme-sun .turn-banner {
       background: #000000;
       border-color: #00ff66;
-      box-shadow: 0 0 16px rgba(0, 255, 102, 0.4);
+      box-shadow: 0 0 12px rgba(0, 255, 102, 0.35);
     }
 
     .turn-icon {
-      font-size: 32px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--accent-green);
       line-height: 1;
@@ -266,14 +257,14 @@
     }
 
     .turn-distance {
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 800;
       color: var(--accent-green);
       letter-spacing: 0.5px;
     }
 
     .turn-street {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 800;
       color: #ffffff;
       white-space: nowrap;
@@ -284,7 +275,7 @@
     .route-planner-box {
       display: flex;
       gap: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .search-input {
@@ -292,10 +283,10 @@
       background: #0a0a0a;
       border: 1px solid var(--border-subtle);
       border-radius: 6px;
-      padding: 8px 10px;
+      padding: 6px 8px;
       color: var(--text-white);
       font-family: inherit;
-      font-size: 12px;
+      font-size: 11px;
       outline: none;
     }
 
@@ -303,15 +294,15 @@
       background: #181818;
       border: 1px solid var(--border-subtle);
       color: var(--accent-green);
-      padding: 0 12px;
+      padding: 0 10px;
       border-radius: 6px;
       font-weight: 800;
-      font-size: 11px;
+      font-size: 10px;
       cursor: pointer;
     }
 
-    .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
-    .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 12px 0; font-size: 11px; font-weight: 800; border-radius: 8px; cursor: pointer; text-align: center; overflow: hidden; }
+    .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 4px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
+    .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 10px 0; font-size: 10px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; }
     
     .btn.active-start { border-color: var(--accent-green) !important; color: var(--accent-green) !important; background-color: rgba(48, 209, 88, 0.1) !important; }
     .btn.active-pause { border-color: var(--accent-orange) !important; color: var(--accent-orange) !important; background-color: rgba(255, 159, 10, 0.1) !important; }
@@ -363,7 +354,7 @@
       </div>
       <div class="menu-tabs">
         <button id="tabBtnTiles" class="tab-btn active">TILES</button>
-        <button id="tabBtnRoute" class="tab-btn">ROUTE PLANNER</button>
+        <button id="tabBtnRoute" class="tab-btn">WHERE TO?</button>
         <button id="tabBtnHistory" class="tab-btn">HISTORY</button>
       </div>
       
@@ -446,7 +437,7 @@
     <div id="viewNav" class="view-pane">
       <div class="card nav-card-speed">
         <div class="metric-label">Current Speed</div>
-        <div id="navSpeedVal" class="speed-value" style="font-size: 68px;">0.0</div>
+        <div id="navSpeedVal" class="speed-value" style="font-size: 48px;">0.0</div>
         <div id="navUnitLabel" class="unit-label">KM/H</div>
       </div>
 
@@ -690,7 +681,7 @@
       }
 
       if (!navMap) {
-        navMap = L.map('navMap', { zoomControl: false, attributionControl: false }).setView([20, 0], 2);
+        navMap = L.map('navMap', { zoomControl: false, attributionControl: false, touchZoom: 'rotate' }).setView([20, 0], 2);
         L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(navMap);
         navRoutePolyline = L.polyline([], { color: navTrackColor, weight: 8 }).addTo(navMap);
       }
@@ -719,7 +710,19 @@
       if (!input) return;
 
       if (!lastPosition) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Acquiring GPS fix... Please wait for satellite lock.</div>`;
+        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-orange); text-align: center; padding: 12px;">Acquiring one-time GPS fix...</div>`;
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              lastPosition = { latitude: pos.coords.latitude, longitude: pos.coords.longitude, altitude: pos.coords.altitude, time: Date.now() };
+              searchDestinationRoute();
+            },
+            () => {
+              container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">GPS permission required for searching routes.</div>`;
+            },
+            { enableHighAccuracy: true, timeout: 5000 }
+          );
+        }
         return;
       }
 
@@ -1019,8 +1022,8 @@
         if (!navUserMarker) {
           const navIcon = L.divIcon({
             className: 'nav-user-heading-icon',
-            iconSize: [24, 24],
-            iconAnchor: [12, 12]
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
           });
           navUserMarker = L.marker([lat, lon], { icon: navIcon }).addTo(navMap);
           navMap.setView([lat, lon], 18);

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v27-nocarto-nav3d';
+const CACHE_NAME = 'horo-v28-whereto-navfit';
 const TILE_CACHE_NAME = 'horo-map-tiles-v2';
 
 const ASSETS = [
