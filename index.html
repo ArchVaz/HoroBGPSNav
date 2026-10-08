@@ -180,10 +180,10 @@
     .time-display { font-size: 28px; font-weight: 800; text-align: center; line-height: 1; }
 
     #card-map { flex: 1.5; min-height: 100px; padding: 2px; }
-    #map { width: 100%; height: 100%; border-radius: 8px; background: #000000; }
-    .leaflet-tile { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7); }
+    #map { width: 100%; height: 100%; border-radius: 8px; background: #191a1a; }
+    
+    .leaflet-tile { filter: none !important; }
 
-    /* Dedicated Outdoor High-Contrast Nav Tab */
     .nav-card-speed {
       flex: 0 0 100px;
       border: 1px solid var(--border-subtle);
@@ -202,10 +202,9 @@
     #navMap {
       width: 100%;
       height: 100%;
-      background: #000;
+      background: #191a1a;
     }
 
-    /* Sunlight-Optimized High-Contrast Navigation Banner */
     .turn-banner {
       position: absolute;
       top: 10px;
@@ -376,12 +375,12 @@
 
       <div id="tabContentRoute" class="tab-content">
         <div class="route-planner-box">
-          <input type="text" id="destSearchInput" class="search-input" placeholder="Search destination (e.g. Central Park)">
+          <input type="text" id="destSearchInput" class="search-input" placeholder="Search destination (e.g. Starbucks or Central Park)">
           <button id="btnSearchRoute" class="search-btn">SEARCH</button>
         </div>
         <div id="routeResultsContainer" style="display: flex; flex-direction: column; gap: 6px;">
           <div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 20px 0;">
-            Search for a destination to generate turn-by-turn cycling directions.
+            Search for a destination to select locations & generate turn-by-turn cycling directions.
           </div>
         </div>
       </div>
@@ -419,7 +418,7 @@
       <div id="card-map" class="card"><div id="map"></div></div>
     </div>
 
-    <!-- NAV TAB (ONLY SPEED & MAP) -->
+    <!-- NAV TAB -->
     <div id="viewNav" class="view-pane">
       <div class="card nav-card-speed">
         <div class="metric-label">Current Speed</div>
@@ -459,7 +458,6 @@
     let currentTheme = 'dark';
     let isMapTileEnabled = true;
 
-    // Core State Variables
     let rideState = 'STOPPED'; 
     let watchId = null;
     let timerInterval = null;
@@ -477,11 +475,9 @@
     let currentGrade = 0;
     let lastPosition = null;
 
-    // Warm-Up Locks
     let isAnchored = false;
     let rideStartTimeMs = 0;
 
-    // Route Navigation Engine State
     let activeRouteSteps = [];
     let currentStepIndex = 0;
     let isNavigating = false;
@@ -489,9 +485,14 @@
     let gpxTrackPoints = [];
     let rideHistory = [];
     let map = null, navMap = null;
+    let tileLayerDash = null, tileLayerNav = null;
     let routePolyline = null, navRoutePolyline = null;
     let userMarker = null, navUserMarker = null;
     let stopHoldProgress = 0, stopInterval = null;
+
+    // Tile URLs (CartoDB Google-Style Vector Map Light/Dark Themes)
+    const LIGHT_TILE_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+    const DARK_TILE_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png';
 
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('menuToggleBtn').onclick = () => document.getElementById('menuModal').classList.add('active');
@@ -519,6 +520,7 @@
 
       document.querySelectorAll('#reorderList input[type="checkbox"]').forEach(sw => sw.onchange = updateLayout);
 
+      detectAutoDayNight();
       loadThemePreference();
       loadLayoutPreferences();
       loadRideHistory();
@@ -526,6 +528,18 @@
       setupHoldToStop();
       requestWakeLock();
     });
+
+    function isNightTime() {
+      const hrs = new Date().getHours();
+      return hrs < 6 || hrs >= 18;
+    }
+
+    function detectAutoDayNight() {
+      const savedTheme = localStorage.getItem('horo_theme_pref');
+      if (!savedTheme) {
+        currentTheme = isNightTime() ? 'dark' : 'sun';
+      }
+    }
 
     async function requestWakeLock() {
       if ('wakeLock' in navigator) {
@@ -547,13 +561,13 @@
         btnNav.classList.remove('active');
         viewDash.classList.add('active');
         viewNav.classList.remove('active');
-        if (map) setTimeout(() => map.invalidateSize(), 150);
+        if (map) setTimeout(() => map.invalidateSize(), 100);
       } else {
         btnNav.classList.add('active');
         btnDash.classList.remove('active');
         viewNav.classList.add('active');
         viewDash.classList.remove('active');
-        if (navMap) setTimeout(() => navMap.invalidateSize(), 150);
+        if (navMap) setTimeout(() => navMap.invalidateSize(), 100);
       }
     }
 
@@ -575,6 +589,8 @@
       const trackColor = mode === 'sun' ? '#00ff66' : '#30d158';
       const navTrackColor = mode === 'sun' ? '#00e5ff' : '#0a84ff';
 
+      const activeMapTileUrl = (mode === 'dark') ? DARK_TILE_URL : LIGHT_TILE_URL;
+
       if (mode === 'sun') {
         document.body.classList.add('theme-sun');
         document.getElementById('btnThemeDark').classList.remove('active');
@@ -585,13 +601,19 @@
         document.getElementById('btnThemeDark').classList.add('active');
       }
 
+      if (tileLayerDash) tileLayerDash.setUrl(activeMapTileUrl);
+      if (tileLayerNav) tileLayerNav.setUrl(activeMapTileUrl);
+
       if (routePolyline) routePolyline.setStyle({ color: trackColor });
       if (userMarker) userMarker.setStyle({ color: trackColor, fillColor: trackColor });
       if (navRoutePolyline) navRoutePolyline.setStyle({ color: navTrackColor });
       if (navUserMarker) navUserMarker.setStyle({ color: navTrackColor, fillColor: navTrackColor });
     }
 
-    function loadThemePreference() { setTheme(localStorage.getItem('horo_theme_pref') || 'dark'); }
+    function loadThemePreference() { 
+      const saved = localStorage.getItem('horo_theme_pref');
+      setTheme(saved || (isNightTime() ? 'dark' : 'sun')); 
+    }
 
     function setUnits(type) {
       isMetric = (type === 'metric');
@@ -645,17 +667,17 @@
       const trackColor = currentTheme === 'sun' ? '#00ff66' : '#30d158';
       const navTrackColor = currentTheme === 'sun' ? '#00e5ff' : '#0a84ff';
 
-      // Dashboard Map
+      const initialTileUrl = (currentTheme === 'dark') ? DARK_TILE_URL : LIGHT_TILE_URL;
+
       if (!map) {
         map = L.map('map', { zoomControl: false, attributionControl: false }).setView([20, 0], 2);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+        tileLayerDash = L.tileLayer(initialTileUrl, { maxZoom: 19, subdomains: 'abcd' }).addTo(map);
         routePolyline = L.polyline([], { color: trackColor, weight: 4 }).addTo(map);
       }
 
-      // Dedicated Navigation Map
       if (!navMap) {
         navMap = L.map('navMap', { zoomControl: false, attributionControl: false }).setView([20, 0], 2);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(navMap);
+        tileLayerNav = L.tileLayer(initialTileUrl, { maxZoom: 19, subdomains: 'abcd' }).addTo(navMap);
         navRoutePolyline = L.polyline([], { color: navTrackColor, weight: 6 }).addTo(navMap);
       }
     }
@@ -675,7 +697,7 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- TURN-BY-TURN ROUTING ENGINE ---
+    // --- MULTI-LOCATION SEARCH & ROUTING ENGINE ---
 
     async function searchDestinationRoute() {
       const input = document.getElementById('destSearchInput').value.trim();
@@ -683,31 +705,62 @@
       if (!input) return;
 
       if (!lastPosition) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Acquiring GPS fix... Please start ride or wait for satellite lock.</div>`;
+        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Acquiring GPS fix... Please wait for satellite lock.</div>`;
         return;
       }
 
-      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching routes to "${input}"...</div>`;
+      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching locations for "${input}"...</div>`;
 
       try {
-        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(input)}`;
-        const geoRes = await fetch(geoUrl);
+        const viewbox = `${lastPosition.longitude - 0.5},${lastPosition.latitude + 0.5},${lastPosition.longitude + 0.5},${lastPosition.latitude - 0.5}`;
+        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=5&viewbox=${viewbox}&q=${encodeURIComponent(input)}`;
+        
+        const geoRes = await fetch(geoUrl, {
+          headers: { 'User-Agent': 'HoroBikeNavApp/1.0' }
+        });
         const geoData = await geoRes.json();
 
         if (!geoData || geoData.length === 0) {
-          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Location not found. Try a specific place or city.</div>`;
+          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Location not found. Try a specific name or street.</div>`;
           return;
         }
 
-        const destLat = parseFloat(geoData[0].lat);
-        const destLon = parseFloat(geoData[0].lon);
+        container.innerHTML = geoData.map((item) => {
+          const parts = item.display_name.split(',');
+          const title = parts[0].trim();
+          const address = parts.slice(1, 4).join(',').trim();
+          const distFromUser = (calcDistance(lastPosition.latitude, lastPosition.longitude, parseFloat(item.lat), parseFloat(item.lon)) / 1000).toFixed(1);
 
+          return `
+            <div style="background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="font-size: 12px; font-weight: 800; color: var(--text-white);">${title}</div>
+                <div style="font-size: 10px; font-weight: 700; color: var(--accent-green); flex-shrink: 0; background: #111; padding: 2px 6px; border-radius: 4px;">~${distFromUser} km away</div>
+              </div>
+              <div style="font-size: 10px; color: var(--text-dim); line-height: 1.2;">${address}</div>
+              <button class="history-btn gpx-btn" style="width: 100%; padding: 6px 0; margin-top: 4px; font-size: 10px;" onclick="calculateAndPreviewRoute(${item.lat}, ${item.lon}, '${encodeURIComponent(title)}')">SELECT ROUTE</button>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Error connecting to search service.</div>`;
+      }
+    }
+
+    async function calculateAndPreviewRoute(destLat, destLon, encodedTitle) {
+      const container = document.getElementById('routeResultsContainer');
+      const title = decodeURIComponent(encodedTitle);
+
+      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Calculating cycling route to ${title}...</div>`;
+
+      try {
         const osrmUrl = `https://router.project-osrm.org/route/v1/biking/${lastPosition.longitude},${lastPosition.latitude};${destLon},${destLat}?steps=true&geometries=geojson`;
         const routeRes = await fetch(osrmUrl);
         const routeData = await routeRes.json();
 
         if (!routeData.routes || routeData.routes.length === 0) {
-          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Could not find cycling route to destination.</div>`;
+          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Could not calculate cycling route to this location.</div>`;
           return;
         }
 
@@ -722,15 +775,18 @@
         navMap.fitBounds(navRoutePolyline.getBounds(), { padding: [30, 30] });
 
         container.innerHTML = `
-          <div style="background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px;">
-            <div style="font-size: 13px; font-weight: 800; color: var(--accent-green); margin-bottom: 2px;">${geoData[0].display_name.split(',')[0]}</div>
+          <div style="background: #0a0a0a; border: 1px solid var(--accent-green); border-radius: 8px; padding: 10px;">
+            <div style="font-size: 13px; font-weight: 800; color: var(--accent-green); margin-bottom: 2px;">${title}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">${distanceKm} km • ~${durationMins} mins cycling</div>
-            <button class="history-btn gpx-btn" style="width: 100%; padding: 8px 0; font-size: 11px;" onclick="startNavigationMode()">START ROUTE</button>
+            <div style="display: flex; gap: 6px;">
+              <button class="history-btn" style="flex: 1; padding: 8px 0; font-size: 11px;" onclick="searchDestinationRoute()">BACK TO LIST</button>
+              <button class="history-btn gpx-btn" style="flex: 2; padding: 8px 0; font-size: 11px;" onclick="startNavigationMode()">START ROUTE</button>
+            </div>
           </div>
         `;
 
       } catch (err) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Error connecting to routing server.</div>`;
+        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Error connecting to routing service.</div>`;
       }
     }
 
@@ -767,7 +823,8 @@
       document.getElementById('turnDistance').innerText = `In ${distStr}`;
       document.getElementById('turnStreet').innerText = step.name || step.maneuver.instruction || "Follow path";
 
-      if (distToTurn < 12) {
+      const advanceThreshold = Math.max(15, smoothedSpeedMps * 2.5);
+      if (distToTurn < advanceThreshold) {
         currentStepIndex++;
       }
     }
@@ -781,7 +838,7 @@
       return '➔';
     }
 
-    // --- REALTIME RESPONSIVE GPS LOGIC ---
+    // --- GPS REALTIME ENGINE ---
 
     function startRide() {
       requestWakeLock();

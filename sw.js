@@ -1,4 +1,6 @@
-const CACHE_NAME = 'horo-v23-nav-sunlight-novoice';
+const CACHE_NAME = 'horo-v25-nav-sunlight-novoice';
+const TILE_CACHE_NAME = 'horo-map-tiles-v1';
+
 const ASSETS = [
   './',
   './index.html',
@@ -19,7 +21,9 @@ self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys
+          .filter((key) => key !== CACHE_NAME && key !== TILE_CACHE_NAME)
+          .map((key) => caches.delete(key))
       );
     })
   );
@@ -27,15 +31,53 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
+  const url = new URL(e.request.url);
+
+  // 1. Bypass cache for live routing/navigation APIs
+  if (url.pathname.includes('/route/') || url.pathname.includes('/directions/')) {
+    return;
+  }
+
+  // 2. Map Tiles Strategy (CartoDB Light / Dark & OpenStreetMap)
+  if (
+    url.hostname.includes('tile.openstreetmap.org') || 
+    url.hostname.includes('basemaps.cartocdn.com') ||
+    url.pathname.endsWith('.png')
+  ) {
+    e.respondWith(
+      caches.open(TILE_CACHE_NAME).then((cache) => {
+        return cache.match(e.request).then((cachedResponse) => {
+          const fetchPromise = fetch(e.request).then((networkResponse) => {
+            if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
+              cache.put(e.request, networkResponse.clone());
+            }
+            return networkResponse;
+          }).catch(() => cachedResponse);
+
+          return cachedResponse || fetchPromise;
+        });
+      })
+    );
+    return;
+  }
+
+  // 3. Default Strategy for App Shell (Cache First)
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
-      return cachedResponse || fetch(e.request).then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(e.request).then((networkResponse) => {
+        if (
+          networkResponse &&
+          (networkResponse.status === 200 || networkResponse.type === 'opaque') &&
+          e.request.method === 'GET'
+        ) {
           const responseClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(e.request, responseClone));
         }
         return networkResponse;
       });
-    }).catch(() => fetch(e.request))
+    })
   );
 });
