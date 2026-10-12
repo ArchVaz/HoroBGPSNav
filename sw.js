@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v37-fullscreen-menu-fix';
+const CACHE_NAME = 'horo-v38-compact-tiles-nav-search';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [

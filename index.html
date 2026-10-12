@@ -156,10 +156,10 @@
       margin-bottom: 8px;
     }
 
-    /* Bottom Navigation Bar inside Menu */
+    /* Bottom Navigation Bar (4 tabs now) */
     .menu-bottom-bar {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 4px;
       background: #0a0a0a;
       border: 1px solid var(--border-subtle);
@@ -240,11 +240,12 @@
     .tab-content { display: none; flex-direction: column; gap: 6px; overflow-y: auto; flex: 1; min-height: 0; }
     .tab-content.active { display: flex; }
 
-    /* Clickable Square Tiles Grid */
+    /* Smaller Square Tile Cards Grid */
     .tiles-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-flow: dense;
+      gap: 5px;
       overflow-y: auto;
       flex: 1;
       padding-right: 2px;
@@ -253,13 +254,13 @@
     .tile-square-card {
       background: #0a0a0a;
       border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 12px 10px;
+      border-radius: 6px;
+      padding: 8px 6px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       cursor: pointer;
-      min-height: 70px;
+      min-height: 52px;
       transition: background 0.15s ease, border-color 0.15s ease;
     }
 
@@ -269,13 +270,13 @@
     }
 
     .tile-card-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       color: var(--text-white);
     }
 
     .tile-card-status {
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.5px;
       color: var(--text-dim);
@@ -285,6 +286,11 @@
     .tile-square-card.active .tile-card-status {
       color: var(--accent-green);
     }
+
+    /* Unit & Theme Selectors - Unselected dimmed, selected pure white */
+    .unit-selector { display: flex; background: #000; border: 1px solid var(--border-subtle); border-radius: 5px; }
+    .unit-opt { padding: 4px 8px; font-size: 10px; font-weight: 700; color: var(--text-dim); cursor: pointer; background: none; border: none; }
+    .unit-opt.active { background: #222; color: #ffffff !important; }
 
     /* History Cards */
     .history-item { 
@@ -369,25 +375,26 @@
     .view-pane { display: none; flex-direction: column; gap: 4px; flex: 1; min-height: 0; }
     .view-pane.active { display: flex; }
 
-    .grid-row { display: grid; gap: 4px; width: 100%; flex: 0.8; min-height: 0; }
-    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
-    .grid-2 { grid-template-columns: 1fr 1fr; }
+    /* Dynamic Grid Layout for Cards */
+    .grid-row { display: grid; gap: 4px; width: 100%; grid-auto-flow: dense; min-height: 0; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
     .grid-1 { grid-template-columns: 1fr; }
 
     .card { background-color: var(--card-bg); border-radius: 8px; padding: 4px 6px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; }
     .card.hidden { display: none !important; }
 
-    .primary-metric { flex: 1.4; max-height: 22vh; min-height: 80px; padding: 2px 6px; justify-content: center; }
-    
-    .speed-value { font-size: 98px; font-weight: 800; line-height: 0.82; letter-spacing: -2px; }
-    body.map-disabled .primary-metric { flex: 1.8; max-height: 28vh; }
-    body.map-disabled .speed-value { font-size: 120px; }
+    /* Larger Speed Metric on Home Screen */
+    .primary-metric { flex: 1.6; max-height: 25vh; min-height: 90px; padding: 2px 6px; justify-content: center; }
+    .speed-value { font-size: 112px; font-weight: 800; line-height: 0.8; letter-spacing: -2px; }
+    body.map-disabled .primary-metric { flex: 2.0; max-height: 32vh; }
+    body.map-disabled .speed-value { font-size: 135px; }
     body.theme-sun .speed-value { color: var(--accent-green); }
 
     .metric-label { font-size: 9px; font-weight: 700; letter-spacing: 0.8px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 1px; }
     .unit-label { font-size: 11px; color: var(--text-dim); font-weight: 700; margin-top: 1px; }
 
-    .sub-metric { text-align: center; padding: 2px 2px; flex: 1; }
+    .sub-metric { text-align: center; padding: 2px 2px; flex: 1; min-height: 50px; }
     .sub-value { font-size: 17px; font-weight: 700; line-height: 1; }
     .sub-value span { font-size: 10px; color: var(--text-dim); }
 
@@ -402,13 +409,7 @@
     }
     body.theme-sun .leaflet-tile { filter: none !important; }
 
-    .nav-card-speed {
-      flex: 0 0 80px;
-      border: 1px solid var(--border-subtle);
-      background: #000000;
-      padding: 4px;
-    }
-    
+    /* Fullscreen Nav View with Floating Search Bar */
     .nav-map-container {
       flex: 1;
       position: relative;
@@ -431,13 +432,14 @@
       transition: transform 0.15s cubic-bezier(0.25, 0.1, 0.25, 1.0);
     }
 
+    /* Unified Green Navigation Marker & Dot */
     .nav-user-heading-icon {
       width: 24px;
       height: 24px;
-      background: var(--accent-blue);
+      background: var(--accent-green);
       border: 3px solid #ffffff;
       border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent-blue);
+      box-shadow: 0 0 12px var(--accent-green);
       position: relative;
       z-index: 10000;
     }
@@ -452,7 +454,7 @@
       height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-bottom: 8px solid var(--accent-blue);
+      border-bottom: 8px solid var(--accent-green);
     }
 
     .turn-banner {
@@ -508,9 +510,18 @@
     }
 
     .route-planner-box {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
       display: flex;
       gap: 6px;
-      margin-bottom: 6px;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
+      padding: 6px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
     }
 
     .search-input {
@@ -632,10 +643,10 @@
     </div>
   </div>
 
-  <!-- Full-Screen Menu with Bottom Navigation Bar -->
+  <!-- Full-Screen Menu with 4 Bottom Tabs (No Where To?) -->
   <div id="fullscreenMenu" class="fullscreen-menu">
     <div class="modal-header">
-      <div class="modal-title" id="menuHeaderTitle">MENU</div>
+      <div class="modal-title" id="menuHeaderTitle">TILES & PREFERENCES</div>
       <button class="close-btn" id="menuCloseBtn">✕</button>
     </div>
 
@@ -671,32 +682,18 @@
         </div>
       </div>
 
-      <!-- WHERE TO? TAB CONTENT -->
-      <div id="menuTabRoute" class="tab-content">
-        <div class="route-planner-box">
-          <input type="text" id="destSearchInput" class="search-input" placeholder="Search destination nearby...">
-          <button id="btnSearchRoute" class="search-btn">SEARCH</button>
-        </div>
-        <div id="routeResultsContainer" style="display: flex; flex-direction: column; gap: 6px;">
-          <div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 20px 0;">
-            Search for a destination to select locations & generate turn-by-turn cycling directions.
-          </div>
-        </div>
-      </div>
-
       <!-- HISTORY TAB CONTENT -->
       <div id="menuTabHistory" class="tab-content">
         <div id="historyContainer" style="display: flex; flex-direction: column; gap: 6px;"></div>
       </div>
     </div>
 
-    <!-- Menu Bottom Navigation Bar -->
+    <!-- Menu Bottom Navigation Bar (4 Tabs) -->
     <div class="menu-bottom-bar">
       <button id="menuNavHome" class="menu-nav-tab" onclick="switchMenuModeFromBottom('home')">Home</button>
       <button id="menuNavNav" class="menu-nav-tab" onclick="switchMenuModeFromBottom('nav')">Nav</button>
       <button id="menuNavHistory" class="menu-nav-tab" onclick="switchMenuTab('history')">History</button>
       <button id="menuNavTiles" class="menu-nav-tab active" onclick="switchMenuTab('tiles')">Tiles</button>
-      <button id="menuNavRoute" class="menu-nav-tab" onclick="switchMenuTab('route')">Where To?</button>
     </div>
   </div>
 
@@ -727,15 +724,16 @@
       <div id="card-map" class="card"><div id="map"></div></div>
     </div>
 
-    <!-- NAV TAB -->
+    <!-- NAV TAB (Fullscreen Nav with Floating Search / Turn Banner) -->
     <div id="viewNav" class="view-pane">
-      <div class="card nav-card-speed">
-        <div class="metric-label">Current Speed</div>
-        <div id="navSpeedVal" class="speed-value" style="font-size: 60px;">0.0</div>
-        <div id="navUnitLabel" class="unit-label">KM/H</div>
-      </div>
-
       <div class="nav-map-container">
+        <!-- Floating Search Bar (Disappears once route is started) -->
+        <div id="routePlannerSearchBox" class="route-planner-box">
+          <input type="text" id="destSearchInput" class="search-input" placeholder="Search destination nearby...">
+          <button id="btnSearchRoute" class="search-btn">SEARCH</button>
+        </div>
+
+        <!-- Turn-by-Turn Banner (Appears after route selection & start) -->
         <div id="turnBanner" class="turn-banner" style="display: none;">
           <div id="turnIcon" class="turn-icon">➔</div>
           <div class="turn-info">
@@ -743,6 +741,7 @@
             <div id="turnStreet" class="turn-street">Turn Right on Main St</div>
           </div>
         </div>
+
         <div id="navMap"></div>
       </div>
     </div>
@@ -912,10 +911,6 @@
         document.getElementById('menuTabTiles').classList.add('active');
         document.getElementById('menuNavTiles').classList.add('active');
         document.getElementById('menuHeaderTitle').innerText = 'TILES & PREFERENCES';
-      } else if (tabName === 'route') {
-        document.getElementById('menuTabRoute').classList.add('active');
-        document.getElementById('menuNavRoute').classList.add('active');
-        document.getElementById('menuHeaderTitle').innerText = 'WHERE TO?';
       } else if (tabName === 'history') {
         document.getElementById('menuTabHistory').classList.add('active');
         document.getElementById('menuNavHistory').classList.add('active');
@@ -950,7 +945,7 @@
         if (cardEl) cardEl.classList.add('hidden');
         if (squareEl) {
           squareEl.classList.remove('active');
-          squareEl.querySelector('.tile-card-status').innerText = 'HIDDEN';
+          squareEl.querySelector('.tile-card-status').innerText = 'DISABLE';
         }
       }
 
@@ -959,17 +954,39 @@
     }
 
     function updateLayoutDynamic() {
+      // Reposition and recalculate visible cards automatically
       const statsRow = document.getElementById('row-stats');
-      const vStats = [tileVisibilityState['card-dist'], tileVisibilityState['card-avg'], tileVisibilityState['card-max']].filter(Boolean).length;
-      statsRow.className = `grid-row grid-${vStats || 1}`;
-      vStats === 0 ? statsRow.classList.add('hidden') : statsRow.classList.remove('hidden');
+      const statCards = ['card-dist', 'card-avg', 'card-max'];
+      const visibleStats = statCards.filter(id => tileVisibilityState[id]);
+      
+      statCards.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = tileVisibilityState[id] ? 'flex' : 'none';
+      });
+      statsRow.className = `grid-row grid-${visibleStats.length || 1}`;
+      visibleStats.length === 0 ? statsRow.classList.add('hidden') : statsRow.classList.remove('hidden');
 
       const eleRow = document.getElementById('row-elevation');
-      const vEle = [tileVisibilityState['card-grade'], tileVisibilityState['card-ele'], tileVisibilityState['card-alt']].filter(Boolean).length;
-      eleRow.className = `grid-row grid-${vEle || 1}`;
-      vEle === 0 ? eleRow.classList.add('hidden') : eleRow.classList.remove('hidden');
+      const eleCards = ['card-grade', 'card-ele', 'card-alt'];
+      const visibleEle = eleCards.filter(id => tileVisibilityState[id]);
+
+      eleCards.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = tileVisibilityState[id] ? 'flex' : 'none';
+      });
+      eleRow.className = `grid-row grid-${visibleEle.length || 1}`;
+      visibleEle.length === 0 ? eleRow.classList.add('hidden') : eleRow.classList.remove('hidden');
+
+      const speedEl = document.getElementById('card-speed');
+      if (speedEl) speedEl.style.display = tileVisibilityState['card-speed'] ? 'flex' : 'none';
+
+      const timeEl = document.getElementById('card-time');
+      if (timeEl) timeEl.style.display = tileVisibilityState['card-time'] ? 'flex' : 'none';
 
       isMapTileEnabled = tileVisibilityState['card-map'];
+      const mapEl = document.getElementById('card-map');
+      if (mapEl) mapEl.style.display = isMapTileEnabled ? 'flex' : 'none';
+
       isMapTileEnabled ? document.body.classList.remove('map-disabled') : document.body.classList.add('map-disabled');
       if (map && isMapTileEnabled) setTimeout(() => map.invalidateSize(), 150);
     }
@@ -991,7 +1008,7 @@
               squareEl.querySelector('.tile-card-status').innerText = 'ACTIVE';
             } else {
               squareEl.classList.remove('active');
-              squareEl.querySelector('.tile-card-status').innerText = 'HIDDEN';
+              squareEl.querySelector('.tile-card-status').innerText = 'DISABLE';
             }
           }
         });
@@ -1002,8 +1019,8 @@
     function setTheme(mode) {
       currentTheme = mode;
       localStorage.setItem('horo_theme_pref', mode);
-      const trackColor = mode === 'sun' ? '#00ff66' : '#30d158';
-      const navTrackColor = mode === 'sun' ? '#00e5ff' : '#0a84ff';
+      const trackColor = '#30d158'; // Unified green for nav & markers
+      const navTrackColor = '#30d158';
 
       if (mode === 'sun') {
         document.body.classList.add('theme-sun');
@@ -1032,25 +1049,23 @@
       document.getElementById('btnKm').classList.toggle('active', isMetric);
       document.getElementById('btnMi').classList.toggle('active', !isMetric);
       document.getElementById('unitLabel').innerText = isMetric ? 'KM/H' : 'MPH';
-      document.getElementById('navUnitLabel').innerText = isMetric ? 'KM/H' : 'MPH';
       updateDisplay({ speed: smoothedSpeedMps, altitude: lastPosition ? lastPosition.altitude : null });
     }
 
     function initMap() {
       if (typeof L === 'undefined') return;
-      const trackColor = currentTheme === 'sun' ? '#00ff66' : '#30d158';
-      const navTrackColor = currentTheme === 'sun' ? '#00e5ff' : '#0a84ff';
+      const trackColor = '#30d158';
 
       if (!map) {
         map = L.map('map', { zoomControl: false, attributionControl: false }).setView([20, 0], 2);
         L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(map);
-        routePolyline = L.polyline([], { color: navTrackColor, weight: 5 }).addTo(map);
+        routePolyline = L.polyline([], { color: trackColor, weight: 5 }).addTo(map);
       }
 
       if (!navMap) {
         navMap = L.map('navMap', { zoomControl: false, attributionControl: false, touchZoom: 'rotate' }).setView([20, 0], 2);
         L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(navMap);
-        navRoutePolyline = L.polyline([], { color: navTrackColor, weight: 8 }).addTo(navMap);
+        navRoutePolyline = L.polyline([], { color: trackColor, weight: 8 }).addTo(navMap);
       }
 
       if (!rideDetailMap) {
@@ -1075,7 +1090,7 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- DYNAMIC GLOBAL CITY DETECTOR & LOCAL SEARCH ---
+    // --- DYNAMIC GLOBAL CITY DETECTOR & SEARCH ON NAV MAP ---
 
     async function detectCurrentCityName(lat, lon) {
       if (currentCityName) return currentCityName;
@@ -1095,36 +1110,16 @@
 
     async function searchDestinationRoute() {
       const input = document.getElementById('destSearchInput').value.trim();
-      const container = document.getElementById('routeResultsContainer');
       if (!input) return;
 
-      if (!navigator.onLine) {
-        const offlineRoute = localStorage.getItem('horo_offline_route');
-        if (offlineRoute) {
-          const cachedData = JSON.parse(offlineRoute);
-          container.innerHTML = `
-            <div style="background: #0a0a0a; border: 1px solid var(--accent-orange); border-radius: 8px; padding: 10px;">
-              <div style="font-size: 10px; font-weight: 800; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 2px;">OFFLINE MODE ACTIVE</div>
-              <div style="font-size: 13px; font-weight: 800; color: var(--accent-green); margin-bottom: 2px;">${cachedData.title}</div>
-              <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">Saved Route Available Offline</div>
-              <button class="history-btn gpx-btn" style="width: 100%; padding: 8px 0; font-size: 11px;" onclick="loadOfflineRouteAndNavigate()">LOAD OFFLINE ROUTE</button>
-            </div>
-          `;
-          return;
-        }
-      }
-
       if (!lastPosition) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-orange); text-align: center; padding: 12px;">Acquiring current GPS location...</div>`;
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             (pos) => {
               lastPosition = { latitude: pos.coords.latitude, longitude: pos.coords.longitude, altitude: pos.coords.altitude, time: Date.now() };
               searchDestinationRoute();
             },
-            () => {
-              container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">GPS location permission required to search nearby destinations.</div>`;
-            },
+            () => {},
             { enableHighAccuracy: true, timeout: 5000 }
           );
         }
@@ -1134,78 +1129,22 @@
       const userLat = lastPosition.latitude;
       const userLon = lastPosition.longitude;
 
-      const cityName = await detectCurrentCityName(userLat, userLon);
-      const searchPromptText = cityName ? `places in ${cityName}` : 'nearby places';
-
-      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching ${searchPromptText} for "${input}"...</div>`;
-
       try {
         const boundRadius = 0.25;
         const viewbox = `${userLon - boundRadius},${userLat + boundRadius},${userLon + boundRadius},${userLat - boundRadius}`;
-
-        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=8&bounded=1&addressdetails=1&extratags=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
+        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=1&bounded=1&addressdetails=1&extratags=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
         
         const geoRes = await fetch(geoUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
-        let geoData = await geoRes.json();
+        const geoData = await geoRes.json();
 
-        if (!geoData || geoData.length === 0) {
-          const queryWithCity = cityName ? `${input} ${cityName}` : input;
-          const fallbackUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=6&addressdetails=1&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(queryWithCity)}`;
-          const fbRes = await fetch(fallbackUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
-          geoData = await fbRes.json();
+        if (geoData && geoData.length > 0) {
+          const place = geoData[0];
+          calculateAndPreviewRoute(parseFloat(place.lat), parseFloat(place.lon), place.display_name.split(',')[0].trim());
         }
-
-        if (!geoData || geoData.length === 0) {
-          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">No local places found matching "${input}".</div>`;
-          return;
-        }
-
-        container.innerHTML = geoData.map((item) => {
-          const parts = item.display_name.split(',');
-          const title = parts[0].trim();
-          const address = parts.slice(1, 4).join(',').trim();
-          
-          const rawDistKm = (calcDistance(userLat, userLon, parseFloat(item.lat), parseFloat(item.lon)) / 1000);
-          const distStr = isMetric 
-            ? `${rawDistKm.toFixed(1)} km away` 
-            : `${(rawDistKm * 0.621371).toFixed(1)} mi away`;
-
-          return `
-            <div style="background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 4px;">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div style="font-size: 12px; font-weight: 800; color: var(--text-white);">${title}</div>
-                <div style="font-size: 10px; font-weight: 700; color: var(--accent-green); flex-shrink: 0; background: #111; padding: 2px 6px; border-radius: 4px;">${distStr}</div>
-              </div>
-              <div style="font-size: 10px; color: var(--text-dim); line-height: 1.2;">${address}</div>
-              <button class="history-btn gpx-btn" style="width: 100%; padding: 6px 0; margin-top: 4px; font-size: 10px;" onclick="calculateAndPreviewRoute(${item.lat}, ${item.lon}, '${encodeURIComponent(title)}')">SELECT ROUTE</button>
-            </div>
-          `;
-        }).join('');
-
-      } catch (err) {
-        const offlineRoute = localStorage.getItem('horo_offline_route');
-        if (offlineRoute) {
-          const cachedData = JSON.parse(offlineRoute);
-          container.innerHTML = `
-            <div style="background: #0a0a0a; border: 1px solid var(--accent-orange); border-radius: 8px; padding: 10px;">
-              <div style="font-size: 10px; font-weight: 800; color: var(--accent-orange); text-transform: uppercase; margin-bottom: 2px;">OFFLINE MODE ACTIVE</div>
-              <div style="font-size: 13px; font-weight: 800; color: var(--accent-green); margin-bottom: 2px;">${cachedData.title}</div>
-              <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">Saved Route Available Offline</div>
-              <button class="history-btn gpx-btn" style="width: 100%; padding: 8px 0; font-size: 11px;" onclick="loadOfflineRouteAndNavigate()">LOAD OFFLINE ROUTE</button>
-            </div>
-          `;
-        } else {
-          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Network error. No offline route cached.</div>`;
-        }
-      }
+      } catch (err) {}
     }
 
-    async function calculateAndPreviewRoute(destLat, destLon, encodedTitle) {
-      const container = document.getElementById('routeResultsContainer');
-      const title = decodeURIComponent(encodedTitle);
-
-      container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Calculating cycling route to ${title}...</div>`;
-
+    async function calculateAndPreviewRoute(destLat, destLon, title) {
       try {
         const startLat = lastPosition ? lastPosition.latitude : 20.0;
         const startLon = lastPosition ? lastPosition.longitude : 0.0;
@@ -1214,15 +1153,9 @@
         const routeRes = await fetch(osrmUrl);
         const routeData = await routeRes.json();
 
-        if (!routeData.routes || routeData.routes.length === 0) {
-          container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Could not calculate cycling route to this location.</div>`;
-          return;
-        }
+        if (!routeData.routes || routeData.routes.length === 0) return;
 
         const route = routeData.routes[0];
-        const distanceKm = (route.distance / 1000).toFixed(1);
-        const durationMins = Math.round(route.duration / 60);
-
         activeRouteSteps = route.legs[0].steps;
         const coords = route.geometry.coordinates.map(c => [c[1], c[0]]);
 
@@ -1230,55 +1163,18 @@
         routePolyline.setLatLngs(coords);
 
         if (navMap) navMap.fitBounds(navRoutePolyline.getBounds(), { padding: [30, 30] });
-        if (map) map.fitBounds(routePolyline.getBounds(), { padding: [20, 20] });
 
-        const routeOfflineData = {
-          title: title,
-          coords: coords,
-          steps: activeRouteSteps,
-          distanceKm: distanceKm,
-          durationMins: durationMins
-        };
-        localStorage.setItem('horo_offline_route', JSON.stringify(routeOfflineData));
-
-        container.innerHTML = `
-          <div style="background: #0a0a0a; border: 1px solid var(--accent-green); border-radius: 8px; padding: 10px;">
-            <div style="font-size: 13px; font-weight: 800; color: var(--accent-green); margin-bottom: 2px;">${title}</div>
-            <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">${distanceKm} km • ${durationMins} mins cycling</div>
-            <div style="display: flex; gap: 6px;">
-              <button class="history-btn" style="flex: 1; padding: 8px 0; font-size: 11px;" onclick="searchDestinationRoute()">BACK TO LIST</button>
-              <button class="history-btn gpx-btn" style="flex: 2; padding: 8px 0; font-size: 11px;" onclick="startNavigationMode()">START ROUTE</button>
-            </div>
-          </div>
-        `;
-
-      } catch (err) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--accent-red); text-align: center; padding: 12px;">Error connecting to routing service.</div>`;
-      }
+        startNavigationMode(title);
+      } catch (err) {}
     }
 
-    function loadOfflineRoute() {
-      const savedRoute = localStorage.getItem('horo_offline_route');
-      if (savedRoute && navRoutePolyline && routePolyline) {
-        const data = JSON.parse(savedRoute);
-        activeRouteSteps = data.steps || [];
-        navRoutePolyline.setLatLngs(data.coords || []);
-        routePolyline.setLatLngs(data.coords || []);
-      }
-    }
-
-    function loadOfflineRouteAndNavigate() {
-      loadOfflineRoute();
-      startNavigationMode();
-    }
-
-    function startNavigationMode() {
+    function startNavigationMode(destTitle) {
       isNavigating = true;
       currentStepIndex = 0;
       
-      document.getElementById('fullscreenMenu').classList.remove('active');
+      // Hide search bar, show turn banner
+      document.getElementById('routePlannerSearchBox').style.display = 'none';
       document.getElementById('turnBanner').style.display = 'flex';
-      switchAppMode('nav');
       
       updateNavigationBanner();
     }
@@ -1470,7 +1366,7 @@
         if (smoothedSpeedMps > maxSpeedMps) maxSpeedMps = smoothedSpeedMps;
       }
 
-      const trackColor = currentTheme === 'sun' ? '#00ff66' : '#30d158';
+      const trackColor = '#30d158';
 
       if (isMapTileEnabled && map) {
         if (!userMarker) {
@@ -1521,8 +1417,6 @@
       const alt = pos.altitude !== null ? (isMetric ? pos.altitude : pos.altitude * 3.28084) : '--';
 
       document.getElementById('speedVal').innerText = currSpeed.toFixed(1);
-      document.getElementById('navSpeedVal').innerText = currSpeed.toFixed(1);
-
       document.getElementById('distVal').innerHTML = `${dist.toFixed(2)} <span>${isMetric ? 'km' : 'mi'}</span>`;
       document.getElementById('avgSpeedVal').innerHTML = `${avgSpd.toFixed(1)} <span>${isMetric ? 'km/h' : 'mph'}</span>`;
       document.getElementById('maxSpeedVal').innerHTML = `${maxSpd.toFixed(1)} <span>${isMetric ? 'km/h' : 'mph'}</span>`;
@@ -1546,7 +1440,6 @@
       document.getElementById('statusText').innerText = 'READY';
       document.getElementById('timerVal').innerText = "00:00:00";
       document.getElementById('speedVal').innerText = "0.0";
-      document.getElementById('navSpeedVal').innerText = "0.0";
       document.getElementById('distVal').innerHTML = `0.00 <span>${isMetric ? 'km' : 'mi'}</span>`;
       document.getElementById('avgSpeedVal').innerHTML = `0.0 <span>${isMetric ? 'km/h' : 'mph'}</span>`;
       document.getElementById('maxSpeedVal').innerHTML = `0.0 <span>${isMetric ? 'km/h' : 'mph'}</span>`;
@@ -1556,6 +1449,7 @@
       if (routePolyline) routePolyline.setLatLngs([]);
       if (navRoutePolyline) navRoutePolyline.setLatLngs([]);
       document.getElementById('turnBanner').style.display = 'none';
+      document.getElementById('routePlannerSearchBox').style.display = 'flex';
       isNavigating = false;
     }
 
@@ -1636,8 +1530,6 @@
         container.appendChild(item);
       });
     }
-
-    // --- FULL-SCREEN RIDE DETAIL VIEW ---
 
     function openRideDetailsView(id) {
       const ride = rideHistory.find(r => r.id === id);
