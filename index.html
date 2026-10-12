@@ -58,7 +58,7 @@
 
     .header { display: flex; align-items: center; justify-content: space-between; padding: 2px 4px; flex-shrink: 0; }
     .logo-img { height: 20px; width: auto; object-fit: contain; }
-    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .header-actions { display: flex; align-items: center; gap: 6px; }
 
     .app-mode-switch { display: flex; background: #0d0d0d; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 2px; }
     .app-mode-btn { background: none; border: none; color: var(--text-dim); font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; }
@@ -68,7 +68,7 @@
     .status-dot { width: 6px; height: 6px; border-radius: 50%; background-color: var(--text-dim); }
     .status-dot.active { background-color: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
 
-    .menu-btn { background: none; border: none; color: var(--text-white); font-size: 18px; cursor: pointer; padding: 2px 6px; }
+    .menu-btn, .share-btn-header { background: none; border: none; color: var(--text-white); font-size: 16px; cursor: pointer; padding: 2px 6px; }
 
     .toast-notification {
       position: fixed; top: 15px; left: 50%; transform: translateX(-50%) translateY(-100px);
@@ -84,11 +84,11 @@
     }
     .modal-overlay.active { display: flex !important; }
 
-    .fullscreen-menu {
+    .fullscreen-menu, .share-modal-container {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: var(--bg-black); z-index: 99999; display: none; flex-direction: column; padding: 12px;
     }
-    .fullscreen-menu.active { display: flex !important; }
+    .fullscreen-menu.active, .share-modal-container.active { display: flex !important; }
 
     .menu-main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; margin-bottom: 8px; }
 
@@ -129,7 +129,6 @@
     .pref-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: #0a0a0a; border-radius: 6px; border: 1px solid var(--border-subtle); }
     .pref-label { font-size: 10px; font-weight: 700; color: var(--text-white); }
 
-    /* Guaranteed Perfect Square Preference Tiles via aspect-ratio */
     .tiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; overflow-y: auto; flex: 1; padding-right: 2px; }
     .tile-square-card {
       background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 6px;
@@ -215,7 +214,6 @@
     .turn-distance { font-size: 15px; font-weight: 800; color: var(--accent-green); letter-spacing: 0.5px; }
     .turn-street { font-size: 12px; font-weight: 800; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Where to? Search Bar */
     .route-planner-box {
       position: absolute; top: 8px; left: 8px; right: 8px; display: flex; flex-direction: column; z-index: 2000; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(8px); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 6px; gap: 6px;
     }
@@ -227,18 +225,41 @@
     .dropdown-item { background: #111111; border: 1px solid var(--border-subtle); border-radius: 5px; padding: 6px 8px; font-size: 11px; color: var(--text-white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
     .dropdown-item:hover { background: #1a1a1a; border-color: var(--accent-green); }
 
-    /* Clean Pause Icon Controls (Yellow Active State, No Solid Background Box) */
+    /* Option 2 Minimal Pause Icon & Active States */
     .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
-    .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 10px 0; font-size: 12px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; }
+    .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 10px 0; font-size: 14px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .btn.active-play { border-color: var(--accent-green) !important; color: var(--accent-green) !important; background-color: rgba(48, 209, 88, 0.1) !important; }
     
-    /* Clean Minimal Yellow Pause State */
-    .btn.active-pause { border-color: var(--accent-orange) !important; color: var(--accent-orange) !important; background-color: transparent !important; }
+    /* Option 2 Custom CSS Two-Line Minimal Pause Icon with Yellow Accent */
+    .pause-icon-css {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      justify-content: center;
+      height: 14px;
+    }
+    .pause-icon-css span {
+      display: block;
+      width: 4px;
+      height: 14px;
+      background-color: var(--accent-orange);
+      border-radius: 1px;
+    }
+    .btn.active-pause { border-color: var(--accent-orange) !important; background-color: transparent !important; }
     
     .btn-reset { border-color: #2a1a1a; color: var(--accent-red); }
 
     .btn-stop .fill-overlay { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: rgba(255, 69, 58, 0.85); z-index: 1; pointer-events: none; transition: width 0.05s linear; }
     .btn-stop .btn-text { position: relative; z-index: 2; }
+
+    /* Share Modal Styling */
+    .share-preview-card {
+      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 340px; margin: 0 auto;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    }
+    .share-toggle-row { display: flex; gap: 8px; width: 100%; justify-content: center; margin-bottom: 4px; }
+    .share-toggle-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-dim); padding: 6px 12px; font-size: 10px; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
+    .share-toggle-btn.active { background: #222; color: var(--accent-green); border-color: var(--accent-green); }
   </style>
 </head>
 <body>
@@ -258,6 +279,50 @@
       <div class="confirm-actions">
         <button class="confirm-btn cancel" id="btnCancelReset">CANCEL</button>
         <button class="confirm-btn danger" id="btnConfirmReset">RESET</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share & PNG Export Modal -->
+  <div id="shareModal" class="share-modal-container">
+    <div class="modal-header">
+      <div class="modal-title">SHARE & EXPORT</div>
+      <button class="close-btn" id="shareCloseBtn">✕</button>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px; flex: 1; overflow-y: auto; align-items: center; justify-content: center; padding: 10px;">
+      <div class="share-toggle-row">
+        <button id="toggleShareMap" class="share-toggle-btn active" onclick="toggleShareElement('map')">Map</button>
+        <button id="toggleShareData" class="share-toggle-btn active" onclick="toggleShareElement('data')">Data</button>
+        <button id="toggleShareLogo" class="share-toggle-btn active" onclick="toggleShareElement('logo')">Logo</button>
+      </div>
+
+      <!-- Live Share Preview Card -->
+      <div id="sharePreviewCard" class="share-preview-card">
+        <div id="sharePreviewLogoArea" style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <img src="logo.png" alt="放浪" style="height: 24px; object-fit: contain;">
+          <span style="font-size: 9px; font-weight: 800; letter-spacing: 3px; color: var(--text-white);">FOR THE RESTLESS</span>
+        </div>
+        
+        <div id="sharePreviewMapArea" style="width: 100%; height: 130px; border-radius: 6px; background: #111; overflow: hidden; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center;">
+          <div style="font-size: 10px; color: var(--text-dim); font-weight: 700;">GPS TRACK PREVIEW</div>
+        </div>
+
+        <div id="sharePreviewDataArea" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%;">
+          <div style="background: #111; padding: 8px; border-radius: 6px; border: 1px solid var(--border-subtle);">
+            <div style="font-size: 8px; color: var(--text-dim); font-weight: 700;">DISTANCE</div>
+            <div id="sharePrevDist" style="font-size: 14px; font-weight: 800; color: var(--text-white);">0.00 km</div>
+          </div>
+          <div style="background: #111; padding: 8px; border-radius: 6px; border: 1px solid var(--border-subtle);">
+            <div style="font-size: 8px; color: var(--text-dim); font-weight: 700;">ELAPSED TIME</div>
+            <div id="sharePrevTime" style="font-size: 14px; font-weight: 800; color: var(--text-white);">00:00:00</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 8px; width: 100%; max-width: 340px; margin-top: 6px;">
+        <button id="btnDownloadPng" class="confirm-btn cancel" style="background: #181818; border-color: var(--accent-green); color: var(--accent-green);">DOWNLOAD PNG</button>
+        <button id="btnNativeShare" class="confirm-btn danger" style="background: rgba(48,209,88,0.15); color: var(--accent-green); border-color: rgba(48,209,88,0.4);">SHARE (WHATSAPP / IG)</button>
       </div>
     </div>
   </div>
@@ -299,6 +364,7 @@
     </div>
 
     <div class="header-actions">
+      <button class="share-btn-header" id="headerShareBtn" title="Share & Export">📤</button>
       <div class="status-badge">
         <div id="statusDot" class="status-dot"></div>
         <span id="statusText">READY</span>
@@ -307,7 +373,7 @@
     </div>
   </div>
 
-  <!-- Full-Screen Menu with Perfect Square Tiles -->
+  <!-- Full-Screen Menu -->
   <div id="fullscreenMenu" class="fullscreen-menu">
     <div class="modal-header">
       <div class="modal-title" id="menuHeaderTitle">TILES & PREFERENCES</div>
@@ -449,6 +515,10 @@
     let isNavigating = false;
 
     let currentCityName = '';
+    let searchAbortController = null;
+
+    let shareElementToggles = { map: true, data: true, logo: true };
+
     let tileVisibilityState = {
       'card-speed': true,
       'card-dist': true,
@@ -484,6 +554,11 @@
       document.getElementById('menuToggleBtn').onclick = () => document.getElementById('fullscreenMenu').classList.add('active');
       document.getElementById('menuCloseBtn').onclick = () => document.getElementById('fullscreenMenu').classList.remove('active');
       
+      document.getElementById('headerShareBtn').onclick = openShareModal;
+      document.getElementById('shareCloseBtn').onclick = () => document.getElementById('shareModal').classList.remove('active');
+      document.getElementById('btnDownloadPng').onclick = exportAndDownloadPng;
+      document.getElementById('btnNativeShare').onclick = exportAndNativeShare;
+
       document.getElementById('btnModeDash').onclick = () => switchAppMode('dash');
       document.getElementById('btnModeNav').onclick = () => switchAppMode('nav');
 
@@ -763,7 +838,7 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- UNRESTRICTED GLOBAL/CITY BUSINESS SEARCH ENGINE ---
+    // --- STRICT CITY-ONLY SEARCH ENGINE WITH ABORT CONTROLLER BUG FIX ---
 
     async function detectCurrentCityName(lat, lon) {
       try {
@@ -787,6 +862,11 @@
         return;
       }
 
+      if (searchAbortController) {
+        searchAbortController.abort();
+      }
+      searchAbortController = new AbortController();
+
       if (!lastPosition && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (pos) => { lastPosition = { latitude: pos.coords.latitude, longitude: pos.coords.longitude, time: Date.now() }; },
@@ -799,24 +879,25 @@
       const userLon = lastPosition ? lastPosition.longitude : 0;
 
       try {
-        // Unrestricted search across the exact typed city or current location without rigid boundary limits
+        // Enforce strict city scoping: always restrict search query or results to current city if no other city is specified
         let searchQuery = input;
         const queryLower = input.toLowerCase();
-        
+
         if (currentCityName && !queryLower.includes(currentCityName.toLowerCase())) {
-          // If user doesn't specify another city name explicitly, bias query towards user's current city
           searchQuery = `${input}, ${currentCityName}`;
         }
 
         const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=15&addressdetails=1&extratags=1&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(searchQuery)}`;
-        const res = await fetch(geoUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
+        const res = await fetch(geoUrl, { signal: searchAbortController.signal, headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
         let data = await res.json();
 
-        // Fallback without city bias if no hits found
-        if ((!data || data.length === 0) && searchQuery !== input) {
-          const fallbackUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=12&addressdetails=1&q=${encodeURIComponent(input)}`;
-          const fbRes = await fetch(fallbackUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
-          data = await fbRes.json();
+        // Strict filtering: ensure returned items belong to the requested city or current city when possible
+        if (currentCityName && data && data.length > 0) {
+          const filtered = data.filter(item => {
+            const nameLower = item.display_name.toLowerCase();
+            return nameLower.includes(currentCityName.toLowerCase()) || queryLower.split(',').some(part => nameLower.includes(part.trim()));
+          });
+          if (filtered.length > 0) data = filtered;
         }
 
         if (!data || data.length === 0) {
@@ -842,7 +923,9 @@
         dropdown.classList.add('active');
 
       } catch (err) {
-        dropdown.classList.remove('active');
+        if (err.name !== 'AbortError') {
+          dropdown.classList.remove('active');
+        }
       }
     }
 
@@ -926,7 +1009,7 @@
       return '➔';
     }
 
-    // --- PLAY / CLEAN YELLOW PAUSE CONTROLS ---
+    // --- OPTION 2 PAUSE ICON & PLAY/PAUSE CONTROLS ---
 
     function togglePlayPauseRide() {
       if (rideState === 'RUNNING' || rideState === 'AUTO-PAUSED') {
@@ -942,7 +1025,7 @@
 
       rideState = 'RUNNING';
       const playBtn = document.getElementById('playPauseBtn');
-      playBtn.innerText = '⏸';
+      playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
       playBtn.classList.add('active-play');
       playBtn.classList.remove('active-pause');
 
@@ -966,7 +1049,8 @@
       
       rideState = 'PAUSED';
       const playBtn = document.getElementById('playPauseBtn');
-      playBtn.innerText = '⏸'; // Clean 2 vertical bars in yellow
+      // Option 2 Minimal Two-Line Yellow Pause Icon
+      playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
       playBtn.classList.remove('active-play');
       playBtn.classList.add('active-pause');
 
@@ -1009,7 +1093,7 @@
             document.getElementById('statusText').innerText = 'AUTO-PAUSED';
             document.getElementById('statusDot').classList.remove('active');
             const playBtn = document.getElementById('playPauseBtn');
-            playBtn.innerText = '⏸';
+            playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
             playBtn.classList.remove('active-play');
             playBtn.classList.add('active-pause');
             updateDisplay({ speed: 0, altitude: lastPosition ? lastPosition.altitude : null });
@@ -1071,7 +1155,7 @@
         document.getElementById('statusText').innerText = 'RECORDING';
         document.getElementById('statusDot').classList.add('active');
         const playBtn = document.getElementById('playPauseBtn');
-        playBtn.innerText = '⏸';
+        playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
         playBtn.classList.remove('active-pause');
         playBtn.classList.add('active-play');
       }
@@ -1145,6 +1229,10 @@
       document.getElementById('gradeVal').innerHTML = `${currentGrade.toFixed(1)} <span>%</span>`;
       document.getElementById('eleGainVal').innerHTML = `${Math.round(eleGain)} <span>${isMetric ? 'm' : 'ft'}</span>`;
       document.getElementById('altVal').innerHTML = `${alt !== '--' ? Math.round(alt) : '--'} <span>${isMetric ? 'm' : 'ft'}</span>`;
+
+      // Update share preview numbers live
+      const distStr = `${dist.toFixed(2)} ${isMetric ? 'km' : 'mi'}`;
+      document.getElementById('sharePrevDist').innerText = distStr;
     }
 
     function updateTimerDisplay() {
@@ -1152,7 +1240,157 @@
       const hrs = Math.floor(totalSecs / 3600);
       const mins = Math.floor((totalSecs % 3600) / 60);
       const secs = totalSecs % 60;
-      document.getElementById('timerVal').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      const timeStr = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      document.getElementById('timerVal').innerText = timeStr;
+      document.getElementById('sharePrevTime').innerText = timeStr;
+    }
+
+    // --- SHARE & PNG EXPORT SUITE ---
+
+    function openShareModal() {
+      document.getElementById('shareModal').classList.add('active');
+    }
+
+    function toggleShareElement(type) {
+      shareElementToggles[type] = !shareElementToggles[type];
+      const btn = document.getElementById(`toggleShare${type.charAt(0).toUpperCase() + type.slice(1)}`);
+      const previewEl = document.getElementById(`sharePreview${type.charAt(0).toUpperCase() + type.slice(1)}Area`);
+
+      if (shareElementToggles[type]) {
+        btn.classList.add('active');
+        previewEl.style.display = 'flex';
+      } else {
+        btn.classList.remove('active');
+        previewEl.style.display = 'none';
+      }
+    }
+
+    async function generateExportCanvas() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1080;
+      const ctx = canvas.getContext('2d');
+
+      // Transparent background or clean dark backdrop
+      ctx.clearRect(0, 0, 1080, 1080);
+      
+      // Card Container Background
+      ctx.fillStyle = '#0a0a0a';
+      ctx.beginPath();
+      ctx.roundRect(90, 90, 900, 900, 32);
+      ctx.fill();
+      ctx.strokeStyle = '#1a1a1a';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      let cursorY = 160;
+
+      // 1. Logo & Motto ("FOR THE RESTLESS")
+      if (shareElementToggles.logo) {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 32px "Roboto Condensed", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('FOR THE RESTLESS', 540, cursorY + 40);
+        cursorY += 80;
+      }
+
+      // 2. Map Snapshot Box
+      if (shareElementToggles.map) {
+        ctx.fillStyle = '#111111';
+        ctx.beginPath();
+        ctx.roundRect(150, cursorY, 780, 380, 20);
+        ctx.fill();
+        ctx.strokeStyle = '#222222';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#666666';
+        ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('放浪 • GPS ROUTE SUMMARY', 540, cursorY + 200);
+
+        if (gpxTrackPoints.length > 1) {
+          ctx.strokeStyle = '#30d158';
+          ctx.lineWidth = 8;
+          ctx.beginPath();
+          const lats = gpxTrackPoints.map(p => p.lat);
+          const lons = gpxTrackPoints.map(p => p.lon);
+          const minLat = Math.min(...lats), maxLat = Math.max(...lats);
+          const minLon = Math.min(...lons), maxLon = Math.max(...lons);
+          
+          gpxTrackPoints.forEach((pt, i) => {
+            const x = 200 + ((pt.lon - minLon) / (maxLon - minLon || 1)) * 680;
+            const y = cursorY + 80 + ((maxLat - pt.lat) / (maxLat - minLat || 1)) * 220;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.stroke();
+        }
+        cursorY += 420;
+      }
+
+      // 3. Stats Data Grid
+      if (shareElementToggles.data) {
+        const distText = document.getElementById('sharePrevDist').innerText;
+        const timeText = document.getElementById('sharePrevTime').innerText;
+
+        ctx.fillStyle = '#141414';
+        ctx.beginPath();
+        ctx.roundRect(150, cursorY, 370, 180, 16);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#666666';
+        ctx.font = '700 18px "Roboto Condensed", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('DISTANCE', 190, cursorY + 45);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 36px "Roboto Condensed", sans-serif';
+        ctx.fillText(distText, 190, cursorY + 115);
+
+        ctx.fillStyle = '#141414';
+        ctx.beginPath();
+        ctx.roundRect(560, cursorY, 370, 180, 16);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#666666';
+        ctx.font = '700 18px "Roboto Condensed", sans-serif';
+        ctx.fillText('ELAPSED TIME', 600, cursorY + 45);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 36px "Roboto Condensed", sans-serif';
+        ctx.fillText(timeText, 600, cursorY + 115);
+      }
+
+      return canvas;
+    }
+
+    async function exportAndDownloadPng() {
+      const canvas = await generateExportCanvas();
+      const link = document.createElement('a');
+      link.download = `HoroRide_${new Date().toISOString().split('T')[0]}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    async function exportAndNativeShare() {
+      const canvas = await generateExportCanvas();
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], 'horo_ride.png', { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: '放浪 Ride Summary',
+              text: 'Check out my ride stats with 放浪!'
+            });
+          } catch (err) {}
+        } else {
+          exportAndDownloadPng();
+        }
+      }, 'image/png');
     }
 
     function confirmAndExecuteReset() {
