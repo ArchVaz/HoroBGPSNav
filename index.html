@@ -135,16 +135,90 @@
     }
     .modal-overlay.active { display: flex !important; }
 
-    .modal-content {
-      background: var(--bg-black); border-radius: 14px; width: 100%; max-width: 360px;
-      height: 440px; max-height: 80vh; display: flex; flex-direction: column; padding: 14px;
+    /* Full-Screen Menu Overlay */
+    .fullscreen-menu {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg-black);
+      z-index: 99999;
+      display: none;
+      flex-direction: column;
+      padding: 12px;
+    }
+    .fullscreen-menu.active { display: flex !important; }
+
+    .menu-main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+      margin-bottom: 8px;
     }
 
-    /* Extended Large Modal for Ride Details */
-    .modal-content-lg {
-      max-width: 420px;
-      height: 540px;
-      max-height: 88vh;
+    /* Bottom Navigation Bar inside Menu */
+    .menu-bottom-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      background: #0a0a0a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+
+    .menu-nav-tab {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 8px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .menu-nav-tab.active {
+      background: #222222;
+      color: var(--text-white);
+    }
+
+    /* Full-Screen Ride Detail View */
+    .fullscreen-ride-view {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg-black);
+      z-index: 99999;
+      display: none;
+      flex-direction: column;
+      padding: 12px;
+      gap: 8px;
+    }
+    .fullscreen-ride-view.active { display: flex !important; }
+
+    .ride-detail-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .back-btn {
+      background: #181818;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-white);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
     }
 
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px; flex-shrink: 0; }
@@ -163,28 +237,56 @@
     .confirm-btn.cancel { background: #181818; color: var(--text-white); }
     .confirm-btn.danger { background: rgba(255, 69, 58, 0.15); color: var(--accent-red); border-color: rgba(255, 69, 58, 0.4); }
 
-    .menu-tabs { display: flex; background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 8px; flex-shrink: 0; }
-    .tab-btn { flex: 1; padding: 7px 0; background: none; border: none; color: var(--text-dim); font-size: 10px; font-weight: 700; cursor: pointer; }
-    .tab-btn.active { background: #181818; color: var(--text-white); }
-
     .tab-content { display: none; flex-direction: column; gap: 6px; overflow-y: auto; flex: 1; min-height: 0; }
     .tab-content.active { display: flex; }
 
-    .toggle-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; background: #0a0a0a; border-radius: 6px; border: 1px solid var(--border-subtle); }
-    .toggle-label { font-size: 12px; font-weight: 600; }
+    /* Clickable Square Tiles Grid */
+    .tiles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      overflow-y: auto;
+      flex: 1;
+      padding-right: 2px;
+    }
 
-    .unit-selector { display: flex; background: #000; border: 1px solid var(--border-subtle); border-radius: 5px; }
-    .unit-opt { padding: 4px 7px; font-size: 10px; font-weight: 700; color: var(--text-dim); cursor: pointer; background: none; border: none; }
-    .unit-opt.active { background: #222; color: var(--text-white); }
+    .tile-square-card {
+      background: #0a0a0a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      min-height: 70px;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
 
-    .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
-    .switch input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #2c2c2e; border-radius: 20px; transition: .2s; }
-    .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .2s; }
-    input:checked + .slider { background-color: var(--accent-green); }
-    input:checked + .slider:before { transform: translateX(16px); }
+    .tile-square-card.active {
+      background: rgba(48, 209, 88, 0.08);
+      border-color: var(--accent-green);
+    }
 
-    /* Strava Style Interactive History Cards */
+    .tile-card-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+
+    .tile-card-status {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .tile-square-card.active .tile-card-status {
+      color: var(--accent-green);
+    }
+
+    /* History Cards */
     .history-item { 
       background: #0a0a0a; 
       border: 1px solid var(--border-subtle); 
@@ -208,15 +310,14 @@
     .history-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 4px 6px; font-size: 9px; font-weight: 700; border-radius: 4px; cursor: pointer; }
     .history-btn.gpx-btn { color: var(--accent-green); border-color: rgba(48, 209, 88, 0.3); }
 
-    /* Ride Details Modal Layout */
+    /* Ride Details Full-Screen Layout */
     .ride-detail-map-box {
       width: 100%;
-      height: 180px;
+      height: 240px;
       border-radius: 8px;
       overflow: hidden;
       background: #0d0d0d;
       border: 1px solid var(--border-subtle);
-      margin-bottom: 8px;
       flex-shrink: 0;
     }
 
@@ -331,26 +432,27 @@
     }
 
     .nav-user-heading-icon {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       background: var(--accent-blue);
-      border: 2px solid #ffffff;
+      border: 3px solid #ffffff;
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--accent-blue);
+      box-shadow: 0 0 12px var(--accent-blue);
       position: relative;
+      z-index: 10000;
     }
 
     .nav-user-heading-icon::after {
       content: '';
       position: absolute;
-      top: -6px;
+      top: -7px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
       height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-bottom: 7px solid var(--accent-blue);
+      border-bottom: 8px solid var(--accent-blue);
     }
 
     .turn-banner {
@@ -467,49 +569,48 @@
     </div>
   </div>
 
-  <!-- Strava-Style Ride Detail Modal -->
-  <div id="rideDetailModal" class="modal-overlay">
-    <div class="modal-content modal-content-lg">
-      <div class="modal-header">
-        <div id="detailRideTitle" class="modal-title">RIDE SUMMARY</div>
-        <button class="close-btn" id="rideDetailCloseBtn">✕</button>
-      </div>
-      
-      <div class="ride-detail-map-box">
-        <div id="rideDetailMap"></div>
-      </div>
+  <!-- Full-Screen Saved Ride Detail View -->
+  <div id="rideDetailView" class="fullscreen-ride-view">
+    <div class="ride-detail-header">
+      <button class="back-btn" id="btnRideDetailBack">← BACK</button>
+      <div id="detailRideTitle" class="modal-title">RIDE SUMMARY</div>
+      <div style="width: 55px;"></div>
+    </div>
+    
+    <div class="ride-detail-map-box">
+      <div id="rideDetailMap"></div>
+    </div>
 
-      <div class="ride-stats-grid">
-        <div class="ride-stat-card">
-          <div class="ride-stat-label">Distance</div>
-          <div id="detailDist" class="ride-stat-value">0.0 <span>km</span></div>
-        </div>
-        <div class="ride-stat-card">
-          <div class="ride-stat-label">Elapsed Time</div>
-          <div id="detailTime" class="ride-stat-value">00:00:00</div>
-        </div>
-        <div class="ride-stat-card">
-          <div class="ride-stat-label">Avg Speed</div>
-          <div id="detailAvgSpeed" class="ride-stat-value">0.0 <span>km/h</span></div>
-        </div>
-        <div class="ride-stat-card">
-          <div class="ride-stat-label">Max Speed</div>
-          <div id="detailMaxSpeed" class="ride-stat-value">0.0 <span>km/h</span></div>
-        </div>
-        <div class="ride-stat-card">
-          <div class="ride-stat-label">Elevation Gain</div>
-          <div id="detailEleGain" class="ride-stat-value">0 <span>m</span></div>
-        </div>
-        <div class="ride-stat-card">
-          <div class="ride-stat-label">Max Grade</div>
-          <div id="detailMaxGrade" class="ride-stat-value">0.0 <span>%</span></div>
-        </div>
+    <div class="ride-stats-grid">
+      <div class="ride-stat-card">
+        <div class="ride-stat-label">Distance</div>
+        <div id="detailDist" class="ride-stat-value">0.0 <span>km</span></div>
       </div>
+      <div class="ride-stat-card">
+        <div class="ride-stat-label">Elapsed Time</div>
+        <div id="detailTime" class="ride-stat-value">00:00:00</div>
+      </div>
+      <div class="ride-stat-card">
+        <div class="ride-stat-label">Avg Speed</div>
+        <div id="detailAvgSpeed" class="ride-stat-value">0.0 <span>km/h</span></div>
+      </div>
+      <div class="ride-stat-card">
+        <div class="ride-stat-label">Max Speed</div>
+        <div id="detailMaxSpeed" class="ride-stat-value">0.0 <span>km/h</span></div>
+      </div>
+      <div class="ride-stat-card">
+        <div class="ride-stat-label">Elevation Gain</div>
+        <div id="detailEleGain" class="ride-stat-value">0 <span>m</span></div>
+      </div>
+      <div class="ride-stat-card">
+        <div class="ride-stat-label">Max Grade</div>
+        <div id="detailMaxGrade" class="ride-stat-value">0.0 <span>%</span></div>
+      </div>
+    </div>
 
-      <div style="display: flex; gap: 6px; margin-top: 8px;">
-        <button id="btnDetailExportGpx" class="history-btn gpx-btn" style="flex: 2; padding: 8px 0; font-size: 11px;">EXPORT GPX</button>
-        <button id="btnDetailDelete" class="history-btn" style="flex: 1; padding: 8px 0; font-size: 11px; color: var(--accent-red); border-color: rgba(255, 69, 58, 0.3);">DELETE</button>
-      </div>
+    <div style="display: flex; gap: 6px; margin-top: 4px; flex-shrink: 0;">
+      <button id="btnDetailExportGpx" class="history-btn gpx-btn" style="flex: 2; padding: 10px 0; font-size: 11px;">EXPORT GPX</button>
+      <button id="btnDetailDelete" class="history-btn" style="flex: 1; padding: 10px 0; font-size: 11px; color: var(--accent-red); border-color: rgba(255, 69, 58, 0.3);">DELETE</button>
     </div>
   </div>
 
@@ -531,21 +632,17 @@
     </div>
   </div>
 
-  <!-- Menu Modal -->
-  <div id="menuModal" class="modal-overlay">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title">MENU</div>
-        <button class="close-btn" id="menuCloseBtn">✕</button>
-      </div>
-      <div class="menu-tabs">
-        <button id="tabBtnTiles" class="tab-btn active">TILES</button>
-        <button id="tabBtnRoute" class="tab-btn">WHERE TO?</button>
-        <button id="tabBtnHistory" class="tab-btn">HISTORY</button>
-      </div>
-      
-      <div id="tabContentTiles" class="tab-content active">
-        <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px;">
+  <!-- Full-Screen Menu with Bottom Navigation Bar -->
+  <div id="fullscreenMenu" class="fullscreen-menu">
+    <div class="modal-header">
+      <div class="modal-title" id="menuHeaderTitle">MENU</div>
+      <button class="close-btn" id="menuCloseBtn">✕</button>
+    </div>
+
+    <div class="menu-main-content">
+      <!-- TILES TAB CONTENT -->
+      <div id="menuTabTiles" class="tab-content active">
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; flex-shrink: 0;">
           <div class="toggle-item">
             <span class="toggle-label">Color Scheme</span>
             <div class="unit-selector">
@@ -561,20 +658,21 @@
             </div>
           </div>
         </div>
-        <div class="toggle-list" id="reorderList">
-          <div class="toggle-item" data-card="card-speed"><span class="toggle-label">Speed</span><label class="switch"><input type="checkbox" id="chk-speed" checked><span class="slider"></span></label></div>
-          <div class="toggle-item" data-card="card-dist"><span class="toggle-label">Distance</span><label class="switch"><input type="checkbox" id="chk-dist" checked><span class="slider"></span></label></div>
-          <div class="toggle-item" data-card="card-avg"><span class="toggle-label">Average Speed</span><label class="switch"><input type="checkbox" id="chk-avg" checked><span class="slider"></span></label></div>
-          <div class="toggle-item" data-card="card-max"><span class="toggle-label">Max Speed</span><label class="switch"><input type="checkbox" id="chk-max" checked><span class="slider"></span></label></div>
-          <div class="toggle-item" data-card="card-grade"><span class="toggle-label">Inclination Grade (%)</span><label class="switch"><input type="checkbox" id="chk-grade" checked><span class="slider"></span></label></div>
-          <div class="toggle-item" data-card="card-ele"><span class="toggle-label">Elevation Gain</span><label class="switch"><input type="checkbox" id="chk-ele" checked><span class="slider"></span></label></div>
-          <div class="toggle-item" data-card="card-alt"><span class="toggle-label">Current Altitude</span><label class="switch"><input type="checkbox" id="chk-alt" checked><span class="slider"></span></label></div>
-          <div class="toggle-item" data-card="card-time"><span class="toggle-label">Elapsed Time</span><label class="switch"><input type="checkbox" id="chk-time" checked><span class="slider"></span></label></div>
-          <div class="toggle-item" data-card="card-map"><span class="toggle-label">GPS Map View</span><label class="switch"><input type="checkbox" id="chk-map" checked><span class="slider"></span></label></div>
+        <div class="tiles-grid" id="tilesGridContainer">
+          <div class="tile-square-card active" data-card="card-speed" onclick="toggleTileCard('card-speed')"><div class="tile-card-title">Speed</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-dist" onclick="toggleTileCard('card-dist')"><div class="tile-card-title">Distance</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-avg" onclick="toggleTileCard('card-avg')"><div class="tile-card-title">Average Speed</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-max" onclick="toggleTileCard('card-max')"><div class="tile-card-title">Max Speed</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-grade" onclick="toggleTileCard('card-grade')"><div class="tile-card-title">Inclination Grade</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-ele" onclick="toggleTileCard('card-ele')"><div class="tile-card-title">Elevation Gain</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-alt" onclick="toggleTileCard('card-alt')"><div class="tile-card-title">Current Altitude</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-time" onclick="toggleTileCard('card-time')"><div class="tile-card-title">Elapsed Time</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-map" onclick="toggleTileCard('card-map')"><div class="tile-card-title">GPS Map View</div><div class="tile-card-status">ACTIVE</div></div>
         </div>
       </div>
 
-      <div id="tabContentRoute" class="tab-content">
+      <!-- WHERE TO? TAB CONTENT -->
+      <div id="menuTabRoute" class="tab-content">
         <div class="route-planner-box">
           <input type="text" id="destSearchInput" class="search-input" placeholder="Search destination nearby...">
           <button id="btnSearchRoute" class="search-btn">SEARCH</button>
@@ -586,9 +684,19 @@
         </div>
       </div>
 
-      <div id="tabContentHistory" class="tab-content">
+      <!-- HISTORY TAB CONTENT -->
+      <div id="menuTabHistory" class="tab-content">
         <div id="historyContainer" style="display: flex; flex-direction: column; gap: 6px;"></div>
       </div>
+    </div>
+
+    <!-- Menu Bottom Navigation Bar -->
+    <div class="menu-bottom-bar">
+      <button id="menuNavHome" class="menu-nav-tab" onclick="switchMenuModeFromBottom('home')">Home</button>
+      <button id="menuNavNav" class="menu-nav-tab" onclick="switchMenuModeFromBottom('nav')">Nav</button>
+      <button id="menuNavHistory" class="menu-nav-tab" onclick="switchMenuTab('history')">History</button>
+      <button id="menuNavTiles" class="menu-nav-tab active" onclick="switchMenuTab('tiles')">Tiles</button>
+      <button id="menuNavRoute" class="menu-nav-tab" onclick="switchMenuTab('route')">Where To?</button>
     </div>
   </div>
 
@@ -684,6 +792,17 @@
     let isNavigating = false;
 
     let currentCityName = '';
+    let tileVisibilityState = {
+      'card-speed': true,
+      'card-dist': true,
+      'card-avg': true,
+      'card-max': true,
+      'card-grade': true,
+      'card-ele': true,
+      'card-alt': true,
+      'card-time': true,
+      'card-map': true
+    };
 
     let gpxTrackPoints = [];
     let rideHistory = [];
@@ -697,7 +816,6 @@
     const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Splash Screen Fade Out
       setTimeout(() => {
         const splash = document.getElementById('splashScreen');
         if (splash) {
@@ -706,16 +824,12 @@
         }
       }, 1800);
 
-      document.getElementById('menuToggleBtn').onclick = () => document.getElementById('menuModal').classList.add('active');
-      document.getElementById('menuCloseBtn').onclick = () => document.getElementById('menuModal').classList.remove('active');
+      document.getElementById('menuToggleBtn').onclick = () => document.getElementById('fullscreenMenu').classList.add('active');
+      document.getElementById('menuCloseBtn').onclick = () => document.getElementById('fullscreenMenu').classList.remove('active');
       
       document.getElementById('btnModeDash').onclick = () => switchAppMode('dash');
       document.getElementById('btnModeNav').onclick = () => switchAppMode('nav');
 
-      document.getElementById('tabBtnTiles').onclick = () => switchTab('tiles');
-      document.getElementById('tabBtnRoute').onclick = () => switchTab('route');
-      document.getElementById('tabBtnHistory').onclick = () => switchTab('history');
-      
       document.getElementById('btnSearchRoute').onclick = searchDestinationRoute;
 
       document.getElementById('btnThemeDark').onclick = () => setTheme('dark');
@@ -729,16 +843,14 @@
       document.getElementById('btnCancelReset').onclick = () => document.getElementById('resetConfirmModal').classList.remove('active');
       document.getElementById('btnConfirmReset').onclick = confirmAndExecuteReset;
 
-      document.getElementById('rideDetailCloseBtn').onclick = () => document.getElementById('rideDetailModal').classList.remove('active');
+      document.getElementById('btnRideDetailBack').onclick = () => document.getElementById('rideDetailView').classList.remove('active');
       document.getElementById('btnDetailExportGpx').onclick = () => { if (selectedDetailRideId) exportHistoryGPX(selectedDetailRideId); };
       document.getElementById('btnDetailDelete').onclick = () => {
         if (selectedDetailRideId) {
           deleteHistoryRide(selectedDetailRideId);
-          document.getElementById('rideDetailModal').classList.remove('active');
+          document.getElementById('rideDetailView').classList.remove('active');
         }
       };
-
-      document.querySelectorAll('#reorderList input[type="checkbox"]').forEach(sw => sw.onchange = updateLayout);
 
       detectAutoDayNight();
       loadThemePreference();
@@ -792,16 +904,99 @@
       }
     }
 
-    function switchTab(tabName) {
-      document.getElementById('tabBtnTiles').classList.toggle('active', tabName === 'tiles');
-      document.getElementById('tabBtnRoute').classList.toggle('active', tabName === 'route');
-      document.getElementById('tabBtnHistory').classList.toggle('active', tabName === 'history');
+    function switchMenuTab(tabName) {
+      document.querySelectorAll('.fullscreen-menu .tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.menu-bottom-bar .menu-nav-tab').forEach(el => el.classList.remove('active'));
 
-      document.getElementById('tabContentTiles').classList.toggle('active', tabName === 'tiles');
-      document.getElementById('tabContentRoute').classList.toggle('active', tabName === 'route');
-      document.getElementById('tabContentHistory').classList.toggle('active', tabName === 'history');
+      if (tabName === 'tiles') {
+        document.getElementById('menuTabTiles').classList.add('active');
+        document.getElementById('menuNavTiles').classList.add('active');
+        document.getElementById('menuHeaderTitle').innerText = 'TILES & PREFERENCES';
+      } else if (tabName === 'route') {
+        document.getElementById('menuTabRoute').classList.add('active');
+        document.getElementById('menuNavRoute').classList.add('active');
+        document.getElementById('menuHeaderTitle').innerText = 'WHERE TO?';
+      } else if (tabName === 'history') {
+        document.getElementById('menuTabHistory').classList.add('active');
+        document.getElementById('menuNavHistory').classList.add('active');
+        document.getElementById('menuHeaderTitle').innerText = 'RIDE HISTORY';
+        renderRideHistory();
+      }
+    }
 
-      if (tabName === 'history') renderRideHistory();
+    function switchMenuModeFromBottom(targetMode) {
+      document.getElementById('fullscreenMenu').classList.remove('active');
+      if (targetMode === 'home') {
+        switchAppMode('dash');
+      } else if (targetMode === 'nav') {
+        switchAppMode('nav');
+      }
+    }
+
+    function toggleTileCard(cardId) {
+      const isCurrentlyActive = tileVisibilityState[cardId];
+      tileVisibilityState[cardId] = !isCurrentlyActive;
+
+      const cardEl = document.getElementById(cardId);
+      const squareEl = document.querySelector(`.tile-square-card[data-card="${cardId}"]`);
+
+      if (tileVisibilityState[cardId]) {
+        if (cardEl) cardEl.classList.remove('hidden');
+        if (squareEl) {
+          squareEl.classList.add('active');
+          squareEl.querySelector('.tile-card-status').innerText = 'ACTIVE';
+        }
+      } else {
+        if (cardEl) cardEl.classList.add('hidden');
+        if (squareEl) {
+          squareEl.classList.remove('active');
+          squareEl.querySelector('.tile-card-status').innerText = 'HIDDEN';
+        }
+      }
+
+      localStorage.setItem('horo_card_visibility_prefs', JSON.stringify(tileVisibilityState));
+      updateLayoutDynamic();
+    }
+
+    function updateLayoutDynamic() {
+      const statsRow = document.getElementById('row-stats');
+      const vStats = [tileVisibilityState['card-dist'], tileVisibilityState['card-avg'], tileVisibilityState['card-max']].filter(Boolean).length;
+      statsRow.className = `grid-row grid-${vStats || 1}`;
+      vStats === 0 ? statsRow.classList.add('hidden') : statsRow.classList.remove('hidden');
+
+      const eleRow = document.getElementById('row-elevation');
+      const vEle = [tileVisibilityState['card-grade'], tileVisibilityState['card-ele'], tileVisibilityState['card-alt']].filter(Boolean).length;
+      eleRow.className = `grid-row grid-${vEle || 1}`;
+      vEle === 0 ? eleRow.classList.add('hidden') : eleRow.classList.remove('hidden');
+
+      isMapTileEnabled = tileVisibilityState['card-map'];
+      isMapTileEnabled ? document.body.classList.remove('map-disabled') : document.body.classList.add('map-disabled');
+      if (map && isMapTileEnabled) setTimeout(() => map.invalidateSize(), 150);
+    }
+
+    function loadLayoutPreferences() {
+      const savedPrefs = localStorage.getItem('horo_card_visibility_prefs');
+      if (savedPrefs) {
+        tileVisibilityState = JSON.parse(savedPrefs);
+        Object.keys(tileVisibilityState).forEach(cardId => {
+          const cardEl = document.getElementById(cardId);
+          const squareEl = document.querySelector(`.tile-square-card[data-card="${cardId}"]`);
+          const isActive = tileVisibilityState[cardId];
+          if (cardEl) {
+            isActive ? cardEl.classList.remove('hidden') : cardEl.classList.add('hidden');
+          }
+          if (squareEl) {
+            if (isActive) {
+              squareEl.classList.add('active');
+              squareEl.querySelector('.tile-card-status').innerText = 'ACTIVE';
+            } else {
+              squareEl.classList.remove('active');
+              squareEl.querySelector('.tile-card-status').innerText = 'HIDDEN';
+            }
+          }
+        });
+      }
+      updateLayoutDynamic();
     }
 
     function setTheme(mode) {
@@ -839,44 +1034,6 @@
       document.getElementById('unitLabel').innerText = isMetric ? 'KM/H' : 'MPH';
       document.getElementById('navUnitLabel').innerText = isMetric ? 'KM/H' : 'MPH';
       updateDisplay({ speed: smoothedSpeedMps, altitude: lastPosition ? lastPosition.altitude : null });
-    }
-
-    function updateLayout() {
-      const visibilityPrefs = {};
-      document.querySelectorAll('#reorderList .toggle-item[data-card]').forEach(item => {
-        const cardId = item.dataset.card, cardEl = document.getElementById(cardId), chk = item.querySelector('input');
-        if (cardEl && chk) {
-          visibilityPrefs[cardId] = chk.checked;
-          chk.checked ? cardEl.classList.remove('hidden') : cardEl.classList.add('hidden');
-        }
-      });
-      localStorage.setItem('horo_card_visibility_prefs', JSON.stringify(visibilityPrefs));
-
-      const statsRow = document.getElementById('row-stats');
-      const vStats = [document.getElementById('chk-dist').checked, document.getElementById('chk-avg').checked, document.getElementById('chk-max').checked].filter(Boolean).length;
-      statsRow.className = `grid-row grid-${vStats || 1}`;
-      vStats === 0 ? statsRow.classList.add('hidden') : statsRow.classList.remove('hidden');
-
-      const eleRow = document.getElementById('row-elevation');
-      const vEle = [document.getElementById('chk-grade').checked, document.getElementById('chk-ele').checked, document.getElementById('chk-alt').checked].filter(Boolean).length;
-      eleRow.className = `grid-row grid-${vEle || 1}`;
-      vEle === 0 ? eleRow.classList.add('hidden') : eleRow.classList.remove('hidden');
-
-      isMapTileEnabled = document.getElementById('chk-map') ? document.getElementById('chk-map').checked : true;
-      isMapTileEnabled ? document.body.classList.remove('map-disabled') : document.body.classList.add('map-disabled');
-      if (map && isMapTileEnabled) setTimeout(() => map.invalidateSize(), 150);
-    }
-
-    function loadLayoutPreferences() {
-      const savedPrefs = localStorage.getItem('horo_card_visibility_prefs');
-      if (savedPrefs) {
-        const prefs = JSON.parse(savedPrefs);
-        Object.keys(prefs).forEach(cardId => {
-          const item = document.querySelector(`.toggle-item[data-card="${cardId}"]`);
-          if (item) item.querySelector('input').checked = prefs[cardId];
-        });
-      }
-      updateLayout();
     }
 
     function initMap() {
@@ -1043,8 +1200,6 @@
       }
     }
 
-    // --- ACCURATE ROUTE GENERATION ---
-
     async function calculateAndPreviewRoute(destLat, destLon, encodedTitle) {
       const container = document.getElementById('routeResultsContainer');
       const title = decodeURIComponent(encodedTitle);
@@ -1121,7 +1276,7 @@
       isNavigating = true;
       currentStepIndex = 0;
       
-      document.getElementById('menuModal').classList.remove('active');
+      document.getElementById('fullscreenMenu').classList.remove('active');
       document.getElementById('turnBanner').style.display = 'flex';
       switchAppMode('nav');
       
@@ -1331,10 +1486,10 @@
         if (!navUserMarker) {
           const navIcon = L.divIcon({
             className: 'nav-user-heading-icon',
-            iconSize: [22, 22],
-            iconAnchor: [11, 11]
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
           });
-          navUserMarker = L.marker([lat, lon], { icon: navIcon }).addTo(navMap);
+          navUserMarker = L.marker([lat, lon], { icon: navIcon, zIndexOffset: 10000 }).addTo(navMap);
           navMap.setView([lat, lon], 18);
         } else {
           navUserMarker.setLatLng([lat, lon]);
@@ -1415,7 +1570,7 @@
       const distValNum = (isMetric ? (totalDistanceMeters / 1000) : (totalDistanceMeters / 1609.34));
       const distStr = distValNum.toFixed(2) + (isMetric ? ' km' : ' mi');
       
-      let maxSpdVal = 0, sumSpd = 0, maxG = 0, totalEle = totalEleGain;
+      let maxSpdVal = maxSpeedMps, sumSpd = 0, maxG = currentGrade, totalEle = totalEleGain;
       if (gpxTrackPoints.length > 0) {
         gpxTrackPoints.forEach(pt => {
           if (pt.speed > maxSpdVal) maxSpdVal = pt.speed;
@@ -1424,7 +1579,7 @@
         });
       }
 
-      const avgSpdVal = gpxTrackPoints.length > 0 ? (sumSpd / gpxTrackPoints.length) : 0;
+      const avgSpdVal = movingTimeSecs > 0 ? (totalDistanceMeters / movingTimeSecs) : (gpxTrackPoints.length > 0 ? (sumSpd / gpxTrackPoints.length) : 0);
 
       rideHistory.unshift({ 
         id: Date.now(), 
@@ -1444,7 +1599,17 @@
 
     function loadRideHistory() {
       const saved = localStorage.getItem('horo_ride_history');
-      if (saved) { rideHistory = JSON.parse(saved); renderRideHistory(); }
+      if (saved) { 
+        rideHistory = JSON.parse(saved).map(r => ({
+          ...r,
+          avgSpeedMps: r.avgSpeedMps !== undefined ? r.avgSpeedMps : 0,
+          maxSpeedMps: r.maxSpeedMps !== undefined ? r.maxSpeedMps : 0,
+          totalEleGainMeters: r.totalEleGainMeters !== undefined ? r.totalEleGainMeters : 0,
+          maxGradePercent: r.maxGradePercent !== undefined ? r.maxGradePercent : 0,
+          points: r.points || []
+        }));
+        renderRideHistory(); 
+      }
     }
 
     function renderRideHistory() {
@@ -1458,7 +1623,7 @@
       rideHistory.forEach(ride => {
         const item = document.createElement('div');
         item.className = 'history-item';
-        item.onclick = () => openRideDetailsModal(ride.id);
+        item.onclick = () => openRideDetailsView(ride.id);
         item.innerHTML = `
           <div>
             <div class="history-date">${ride.date}</div>
@@ -1472,9 +1637,9 @@
       });
     }
 
-    // --- STRAVA-STYLE RIDE DETAIL MODAL ---
+    // --- FULL-SCREEN RIDE DETAIL VIEW ---
 
-    function openRideDetailsModal(id) {
+    function openRideDetailsView(id) {
       const ride = rideHistory.find(r => r.id === id);
       if (!ride) return;
 
@@ -1482,18 +1647,19 @@
 
       document.getElementById('detailRideTitle').innerText = `RIDE - ${ride.date}`;
       
-      const avgSpdConverted = isMetric ? (ride.avgSpeedMps * 3.6) : (ride.avgSpeedMps * 2.23694);
-      const maxSpdConverted = isMetric ? (ride.maxSpeedMps * 3.6) : (ride.maxSpeedMps * 2.23694);
-      const eleGainConverted = isMetric ? ride.totalEleGainMeters : ride.totalEleGainMeters * 3.28084;
+      const avgSpdConverted = isMetric ? ((ride.avgSpeedMps || 0) * 3.6) : ((ride.avgSpeedMps || 0) * 2.23694);
+      const maxSpdConverted = isMetric ? ((ride.maxSpeedMps || 0) * 3.6) : ((ride.maxSpeedMps || 0) * 2.23694);
+      const eleGainConverted = isMetric ? (ride.totalEleGainMeters || 0) : (ride.totalEleGainMeters || 0) * 3.28084;
 
       document.getElementById('detailDist').innerHTML = `${ride.distance.split(' ')[0]} <span>${isMetric ? 'km' : 'mi'}</span>`;
-      document.getElementById('detailTime').innerText = ride.time;
+      document.getElementById('detailTime').innerText = ride.time || '00:00:00';
       document.getElementById('detailAvgSpeed').innerHTML = `${avgSpdConverted.toFixed(1)} <span>${isMetric ? 'km/h' : 'mph'}</span>`;
       document.getElementById('detailMaxSpeed').innerHTML = `${maxSpdConverted.toFixed(1)} <span>${isMetric ? 'km/h' : 'mph'}</span>`;
       document.getElementById('detailEleGain').innerHTML = `${Math.round(eleGainConverted)} <span>${isMetric ? 'm' : 'ft'}</span>`;
       document.getElementById('detailMaxGrade').innerHTML = `${(ride.maxGradePercent || 0).toFixed(1)} <span>%</span>`;
 
-      document.getElementById('rideDetailModal').classList.add('active');
+      document.getElementById('fullscreenMenu').classList.remove('active');
+      document.getElementById('rideDetailView').classList.add('active');
 
       if (rideDetailMap && detailPolyline) {
         setTimeout(() => {
