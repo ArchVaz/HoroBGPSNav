@@ -129,11 +129,12 @@
     .pref-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: #0a0a0a; border-radius: 6px; border: 1px solid var(--border-subtle); }
     .pref-label { font-size: 10px; font-weight: 700; color: var(--text-white); }
 
-    /* Ultra Compact Cards on Preferences Menu */
-    .tiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-flow: dense; gap: 4px; overflow-y: auto; flex: 1; padding-right: 2px; }
+    /* Guaranteed Perfect Square Preference Tiles via aspect-ratio */
+    .tiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; overflow-y: auto; flex: 1; padding-right: 2px; }
     .tile-square-card {
-      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 5px;
-      padding: 4px 5px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; min-height: 36px;
+      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 6px;
+      padding: 6px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;
+      aspect-ratio: 1 / 1; width: 100%;
     }
     .tile-square-card.active { background: rgba(48, 209, 88, 0.08); border-color: var(--accent-green); }
     .tile-card-title { font-size: 9px; font-weight: 800; color: var(--text-white); }
@@ -226,13 +227,13 @@
     .dropdown-item { background: #111111; border: 1px solid var(--border-subtle); border-radius: 5px; padding: 6px 8px; font-size: 11px; color: var(--text-white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
     .dropdown-item:hover { background: #1a1a1a; border-color: var(--accent-green); }
 
-    /* Clean Pause Icon Controls (No Yellow) */
+    /* Clean Pause Icon Controls (Yellow Active State, No Solid Background Box) */
     .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
     .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 10px 0; font-size: 12px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; }
     .btn.active-play { border-color: var(--accent-green) !important; color: var(--accent-green) !important; background-color: rgba(48, 209, 88, 0.1) !important; }
     
-    /* Clean Two-Line White/Green Pause Icon without Yellow */
-    .btn.active-pause { border-color: #ffffff !important; color: #ffffff !important; background-color: #1a1a1a !important; }
+    /* Clean Minimal Yellow Pause State */
+    .btn.active-pause { border-color: var(--accent-orange) !important; color: var(--accent-orange) !important; background-color: transparent !important; }
     
     .btn-reset { border-color: #2a1a1a; color: var(--accent-red); }
 
@@ -306,7 +307,7 @@
     </div>
   </div>
 
-  <!-- Full-Screen Menu with Reduced Height Cards -->
+  <!-- Full-Screen Menu with Perfect Square Tiles -->
   <div id="fullscreenMenu" class="fullscreen-menu">
     <div class="modal-header">
       <div class="modal-title" id="menuHeaderTitle">TILES & PREFERENCES</div>
@@ -762,7 +763,7 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- GOOGLE MAPS & EXACT LOCAL BOUNDING SEARCH ENGINE ---
+    // --- UNRESTRICTED GLOBAL/CITY BUSINESS SEARCH ENGINE ---
 
     async function detectCurrentCityName(lat, lon) {
       try {
@@ -794,24 +795,27 @@
         );
       }
 
-      const userLat = lastPosition ? lastPosition.latitude : 0;
+      const userLat = lastPosition ? lastPosition.latitude : 20;
       const userLon = lastPosition ? lastPosition.longitude : 0;
 
       try {
-        // Tight 10km radius bounding box around current user position
-        const boundRadius = 0.08;
-        const viewbox = `${userLon - boundRadius},${userLat + boundRadius},${userLon + boundRadius},${userLat - boundRadius}`;
+        // Unrestricted search across the exact typed city or current location without rigid boundary limits
+        let searchQuery = input;
+        const queryLower = input.toLowerCase();
         
-        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=10&bounded=1&addressdetails=1&extratags=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
-        
+        if (currentCityName && !queryLower.includes(currentCityName.toLowerCase())) {
+          // If user doesn't specify another city name explicitly, bias query towards user's current city
+          searchQuery = `${input}, ${currentCityName}`;
+        }
+
+        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=15&addressdetails=1&extratags=1&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(searchQuery)}`;
         const res = await fetch(geoUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
         let data = await res.json();
 
-        // High accuracy local fallback search if initial query yields zero results
-        if ((!data || data.length === 0) && currentCityName) {
-          const cityQuery = `${input}, ${currentCityName}`;
-          const fbUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=8&addressdetails=1&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(cityQuery)}`;
-          const fbRes = await fetch(fbUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
+        // Fallback without city bias if no hits found
+        if ((!data || data.length === 0) && searchQuery !== input) {
+          const fallbackUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=12&addressdetails=1&q=${encodeURIComponent(input)}`;
+          const fbRes = await fetch(fallbackUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
           data = await fbRes.json();
         }
 
@@ -922,7 +926,7 @@
       return '➔';
     }
 
-    // --- PLAY / CLEAN TWO-BAR PAUSE CONTROLS ---
+    // --- PLAY / CLEAN YELLOW PAUSE CONTROLS ---
 
     function togglePlayPauseRide() {
       if (rideState === 'RUNNING' || rideState === 'AUTO-PAUSED') {
@@ -938,7 +942,7 @@
 
       rideState = 'RUNNING';
       const playBtn = document.getElementById('playPauseBtn');
-      playBtn.innerText = '⏸'; // Clean 2 vertical bars
+      playBtn.innerText = '⏸';
       playBtn.classList.add('active-play');
       playBtn.classList.remove('active-pause');
 
@@ -962,7 +966,7 @@
       
       rideState = 'PAUSED';
       const playBtn = document.getElementById('playPauseBtn');
-      playBtn.innerText = '▶';
+      playBtn.innerText = '⏸'; // Clean 2 vertical bars in yellow
       playBtn.classList.remove('active-play');
       playBtn.classList.add('active-pause');
 
@@ -1005,7 +1009,7 @@
             document.getElementById('statusText').innerText = 'AUTO-PAUSED';
             document.getElementById('statusDot').classList.remove('active');
             const playBtn = document.getElementById('playPauseBtn');
-            playBtn.innerText = '▶';
+            playBtn.innerText = '⏸';
             playBtn.classList.remove('active-play');
             playBtn.classList.add('active-pause');
             updateDisplay({ speed: 0, altitude: lastPosition ? lastPosition.altitude : null });
