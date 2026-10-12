@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v41-dynamic-user-location';
+const CACHE_NAME = 'horo-v42-googleplaces-compactcards';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
