@@ -68,7 +68,7 @@
     .status-dot { width: 6px; height: 6px; border-radius: 50%; background-color: var(--text-dim); }
     .status-dot.active { background-color: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
 
-    .menu-btn, .share-btn-header { background: none; border: none; color: var(--text-white); font-size: 16px; cursor: pointer; padding: 2px 6px; }
+    .menu-btn { background: none; border: none; color: var(--text-white); font-size: 18px; cursor: pointer; padding: 2px 6px; }
 
     .toast-notification {
       position: fixed; top: 15px; left: 50%; transform: translateX(-50%) translateY(-100px);
@@ -84,11 +84,11 @@
     }
     .modal-overlay.active { display: flex !important; }
 
-    .fullscreen-menu, .share-modal-container {
+    .fullscreen-menu {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: var(--bg-black); z-index: 99999; display: none; flex-direction: column; padding: 12px;
     }
-    .fullscreen-menu.active, .share-modal-container.active { display: flex !important; }
+    .fullscreen-menu.active { display: flex !important; }
 
     .menu-main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; margin-bottom: 8px; }
 
@@ -225,26 +225,12 @@
     .dropdown-item { background: #111111; border: 1px solid var(--border-subtle); border-radius: 5px; padding: 6px 8px; font-size: 11px; color: var(--text-white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
     .dropdown-item:hover { background: #1a1a1a; border-color: var(--accent-green); }
 
-    /* Option 2 Minimal Pause Icon & Active States */
     .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
     .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 10px 0; font-size: 14px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .btn.active-play { border-color: var(--accent-green) !important; color: var(--accent-green) !important; background-color: rgba(48, 209, 88, 0.1) !important; }
     
-    /* Option 2 Custom CSS Two-Line Minimal Pause Icon with Yellow Accent */
-    .pause-icon-css {
-      display: inline-flex;
-      gap: 4px;
-      align-items: center;
-      justify-content: center;
-      height: 14px;
-    }
-    .pause-icon-css span {
-      display: block;
-      width: 4px;
-      height: 14px;
-      background-color: var(--accent-orange);
-      border-radius: 1px;
-    }
+    .pause-icon-css { display: inline-flex; gap: 4px; align-items: center; justify-content: center; height: 14px; }
+    .pause-icon-css span { display: block; width: 4px; height: 14px; background-color: var(--accent-orange); border-radius: 1px; }
     .btn.active-pause { border-color: var(--accent-orange) !important; background-color: transparent !important; }
     
     .btn-reset { border-color: #2a1a1a; color: var(--accent-red); }
@@ -252,14 +238,24 @@
     .btn-stop .fill-overlay { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: rgba(255, 69, 58, 0.85); z-index: 1; pointer-events: none; transition: width 0.05s linear; }
     .btn-stop .btn-text { position: relative; z-index: 2; }
 
-    /* Share Modal Styling */
-    .share-preview-card {
-      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 340px; margin: 0 auto;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    /* Fullscreen Scrollable Share Layouts Menu */
+    .share-modal-fullscreen {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-black); z-index: 999999; display: none; flex-direction: column; padding: 12px; overflow-y: auto;
     }
-    .share-toggle-row { display: flex; gap: 8px; width: 100%; justify-content: center; margin-bottom: 4px; }
-    .share-toggle-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-dim); padding: 6px 12px; font-size: 10px; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
+    .share-modal-fullscreen.active { display: flex !important; }
+    
+    .share-layout-card {
+      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; max-width: 360px; margin: 8px auto;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.8); cursor: pointer; transition: border-color 0.2s;
+    }
+    .share-layout-card:hover { border-color: var(--accent-green); }
+    .share-toggle-row { display: flex; gap: 6px; width: 100%; justify-content: center; margin-bottom: 4px; }
+    .share-toggle-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-dim); padding: 5px 10px; font-size: 9px; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
     .share-toggle-btn.active { background: #222; color: var(--accent-green); border-color: var(--accent-green); }
+
+    .social-share-row { display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 10px; width: 100%; }
+    .social-icon-btn { background: #141414; border: 1px solid var(--border-subtle); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; }
+    .social-icon-btn:hover { border-color: var(--accent-green); }
   </style>
 </head>
 <body>
@@ -283,56 +279,55 @@
     </div>
   </div>
 
-  <!-- Share & PNG Export Modal -->
-  <div id="shareModal" class="share-modal-container">
+  <!-- Fullscreen Scrollable Share & Layouts Menu -->
+  <div id="shareModal" class="share-modal-fullscreen">
     <div class="modal-header">
-      <div class="modal-title">SHARE & EXPORT</div>
+      <div class="modal-title">SHARE & EXPORT LAYOUTS</div>
       <button class="close-btn" id="shareCloseBtn">✕</button>
     </div>
 
-    <div style="display: flex; flex-direction: column; gap: 10px; flex: 1; overflow-y: auto; align-items: center; justify-content: center; padding: 10px;">
+    <div style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; align-items: center;">
       <div class="share-toggle-row">
-        <button id="toggleShareMap" class="share-toggle-btn active" onclick="toggleShareElement('map')">Map</button>
-        <button id="toggleShareData" class="share-toggle-btn active" onclick="toggleShareElement('data')">Data</button>
-        <button id="toggleShareLogo" class="share-toggle-btn active" onclick="toggleShareElement('logo')">Logo</button>
+        <button id="toggleShareMapBg" class="share-toggle-btn active" onclick="toggleShareBgMode()">Map Background</button>
+        <button id="toggleShareData" class="share-toggle-btn active" onclick="toggleShareElement('data')">Data Stats</button>
       </div>
 
-      <!-- Live Share Preview Card -->
-      <div id="sharePreviewCard" class="share-preview-card">
-        <div id="sharePreviewLogoArea" style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-          <img src="logo.png" alt="放浪" style="height: 24px; object-fit: contain;">
-          <span style="font-size: 9px; font-weight: 800; letter-spacing: 3px; color: var(--text-white);">FOR THE RESTLESS</span>
-        </div>
-        
-        <div id="sharePreviewMapArea" style="width: 100%; height: 130px; border-radius: 6px; background: #111; overflow: hidden; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center;">
-          <div style="font-size: 10px; color: var(--text-dim); font-weight: 700;">GPS TRACK PREVIEW</div>
-        </div>
+      <div style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">Scrollable Layout Options</div>
 
-        <div id="sharePreviewDataArea" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%;">
-          <div style="background: #111; padding: 8px; border-radius: 6px; border: 1px solid var(--border-subtle);">
-            <div style="font-size: 8px; color: var(--text-dim); font-weight: 700;">DISTANCE</div>
-            <div id="sharePrevDist" style="font-size: 14px; font-weight: 800; color: var(--text-white);">0.00 km</div>
-          </div>
-          <div style="background: #111; padding: 8px; border-radius: 6px; border: 1px solid var(--border-subtle);">
-            <div style="font-size: 8px; color: var(--text-dim); font-weight: 700;">ELAPSED TIME</div>
-            <div id="sharePrevTime" style="font-size: 14px; font-weight: 800; color: var(--text-white);">00:00:00</div>
-          </div>
+      <!-- Layout Card 1 -->
+      <div class="share-layout-card" onclick="exportAndDownloadPng(1)">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <img src="logo.png" alt="放浪" style="height: 22px; object-fit: contain;">
+          <span style="font-size: 8px; font-weight: 800; letter-spacing: 3px; color: var(--text-white);">FOR THE RESTLESS</span>
         </div>
+        <div id="sharePreviewMapArea1" style="width: 100%; height: 110px; border-radius: 6px; background: #111; overflow: hidden; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center;">
+          <div style="font-size: 9px; color: var(--text-dim); font-weight: 700;">LAYOUT 1: STANDARD</div>
+        </div>
+        <div id="sharePreviewDataArea1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%;">
+          <div style="background: #111; padding: 6px; border-radius: 6px; border: 1px solid var(--border-subtle);"><div style="font-size: 7px; color: var(--text-dim);">DIST</div><div class="sharePrevDistVal" style="font-size: 12px; font-weight: 800;">0.00 km</div></div>
+          <div style="background: #111; padding: 6px; border-radius: 6px; border: 1px solid var(--border-subtle);"><div style="font-size: 7px; color: var(--text-dim);">TIME</div><div class="sharePrevTimeVal" style="font-size: 12px; font-weight: 800;">00:00:00</div></div>
+        </div>
+        <span style="font-size: 9px; color: var(--accent-green); font-weight: 800;">TAP TO DOWNLOAD PNG ➔</span>
       </div>
 
-      <div style="display: flex; gap: 8px; width: 100%; max-width: 340px; margin-top: 6px;">
-        <button id="btnDownloadPng" class="confirm-btn cancel" style="background: #181818; border-color: var(--accent-green); color: var(--accent-green);">DOWNLOAD PNG</button>
-        <button id="btnNativeShare" class="confirm-btn danger" style="background: rgba(48,209,88,0.15); color: var(--accent-green); border-color: rgba(48,209,88,0.4);">SHARE (WHATSAPP / IG)</button>
+      <!-- Social Share Buttons Row with Icons -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 10px;">
+        <div style="font-size: 10px; color: var(--text-dim); font-weight: 700; text-transform: uppercase;">Direct Share</div>
+        <div class="social-share-row">
+          <button class="social-icon-btn" onclick="shareToWhatsApp()" title="WhatsApp">🟢</button>
+          <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram">📸</button>
+          <button class="social-icon-btn" onclick="exportAndNativeShare()" title="More Options">📤</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Full-Screen Saved Ride Detail View -->
+  <!-- Full-Screen Saved Ride Detail View (With Global Share Icon) -->
   <div id="rideDetailView" class="fullscreen-ride-view">
     <div class="ride-detail-header">
       <button class="back-btn" id="btnRideDetailBack">← BACK</button>
       <div id="detailRideTitle" class="modal-title">RIDE SUMMARY</div>
-      <div style="width: 55px;"></div>
+      <button id="detailShareBtn" class="share-btn-header" title="Share Ride" style="font-size: 18px;">📤</button>
     </div>
     
     <div class="ride-detail-map-box">
@@ -364,7 +359,6 @@
     </div>
 
     <div class="header-actions">
-      <button class="share-btn-header" id="headerShareBtn" title="Share & Export">📤</button>
       <div class="status-badge">
         <div id="statusDot" class="status-dot"></div>
         <span id="statusText">READY</span>
@@ -448,7 +442,7 @@
       <div id="card-map" class="card"><div id="map"></div></div>
     </div>
 
-    <!-- NAV TAB (Where To? Search Bar) -->
+    <!-- NAV TAB -->
     <div id="viewNav" class="view-pane">
       <div class="nav-map-container">
         <div id="routePlannerSearchBox" class="route-planner-box">
@@ -517,7 +511,8 @@
     let currentCityName = '';
     let searchAbortController = null;
 
-    let shareElementToggles = { map: true, data: true, logo: true };
+    let shareMapBgMode = true; // true = with map background, false = route line only
+    let shareElementToggles = { data: true, logo: true }; // logo locked permanent
 
     let tileVisibilityState = {
       'card-speed': true,
@@ -554,10 +549,8 @@
       document.getElementById('menuToggleBtn').onclick = () => document.getElementById('fullscreenMenu').classList.add('active');
       document.getElementById('menuCloseBtn').onclick = () => document.getElementById('fullscreenMenu').classList.remove('active');
       
-      document.getElementById('headerShareBtn').onclick = openShareModal;
+      document.getElementById('detailShareBtn').onclick = openShareModal;
       document.getElementById('shareCloseBtn').onclick = () => document.getElementById('shareModal').classList.remove('active');
-      document.getElementById('btnDownloadPng').onclick = exportAndDownloadPng;
-      document.getElementById('btnNativeShare').onclick = exportAndNativeShare;
 
       document.getElementById('btnModeDash').onclick = () => switchAppMode('dash');
       document.getElementById('btnModeNav').onclick = () => switchAppMode('nav');
@@ -756,6 +749,7 @@
               squareEl.classList.add('active');
               squareEl.querySelector('.tile-card-status').innerText = 'ACTIVE';
             } else {
+              squareEl.classList.remove('active');
               squareEl.querySelector('.tile-card-status').innerText = 'DISABLE';
             }
           }
@@ -838,8 +832,6 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- STRICT CITY-ONLY SEARCH ENGINE WITH ABORT CONTROLLER BUG FIX ---
-
     async function detectCurrentCityName(lat, lon) {
       try {
         const revUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`;
@@ -862,9 +854,7 @@
         return;
       }
 
-      if (searchAbortController) {
-        searchAbortController.abort();
-      }
+      if (searchAbortController) searchAbortController.abort();
       searchAbortController = new AbortController();
 
       if (!lastPosition && navigator.geolocation) {
@@ -879,7 +869,6 @@
       const userLon = lastPosition ? lastPosition.longitude : 0;
 
       try {
-        // Enforce strict city scoping: always restrict search query or results to current city if no other city is specified
         let searchQuery = input;
         const queryLower = input.toLowerCase();
 
@@ -891,7 +880,6 @@
         const res = await fetch(geoUrl, { signal: searchAbortController.signal, headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
         let data = await res.json();
 
-        // Strict filtering: ensure returned items belong to the requested city or current city when possible
         if (currentCityName && data && data.length > 0) {
           const filtered = data.filter(item => {
             const nameLower = item.display_name.toLowerCase();
@@ -923,15 +911,11 @@
         dropdown.classList.add('active');
 
       } catch (err) {
-        if (err.name !== 'AbortError') {
-          dropdown.classList.remove('active');
-        }
+        if (err.name !== 'AbortError') dropdown.classList.remove('active');
       }
     }
 
-    async function searchDestinationRoute() {
-      handleLiveSearchInput();
-    }
+    async function searchDestinationRoute() { handleLiveSearchInput(); }
 
     async function selectDestinationDropdown(destLat, destLon, encodedTitle) {
       const title = decodeURIComponent(encodedTitle);
@@ -942,7 +926,6 @@
       try {
         const startLat = lastPosition ? lastPosition.latitude : 0;
         const startLon = lastPosition ? lastPosition.longitude : 0;
-
         const osrmUrl = `https://router.project-osrm.org/route/v1/biking/${startLon},${startLat};${destLon},${destLat}?steps=true&overview=full&geometries=geojson`;
         const routeRes = await fetch(osrmUrl);
         const routeData = await routeRes.json();
@@ -955,7 +938,6 @@
 
         navRoutePolyline.setLatLngs(coords);
         routePolyline.setLatLngs(coords);
-
         if (navMap) navMap.fitBounds(navRoutePolyline.getBounds(), { padding: [30, 30] });
 
         startNavigationMode();
@@ -965,39 +947,29 @@
     function startNavigationMode() {
       isNavigating = true;
       currentStepIndex = 0;
-      
       document.getElementById('routePlannerSearchBox').style.display = 'none';
       document.getElementById('turnBanner').style.display = 'flex';
-      
       updateNavigationBanner();
     }
 
     function updateNavigationBanner() {
       if (!isNavigating || !activeRouteSteps || activeRouteSteps.length === 0 || !lastPosition) return;
-
       if (currentStepIndex >= activeRouteSteps.length) {
         document.getElementById('turnIcon').innerText = '🏁';
         document.getElementById('turnDistance').innerText = 'ARRIVED';
         document.getElementById('turnStreet').innerText = 'Destination reached';
         return;
       }
-
       const step = activeRouteSteps[currentStepIndex];
       const stepLocation = [step.maneuver.location[1], step.maneuver.location[0]];
       const distToTurn = calcDistance(lastPosition.latitude, lastPosition.longitude, stepLocation[0], stepLocation[1]);
-
-      const distStr = isMetric 
-        ? (distToTurn > 1000 ? `${(distToTurn / 1000).toFixed(1)} km` : `${Math.round(distToTurn)} m`)
-        : (distToTurn > 1609 ? `${(distToTurn / 1609.34).toFixed(1)} mi` : `${Math.round(distToTurn * 3.28084)} ft`);
+      const distStr = isMetric ? (distToTurn > 1000 ? `${(distToTurn / 1000).toFixed(1)} km` : `${Math.round(distToTurn)} m`) : (distToTurn > 1609 ? `${(distToTurn / 1609.34).toFixed(1)} mi` : `${Math.round(distToTurn * 3.28084)} ft`);
 
       document.getElementById('turnIcon').innerText = getTurnArrowIcon(step.maneuver.type, step.maneuver.modifier);
       document.getElementById('turnDistance').innerText = `In ${distStr}`;
       document.getElementById('turnStreet').innerText = step.name || step.maneuver.instruction || "Follow path";
 
-      const advanceThreshold = Math.max(15, smoothedSpeedMps * 2.5);
-      if (distToTurn < advanceThreshold) {
-        currentStepIndex++;
-      }
+      if (distToTurn < Math.max(15, smoothedSpeedMps * 2.5)) currentStepIndex++;
     }
 
     function getTurnArrowIcon(type, modifier) {
@@ -1009,54 +981,38 @@
       return '➔';
     }
 
-    // --- OPTION 2 PAUSE ICON & PLAY/PAUSE CONTROLS ---
-
     function togglePlayPauseRide() {
-      if (rideState === 'RUNNING' || rideState === 'AUTO-PAUSED') {
-        pauseRide();
-      } else {
-        startRide();
-      }
+      if (rideState === 'RUNNING' || rideState === 'AUTO-PAUSED') pauseRide();
+      else startRide();
     }
 
     function startRide() {
       requestWakeLock();
       if (rideState === 'RUNNING') return;
-
       rideState = 'RUNNING';
       const playBtn = document.getElementById('playPauseBtn');
       playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
       playBtn.classList.add('active-play');
       playBtn.classList.remove('active-pause');
-
       document.getElementById('statusDot').classList.add('active');
       document.getElementById('statusText').innerText = 'RECORDING';
-
       startTime = Date.now() - elapsedTime;
       rideStartTimeMs = Date.now();
       lastPositionTime = Date.now();
       isAnchored = false;
-
       if (!timerInterval) timerInterval = setInterval(timerTick, 1000);
-      
-      if (navigator.geolocation && !watchId) {
-        watchId = navigator.geolocation.watchPosition(handlePosition, handleError, { enableHighAccuracy: true, maximumAge: 0, timeout: 8000 });
-      }
+      if (navigator.geolocation && !watchId) watchId = navigator.geolocation.watchPosition(handlePosition, handleError, { enableHighAccuracy: true, maximumAge: 0, timeout: 8000 });
     }
 
     function pauseRide() {
       if (rideState === 'STOPPED' || rideState === 'PAUSED') return;
-      
       rideState = 'PAUSED';
       const playBtn = document.getElementById('playPauseBtn');
-      // Option 2 Minimal Two-Line Yellow Pause Icon
       playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
       playBtn.classList.remove('active-play');
       playBtn.classList.add('active-pause');
-
       document.getElementById('statusDot').classList.remove('active');
       document.getElementById('statusText').innerText = 'PAUSED';
-      
       smoothedSpeedMps = 0;
       updateDisplay({ speed: 0, altitude: lastPosition ? lastPosition.altitude : null });
     }
@@ -1064,28 +1020,20 @@
     function executeStopRide() {
       if (rideState === 'STOPPED') return;
       rideState = 'STOPPED';
-
       if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
       if (watchId) { navigator.geolocation.clearWatch(watchId); watchId = null; }
-
       const playBtn = document.getElementById('playPauseBtn');
       playBtn.innerText = '▶';
       playBtn.classList.remove('active-play', 'active-pause');
-
       document.getElementById('statusDot').classList.remove('active');
       document.getElementById('statusText').innerText = 'STOPPED';
-
       if (gpxTrackPoints.length > 2) { saveRideToHistory(); showSavedToast(); }
     }
 
     function timerTick() {
       if (rideState === 'RUNNING') {
         elapsedTime = Date.now() - startTime;
-        
-        if (Date.now() - lastPositionTime > 3500) {
-          smoothedSpeedMps = 0;
-        }
-
+        if (Date.now() - lastPositionTime > 3500) smoothedSpeedMps = 0;
         if (smoothedSpeedMps === 0) {
           zeroSpeedCount++;
           if (zeroSpeedCount >= 3) {
@@ -1098,26 +1046,16 @@
             playBtn.classList.add('active-pause');
             updateDisplay({ speed: 0, altitude: lastPosition ? lastPosition.altitude : null });
           }
-        } else {
-          zeroSpeedCount = 0;
-          movingTimeSecs++;
-        }
+        } else { zeroSpeedCount = 0; movingTimeSecs++; }
       }
       updateTimerDisplay();
     }
 
     function handlePosition(pos) {
       if (rideState === 'STOPPED' || rideState === 'PAUSED') return;
-
       const now = Date.now();
       lastPositionTime = now;
-
-      const lat = pos.coords.latitude;
-      const lon = pos.coords.longitude;
-      const alt = pos.coords.altitude || (lastPosition ? lastPosition.altitude : null);
-      const rawSpeed = pos.coords.speed;
-      const accuracy = pos.coords.accuracy || 0;
-
+      const lat = pos.coords.latitude, lon = pos.coords.longitude, alt = pos.coords.altitude || (lastPosition ? lastPosition.altitude : null), rawSpeed = pos.coords.speed, accuracy = pos.coords.accuracy || 0;
       if (accuracy > 60) return;
 
       if (!isAnchored || (now - rideStartTimeMs) < 1500) {
@@ -1128,88 +1066,50 @@
         return;
       }
 
-      let currentSpeed = 0;
-      let distSinceLast = calcDistance(lastPosition.latitude, lastPosition.longitude, lat, lon);
-      let timeDiffSecs = (now - lastPosition.time) / 1000;
-
-      if (rawSpeed !== null && rawSpeed >= 0) {
-        currentSpeed = rawSpeed;
-      } else {
-        currentSpeed = timeDiffSecs > 0 ? (distSinceLast / timeDiffSecs) : 0;
-      }
-
-      if (currentSpeed > 19.4) {
-        lastPosition = { latitude: lat, longitude: lon, altitude: alt, time: now };
-        return;
-      }
-
+      let currentSpeed = 0, distSinceLast = calcDistance(lastPosition.latitude, lastPosition.longitude, lat, lon), timeDiffSecs = (now - lastPosition.time) / 1000;
+      if (rawSpeed !== null && rawSpeed >= 0) currentSpeed = rawSpeed;
+      else currentSpeed = timeDiffSecs > 0 ? (distSinceLast / timeDiffSecs) : 0;
+      if (currentSpeed > 19.4) { lastPosition = { latitude: lat, longitude: lon, altitude: alt, time: now }; return; }
       if (currentSpeed < 0.3) currentSpeed = 0;
-
       smoothedSpeedMps = (currentSpeed * 0.5) + (smoothedSpeedMps * 0.5);
       if (smoothedSpeedMps < 0.3) smoothedSpeedMps = 0;
 
       if (rideState === 'AUTO-PAUSED' && smoothedSpeedMps >= 0.3) {
-        rideState = 'RUNNING';
-        zeroSpeedCount = 0;
-        startTime = Date.now() - elapsedTime; 
+        rideState = 'RUNNING'; zeroSpeedCount = 0; startTime = Date.now() - elapsedTime;
         document.getElementById('statusText').innerText = 'RECORDING';
         document.getElementById('statusDot').classList.add('active');
         const playBtn = document.getElementById('playPauseBtn');
         playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
-        playBtn.classList.remove('active-pause');
-        playBtn.classList.add('active-play');
+        playBtn.classList.remove('active-pause'); playBtn.classList.add('active-play');
       }
 
       if (rideState === 'RUNNING') {
         if (distSinceLast >= 1.2 && smoothedSpeedMps > 0) {
           totalDistanceMeters += distSinceLast;
-
           if (alt !== null && lastPosition.altitude !== null) {
             const eleDiff = alt - lastPosition.altitude;
             if (eleDiff > 1.0) totalEleGain += eleDiff;
             currentGrade = (eleDiff / distSinceLast) * 100;
             if (Math.abs(currentGrade) > 35) currentGrade = 0;
           }
-
           gpxTrackPoints.push({ lat, lon, alt, speed: smoothedSpeedMps, distance: totalDistanceMeters, grade: currentGrade, time: new Date().toISOString() });
-          
           lastPosition = { latitude: lat, longitude: lon, altitude: alt, time: now };
         }
-
         if (smoothedSpeedMps > maxSpeedMps) maxSpeedMps = smoothedSpeedMps;
       }
 
       const trackColor = '#30d158';
-
       if (isMapTileEnabled && map) {
-        if (!userMarker) {
-          userMarker = L.circleMarker([lat, lon], { radius: 6, color: trackColor, fillColor: trackColor, fillOpacity: 1 }).addTo(map);
-          map.setView([lat, lon], 16);
-        } else {
-          userMarker.setLatLng([lat, lon]);
-          if (rideState === 'RUNNING') map.panTo([lat, lon]);
-        }
+        if (!userMarker) { userMarker = L.circleMarker([lat, lon], { radius: 6, color: trackColor, fillColor: trackColor, fillOpacity: 1 }).addTo(map); map.setView([lat, lon], 16); }
+        else { userMarker.setLatLng([lat, lon]); if (rideState === 'RUNNING') map.panTo([lat, lon]); }
       }
-
       if (navMap) {
         if (!navUserMarker) {
-          const navIcon = L.divIcon({
-            className: 'nav-user-heading-icon',
-            iconSize: [24, 24],
-            iconAnchor: [12, 12]
-          });
-          navUserMarker = L.marker([lat, lon], { icon: navIcon, zIndexOffset: 10000 }).addTo(navMap);
+          navUserMarker = L.marker([lat, lon], { icon: L.divIcon({ className: 'nav-user-heading-icon', iconSize: [24, 24], iconAnchor: [12, 12] }), zIndexOffset: 10000 }).addTo(navMap);
           navMap.setView([lat, lon], 18);
-        } else {
-          navUserMarker.setLatLng([lat, lon]);
-          if (rideState === 'RUNNING') navMap.panTo([lat, lon]);
-        }
+        } else { navUserMarker.setLatLng([lat, lon]); if (rideState === 'RUNNING') navMap.panTo([lat, lon]); }
       }
-
-      if (isNavigating) {
-        updateNavigationBanner();
-      }
-
+      if (isNavigating) updateNavigationBanner();
       updateDisplay({ speed: rideState === 'RUNNING' ? smoothedSpeedMps : 0, altitude: alt });
     }
 
@@ -1229,148 +1129,100 @@
       document.getElementById('gradeVal').innerHTML = `${currentGrade.toFixed(1)} <span>%</span>`;
       document.getElementById('eleGainVal').innerHTML = `${Math.round(eleGain)} <span>${isMetric ? 'm' : 'ft'}</span>`;
       document.getElementById('altVal').innerHTML = `${alt !== '--' ? Math.round(alt) : '--'} <span>${isMetric ? 'm' : 'ft'}</span>`;
-
-      // Update share preview numbers live
-      const distStr = `${dist.toFixed(2)} ${isMetric ? 'km' : 'mi'}`;
-      document.getElementById('sharePrevDist').innerText = distStr;
     }
 
     function updateTimerDisplay() {
       const totalSecs = Math.floor(elapsedTime / 1000);
-      const hrs = Math.floor(totalSecs / 3600);
-      const mins = Math.floor((totalSecs % 3600) / 60);
-      const secs = totalSecs % 60;
-      const timeStr = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-      document.getElementById('timerVal').innerText = timeStr;
-      document.getElementById('sharePrevTime').innerText = timeStr;
+      const hrs = Math.floor(totalSecs / 3600), mins = Math.floor((totalSecs % 3600) / 60), secs = totalSecs % 60;
+      document.getElementById('timerVal').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    // --- SHARE & PNG EXPORT SUITE ---
+    // --- SHARE & EXPORT SUITE ---
 
     function openShareModal() {
       document.getElementById('shareModal').classList.add('active');
     }
 
+    function toggleShareBgMode() {
+      shareMapBgMode = !shareMapBgMode;
+      const btn = document.getElementById('toggleShareMapBg');
+      if (shareMapBgMode) { btn.classList.add('active'); btn.innerText = 'Map Background'; }
+      else { btn.classList.remove('active'); btn.innerText = 'Route Line Only'; }
+    }
+
     function toggleShareElement(type) {
       shareElementToggles[type] = !shareElementToggles[type];
       const btn = document.getElementById(`toggleShare${type.charAt(0).toUpperCase() + type.slice(1)}`);
-      const previewEl = document.getElementById(`sharePreview${type.charAt(0).toUpperCase() + type.slice(1)}Area`);
-
-      if (shareElementToggles[type]) {
-        btn.classList.add('active');
-        previewEl.style.display = 'flex';
-      } else {
-        btn.classList.remove('active');
-        previewEl.style.display = 'none';
-      }
+      if (shareElementToggles[type]) btn.classList.add('active');
+      else btn.classList.remove('active');
     }
 
     async function generateExportCanvas() {
       const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1080;
+      canvas.width = 1080; canvas.height = 1080;
       const ctx = canvas.getContext('2d');
 
-      // Transparent background or clean dark backdrop
       ctx.clearRect(0, 0, 1080, 1080);
-      
-      // Card Container Background
       ctx.fillStyle = '#0a0a0a';
-      ctx.beginPath();
-      ctx.roundRect(90, 90, 900, 900, 32);
-      ctx.fill();
-      ctx.strokeStyle = '#1a1a1a';
-      ctx.lineWidth = 4;
-      ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(90, 90, 900, 900, 32); ctx.fill();
+      ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 4; ctx.stroke();
 
       let cursorY = 160;
 
-      // 1. Logo & Motto ("FOR THE RESTLESS")
-      if (shareElementToggles.logo) {
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '800 32px "Roboto Condensed", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('FOR THE RESTLESS', 540, cursorY + 40);
-        cursorY += 80;
-      }
+      // 1. Locked Logo & Motto
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 32px "Roboto Condensed", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('FOR THE RESTLESS', 540, cursorY + 40);
+      cursorY += 80;
 
-      // 2. Map Snapshot Box
-      if (shareElementToggles.map) {
-        ctx.fillStyle = '#111111';
-        ctx.beginPath();
-        ctx.roundRect(150, cursorY, 780, 380, 20);
-        ctx.fill();
-        ctx.strokeStyle = '#222222';
-        ctx.lineWidth = 2;
+      // 2. Map Snapshot Box (with Background Toggle)
+      ctx.fillStyle = shareMapBgMode ? '#111111' : '#000000';
+      ctx.beginPath(); ctx.roundRect(150, cursorY, 780, 380, 20); ctx.fill();
+      ctx.strokeStyle = '#222222'; ctx.lineWidth = 2; ctx.stroke();
+
+      const ride = rideHistory.find(r => r.id === selectedDetailRideId);
+      const points = ride ? ride.points : gpxTrackPoints;
+
+      if (points && points.length > 1) {
+        ctx.strokeStyle = '#30d158'; ctx.lineWidth = 8; ctx.beginPath();
+        const lats = points.map(p => p.lat), lons = points.map(p => p.lon);
+        const minLat = Math.min(...lats), maxLat = Math.max(...lats);
+        const minLon = Math.min(...lons), maxLon = Math.max(...lons);
+        
+        points.forEach((pt, i) => {
+          const x = 200 + ((pt.lon - minLon) / (maxLon - minLon || 1)) * 680;
+          const y = cursorY + 80 + ((maxLat - pt.lat) / (maxLat - minLat || 1)) * 220;
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
         ctx.stroke();
-
-        ctx.fillStyle = '#666666';
-        ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('放浪 • GPS ROUTE SUMMARY', 540, cursorY + 200);
-
-        if (gpxTrackPoints.length > 1) {
-          ctx.strokeStyle = '#30d158';
-          ctx.lineWidth = 8;
-          ctx.beginPath();
-          const lats = gpxTrackPoints.map(p => p.lat);
-          const lons = gpxTrackPoints.map(p => p.lon);
-          const minLat = Math.min(...lats), maxLat = Math.max(...lats);
-          const minLon = Math.min(...lons), maxLon = Math.max(...lons);
-          
-          gpxTrackPoints.forEach((pt, i) => {
-            const x = 200 + ((pt.lon - minLon) / (maxLon - minLon || 1)) * 680;
-            const y = cursorY + 80 + ((maxLat - pt.lat) / (maxLat - minLat || 1)) * 220;
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-          });
-          ctx.stroke();
-        }
-        cursorY += 420;
       }
+      cursorY += 420;
 
-      // 3. Stats Data Grid
-      if (shareElementToggles.data) {
-        const distText = document.getElementById('sharePrevDist').innerText;
-        const timeText = document.getElementById('sharePrevTime').innerText;
-
+      // 3. Data Stats Grid
+      if (shareElementToggles.data && ride) {
         ctx.fillStyle = '#141414';
-        ctx.beginPath();
-        ctx.roundRect(150, cursorY, 370, 180, 16);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = '#666666';
-        ctx.font = '700 18px "Roboto Condensed", sans-serif';
-        ctx.textAlign = 'left';
+        ctx.beginPath(); ctx.roundRect(150, cursorY, 370, 180, 16); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#666666'; ctx.font = '700 18px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
         ctx.fillText('DISTANCE', 190, cursorY + 45);
-
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '800 36px "Roboto Condensed", sans-serif';
-        ctx.fillText(distText, 190, cursorY + 115);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 36px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.distance, 190, cursorY + 115);
 
         ctx.fillStyle = '#141414';
-        ctx.beginPath();
-        ctx.roundRect(560, cursorY, 370, 180, 16);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = '#666666';
-        ctx.font = '700 18px "Roboto Condensed", sans-serif';
+        ctx.beginPath(); ctx.roundRect(560, cursorY, 370, 180, 16); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#666666'; ctx.font = '700 18px "Roboto Condensed", sans-serif';
         ctx.fillText('ELAPSED TIME', 600, cursorY + 45);
-
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '800 36px "Roboto Condensed", sans-serif';
-        ctx.fillText(timeText, 600, cursorY + 115);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 36px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.time, 600, cursorY + 115);
       }
 
       return canvas;
     }
 
-    async function exportAndDownloadPng() {
+    async function exportAndDownloadPng(layoutId) {
       const canvas = await generateExportCanvas();
       const link = document.createElement('a');
-      link.download = `HoroRide_${new Date().toISOString().split('T')[0]}.png`;
+      link.download = `HoroRide_Layout${layoutId}_${new Date().toISOString().split('T')[0]}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
     }
@@ -1380,17 +1232,20 @@
       canvas.toBlob(async (blob) => {
         const file = new File([blob], 'horo_ride.png', { type: 'image/png' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          try {
-            await navigator.share({
-              files: [file],
-              title: '放浪 Ride Summary',
-              text: 'Check out my ride stats with 放浪!'
-            });
-          } catch (err) {}
-        } else {
-          exportAndDownloadPng();
-        }
+          try { await navigator.share({ files: [file], title: '放浪 Ride Summary', text: 'Check out my ride stats!' }); } catch (err) {}
+        } else { exportAndDownloadPng(1); }
       }, 'image/png');
+    }
+
+    function shareToWhatsApp() {
+      const ride = rideHistory.find(r => r.id === selectedDetailRideId);
+      const text = encodeURIComponent(`Check out my ride with 放浪! Distance: ${ride ? ride.distance : '0 km'} | Time: ${ride ? ride.time : '00:00:00'}`);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    function shareToInstagram() {
+      exportAndDownloadPng(1);
+      setTimeout(() => alert('Image downloaded! You can now share it directly to Instagram Stories or DM.'), 500);
     }
 
     function confirmAndExecuteReset() {
@@ -1510,20 +1365,21 @@
       document.getElementById('detailEleGain').innerHTML = `${Math.round(eleGainConverted)} <span>${isMetric ? 'm' : 'ft'}</span>`;
       document.getElementById('detailMaxGrade').innerHTML = `${(ride.maxGradePercent || 0).toFixed(1)} <span>%</span>`;
 
+      // Update live preview elements inside share view
+      document.querySelectorAll('.sharePrevDistVal').forEach(el => el.innerText = ride.distance);
+      document.querySelectorAll('.sharePrevTimeVal').forEach(el => el.innerText = ride.time);
+
       document.getElementById('fullscreenMenu').classList.remove('active');
       document.getElementById('rideDetailView').classList.add('active');
 
       if (rideDetailMap && detailPolyline) {
         setTimeout(() => {
           rideDetailMap.invalidateSize();
-          
           if (ride.points && ride.points.length > 0) {
             const latLngs = ride.points.map(pt => [pt.lat, pt.lon]);
             detailPolyline.setLatLngs(latLngs);
             rideDetailMap.fitBounds(detailPolyline.getBounds(), { padding: [20, 20] });
-          } else {
-            detailPolyline.setLatLngs([]);
-          }
+          } else { detailPolyline.setLatLngs([]); }
         }, 150);
       }
     }
