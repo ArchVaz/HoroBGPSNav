@@ -238,7 +238,7 @@
     .btn-stop .fill-overlay { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: rgba(255, 69, 58, 0.85); z-index: 1; pointer-events: none; transition: width 0.05s linear; }
     .btn-stop .btn-text { position: relative; z-index: 2; }
 
-    /* Share Layout Modal */
+    /* Share Modal Fullscreen */
     .share-modal-fullscreen {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-black); z-index: 999999; display: none; flex-direction: column; padding: 12px; overflow-y: auto;
     }
@@ -253,7 +253,7 @@
     .share-toggle-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-dim); padding: 5px 10px; font-size: 9px; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
     .share-toggle-btn.active { background: #222; color: var(--accent-green); border-color: var(--accent-green); }
 
-    .canvas-preview-render { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border-subtle); background: #000; }
+    .canvas-preview-render { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border-subtle); background: transparent; }
 
     .social-share-row { display: flex; gap: 16px; justify-content: center; align-items: center; margin-top: 10px; width: 100%; }
     .social-icon-btn { background: #141414; border: 1px solid var(--border-subtle); border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
@@ -262,7 +262,7 @@
 </head>
 <body>
 
-  <!-- Minimal Black Splash Screen -->
+  <!-- Splash Screen -->
   <div id="splashScreen" class="splash-screen">
     <img src="logo.png" alt="放浪" class="splash-logo">
     <div class="splash-motto">FOR THE RESTLESS</div>
@@ -284,27 +284,27 @@
   <!-- Fullscreen Scrollable Share Layouts Menu -->
   <div id="shareModal" class="share-modal-fullscreen">
     <div class="modal-header">
-      <div class="modal-title">EXPORT LAYOUTS</div>
+      <div class="modal-title">EXPORT TRANSPARENT LAYOUTS</div>
       <button class="close-btn" id="shareCloseBtn">✕</button>
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 30px; align-items: center;">
       <!-- Independent Toggles -->
       <div class="share-toggle-row">
-        <button id="toggleShareMapBg" class="share-toggle-btn active" onclick="toggleShareBgMode()">Map Background</button>
+        <button id="toggleShareMapBg" class="share-toggle-btn active" onclick="toggleShareBgMode()">Dark Card Canvas</button>
         <button id="toggleShareData" class="share-toggle-btn active" onclick="toggleShareElement('data')">Data Stats</button>
       </div>
 
-      <div style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;">Tap any layout to download PNG</div>
+      <div style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;">Tap any layout to download transparent PNG</div>
 
-      <!-- 5 Reference Layout Previews Canvas Containers -->
+      <!-- 5 Reference Layout Previews -->
       <div class="share-layout-card" onclick="exportAndDownloadPng(1)">
-        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">01 • CENTERED ROUTE ART</div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">01 • PURE ROUTE VECTOR</div>
         <canvas id="canvasPreview1" class="canvas-preview-render" width="540" height="960"></canvas>
       </div>
 
       <div class="share-layout-card" onclick="exportAndDownloadPng(2)">
-        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">02 • EXPANDED ROUTE ACCENT</div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">02 • EXPANDED ROUTE ART</div>
         <canvas id="canvasPreview2" class="canvas-preview-render" width="540" height="960"></canvas>
       </div>
 
@@ -319,15 +319,15 @@
       </div>
 
       <div class="share-layout-card" onclick="exportAndDownloadPng(5)">
-        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">05 • COMPACT ROUTE WATERMARK</div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">05 • WATERMARK FOOTER</div>
         <canvas id="canvasPreview5" class="canvas-preview-render" width="540" height="960"></canvas>
       </div>
 
-      <!-- Official Inline SVG Social Media & Share Buttons (Instagram & Download Only) -->
+      <!-- Official Inline SVG Action Buttons -->
       <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 14px;">
         <div style="font-size: 10px; color: var(--text-dim); font-weight: 700; text-transform: uppercase;">Direct Share Options</div>
         <div class="social-share-row">
-          <!-- Instagram Story Official SVG Button -->
+          <!-- Instagram Story Official Button -->
           <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram Story">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -336,7 +336,7 @@
             </svg>
           </button>
 
-          <!-- Download PNG Icon -->
+          <!-- Download Transparent PNG Icon -->
           <button class="social-icon-btn" onclick="exportAndDownloadPng(3)" title="Download PNG">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -546,7 +546,7 @@
     let currentCityName = '';
     let searchAbortController = null;
 
-    let shareMapBgMode = true;
+    let shareMapBgMode = true; // true = dark card canvas, false = pure transparent
     let shareElementToggles = { data: true };
 
     let tileVisibilityState = {
@@ -569,6 +569,9 @@
     let routePolyline = null, navRoutePolyline = null, detailPolyline = null;
     let userMarker = null, navUserMarker = null;
     let stopHoldProgress = 0, stopInterval = null;
+
+    let loadedBrandLogoImg = new Image();
+    loadedBrandLogoImg.src = 'logo.png';
 
     const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
@@ -1154,7 +1157,7 @@
       document.getElementById('timerVal').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    // --- EXACT REFERENCE PNG CANVAS LAYOUT RECONSTRUCTION ---
+    // --- ACCURATE PHOTO-MATCHING TRANSPARENT LAYOUT ENGINE ---
 
     function openShareModal() {
       document.getElementById('shareModal').classList.add('active');
@@ -1164,8 +1167,8 @@
     function toggleShareBgMode() {
       shareMapBgMode = !shareMapBgMode;
       const btn = document.getElementById('toggleShareMapBg');
-      if (shareMapBgMode) { btn.classList.add('active'); btn.innerText = 'Map Background'; }
-      else { btn.classList.remove('active'); btn.innerText = 'Route Line Only'; }
+      if (shareMapBgMode) { btn.classList.add('active'); btn.innerText = 'Dark Card Canvas'; }
+      else { btn.classList.remove('active'); btn.innerText = 'Pure Transparent'; }
       renderAllShareLayoutPreviews();
     }
 
@@ -1189,28 +1192,48 @@
       const minLat = Math.min(...lats), maxLat = Math.max(...lats);
       const minLon = Math.min(...lons), maxLon = Math.max(...lons);
 
-      const latSpan = maxLat - minLat || 0.001;
-      const lonSpan = maxLon - minLon || 0.001;
+      const latSpan = maxLat - minLat || 0.0001;
+      const lonSpan = maxLon - minLon || 0.0001;
 
       points.forEach((pt, i) => {
         const px = x + ((pt.lon - minLon) / lonSpan) * width;
         const py = y + ((maxLat - pt.lat) / latSpan) * height;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        if (i === 0) ctx.moveTo(px, px ? py : py); else ctx.lineTo(px, py);
       });
       ctx.stroke();
     }
 
-    function drawHoroBrandHeader(ctx, x, y, align = 'left') {
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '800 32px "Roboto Condensed", sans-serif';
-      ctx.textAlign = align;
-      ctx.fillText('FOR THE RESTLESS • 放浪', x, y);
+    function drawBrandLogoOnCanvas(ctx, x, y, height, align = 'left') {
+      const aspect = loadedBrandLogoImg.width ? (loadedBrandLogoImg.width / loadedBrandLogoImg.height) : 3.5;
+      const width = height * aspect;
+      let drawX = x;
+      if (align === 'center') drawX = x - (width / 2);
+      else if (align === 'right') drawX = x - width;
+
+      if (loadedBrandLogoImg.complete && loadedBrandLogoImg.naturalWidth > 0) {
+        ctx.drawImage(loadedBrandLogoImg, drawX, y, width, height);
+      } else {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 32px "Roboto Condensed", sans-serif';
+        ctx.textAlign = align;
+        ctx.fillText('放浪', x, y + height);
+      }
     }
 
     async function generateReferenceCanvas(layoutId) {
       const canvas = document.createElement('canvas');
-      canvas.width = 1080; canvas.height = 1920; // 9:16 Full Screen Vertical Canvas Ratio
+      canvas.width = 1080; canvas.height = 1920; // Exact 9:16 Story Aspect
       const ctx = canvas.getContext('2d');
+
+      // 100% Clear transparent canvas initialization
+      ctx.clearRect(0, 0, 1080, 1920);
+
+      // Dark translucent background canvas card if toggle enabled
+      if (shareMapBgMode) {
+        ctx.fillStyle = 'rgba(10, 10, 10, 0.88)';
+        ctx.beginPath(); ctx.roundRect(40, 40, 1000, 1840, 36); ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 3; ctx.stroke();
+      }
 
       const ride = rideHistory.find(r => r.id === selectedDetailRideId) || {
         date: new Date().toISOString().split('T')[0],
@@ -1223,98 +1246,90 @@
         points: gpxTrackPoints
       };
 
-      const points = ride.points && ride.points.length > 1 ? ride.points : [
-        { lat: 32.51, lon: -117.03 }, { lat: 32.52, lon: -117.02 }, { lat: 32.53, lon: -117.04 }, { lat: 32.54, lon: -117.01 }
-      ];
+      const points = ride.points && ride.points.length > 1 ? ride.points : gpxTrackPoints;
+      const trackColor = '#ff453a'; // Vibrant high-vis route color matching photo references
 
       const avgSpdStr = isMetric ? `${((ride.avgSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.avgSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
       const maxSpdStr = isMetric ? `${((ride.maxSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.maxSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
       const eleGainStr = isMetric ? `${Math.round(ride.totalEleGainMeters || 0)} m` : `${Math.round((ride.totalEleGainMeters || 0) * 3.28084)} ft`;
 
-      ctx.fillStyle = shareMapBgMode ? '#0a0a0a' : '#000000';
-      ctx.fillRect(0, 0, 1080, 1920);
-
-      // 1. Reference 1: Centered Route Pure Art Layout
+      // Layout 1: Centered Pure Route Vector (Reference Photo 1)
       if (layoutId === 1) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 680, 800, 560, '#30d158', 14);
-        drawHoroBrandHeader(ctx, 540, 1500, 'center');
+        drawRouteOnCanvasCtx(ctx, points, 160, 620, 760, 680, trackColor, 16);
       }
 
-      // 2. Reference 2: Expanded Large Center Route Layout
+      // Layout 2: Expanded Large Center Route (Reference Photo 2)
       else if (layoutId === 2) {
-        drawRouteOnCanvasCtx(ctx, points, 80, 520, 920, 880, '#30d158', 18);
-        drawHoroBrandHeader(ctx, 540, 1600, 'center');
+        drawRouteOnCanvasCtx(ctx, points, 100, 480, 880, 960, trackColor, 20);
       }
 
-      // 3. Reference 3: Horizontal 3-Column Overlay Layout
+      // Layout 3: Horizontal 3-Column Overlay (Reference Photo 3)
       else if (layoutId === 3) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 300, 800, 500, '#30d158', 12);
-
-        drawHoroBrandHeader(ctx, 80, 960, 'left');
+        drawRouteOnCanvasCtx(ctx, points, 140, 280, 800, 520, trackColor, 14);
+        drawBrandLogoOnCanvas(ctx, 100, 920, 54, 'left');
 
         if (shareElementToggles.data) {
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"'; ctx.textAlign = 'left';
-          ctx.fillText('Distance', 80, 1050);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed"';
-          ctx.fillText(ride.distance, 80, 1110);
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
+          ctx.fillText('Distance', 100, 1030);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
+          ctx.fillText(ride.distance, 100, 1095);
 
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"';
-          ctx.fillText('Elev Gain', 460, 1050);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed"';
-          ctx.fillText(eleGainStr, 460, 1110);
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+          ctx.fillText('Elev Gain', 460, 1030);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
+          ctx.fillText(eleGainStr, 460, 1095);
 
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"';
-          ctx.fillText('Time', 800, 1050);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed"';
-          ctx.fillText(ride.time, 800, 1110);
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+          ctx.fillText('Time', 780, 1030);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
+          ctx.fillText(ride.time, 780, 1095);
         }
       }
 
-      // 4. Reference 4: 6-Grid Telemetry Overlay Layout
+      // Layout 4: 2x3 Telemetry Grid (Reference Photo 4)
       else if (layoutId === 4) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 240, 800, 480, '#30d158', 12);
-
-        drawHoroBrandHeader(ctx, 80, 880, 'left');
+        drawRouteOnCanvasCtx(ctx, points, 140, 220, 800, 440, trackColor, 14);
+        drawBrandLogoOnCanvas(ctx, 100, 820, 50, 'left');
 
         if (shareElementToggles.data) {
-          // Row 1
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"'; ctx.textAlign = 'left';
-          ctx.fillText('Distance', 80, 970);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed"';
-          ctx.fillText(ride.distance, 80, 1030);
+          // Grid Row 1
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
+          ctx.fillText('Distance', 100, 920);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+          ctx.fillText(ride.distance, 100, 980);
 
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"';
-          ctx.fillText('Elev Gain', 440, 970);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed"';
-          ctx.fillText(eleGainStr, 440, 1030);
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+          ctx.fillText('Elev Gain', 460, 920);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+          ctx.fillText(eleGainStr, 460, 980);
 
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"';
-          ctx.fillText('Cal', 800, 970);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed"';
-          ctx.fillText('813 Cal', 800, 1030);
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+          ctx.fillText('Cal', 780, 920);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+          ctx.fillText('813 Cal', 780, 980);
 
-          // Row 2
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"';
-          ctx.fillText('Time', 80, 1120);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed"';
-          ctx.fillText(ride.time, 80, 1180);
+          // Grid Row 2
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+          ctx.fillText('Time', 100, 1070);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+          ctx.fillText(ride.time, 100, 1130);
 
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"';
-          ctx.fillText('Speed', 440, 1120);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed"';
-          ctx.fillText(avgSpdStr, 440, 1180);
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+          ctx.fillText('Speed', 460, 1070);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+          ctx.fillText(avgSpdStr, 460, 1130);
 
-          ctx.fillStyle = '#666666'; ctx.font = '700 24px "Roboto Condensed"';
-          ctx.fillText('Max Speed', 800, 1120);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed"';
-          ctx.fillText(maxSpdStr, 800, 1180);
+          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+          ctx.fillText('Max Speed', 780, 1070);
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+          ctx.fillText(maxSpdStr, 780, 1130);
         }
       }
 
-      // 5. Reference 5: Compact Route Watermark Layout
+      // Layout 5: Watermark Footer (Reference Photo 5)
       else if (layoutId === 5) {
-        drawRouteOnCanvasCtx(ctx, points, 180, 1100, 720, 520, '#30d158', 14);
-        drawHoroBrandHeader(ctx, 540, 1720, 'center');
+        drawRouteOnCanvasCtx(ctx, points, 180, 1020, 720, 560, trackColor, 16);
+        drawBrandLogoOnCanvas(ctx, 540, 1640, 48, 'center');
       }
 
       return canvas;
@@ -1347,14 +1362,30 @@
     }
 
     async function shareToInstagram() {
-      await exportAndDownloadPng(3);
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const instagramStoryUrl = isIOS ? 'instagram://story-camera' : 'intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end';
-      
-      setTimeout(() => {
-        window.location.href = instagramStoryUrl;
-        setTimeout(() => { window.open('https://www.instagram.com/', '_blank'); }, 1200);
-      }, 500);
+      const canvas = await generateReferenceCanvas(3);
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], 'horo_ride_story.png', { type: 'image/png' });
+        
+        // Native Web Share API (Triggers Instagram Story on iOS & Android)
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: '放浪 Ride Story',
+              text: 'FOR THE RESTLESS'
+            });
+            return;
+          } catch (err) {}
+        }
+
+        // Direct Deep-Link Camera Fallback
+        exportAndDownloadPng(3);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const instagramUrl = isIOS ? 'instagram-stories://share' : 'instagram://story-camera';
+        setTimeout(() => {
+          window.location.href = instagramUrl;
+        }, 600);
+      }, 'image/png');
     }
 
     function confirmAndExecuteReset() {
