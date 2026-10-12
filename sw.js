@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v34-global-city-search';
+const CACHE_NAME = 'horo-v35-splash-and-ride-summary';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [

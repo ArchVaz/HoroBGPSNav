@@ -47,6 +47,40 @@
       display: flex; flex-direction: column; padding: 6px; gap: 4px;
     }
 
+    /* Splash Screen Overlay */
+    .splash-screen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .splash-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-logo {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .splash-motto {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: var(--text-white);
+      text-transform: uppercase;
+    }
+
     .header { display: flex; align-items: center; justify-content: space-between; padding: 2px 4px; flex-shrink: 0; }
     .logo-img { height: 20px; width: auto; object-fit: contain; }
     .header-actions { display: flex; align-items: center; gap: 8px; }
@@ -106,6 +140,13 @@
       height: 440px; max-height: 80vh; display: flex; flex-direction: column; padding: 14px;
     }
 
+    /* Extended Large Modal for Ride Details */
+    .modal-content-lg {
+      max-width: 420px;
+      height: 540px;
+      max-height: 88vh;
+    }
+
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px; flex-shrink: 0; }
     .modal-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; }
     .close-btn { background: none; border: none; color: var(--text-dim); font-size: 16px; cursor: pointer; }
@@ -143,12 +184,85 @@
     input:checked + .slider { background-color: var(--accent-green); }
     input:checked + .slider:before { transform: translateX(16px); }
 
-    .history-item { background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 8px; display: flex; justify-content: space-between; align-items: center; }
+    /* Strava Style Interactive History Cards */
+    .history-item { 
+      background: #0a0a0a; 
+      border: 1px solid var(--border-subtle); 
+      border-radius: 8px; 
+      padding: 10px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .history-item:hover {
+      background: #121212;
+      border-color: #333333;
+    }
+
     .history-date { font-size: 10px; color: var(--text-dim); font-weight: 700; margin-bottom: 2px; }
-    .history-stats { font-size: 12px; font-weight: 700; }
-    .history-actions { display: flex; gap: 4px; }
+    .history-stats { font-size: 13px; font-weight: 800; color: var(--text-white); }
+    .history-actions { display: flex; gap: 6px; align-items: center; }
     .history-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 4px 6px; font-size: 9px; font-weight: 700; border-radius: 4px; cursor: pointer; }
     .history-btn.gpx-btn { color: var(--accent-green); border-color: rgba(48, 209, 88, 0.3); }
+
+    /* Ride Details Modal Layout */
+    .ride-detail-map-box {
+      width: 100%;
+      height: 180px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0d0d0d;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    #rideDetailMap {
+      width: 100%;
+      height: 100%;
+    }
+
+    .ride-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      overflow-y: auto;
+      flex: 1;
+      padding-right: 2px;
+    }
+
+    .ride-stat-card {
+      background: #0a0a0a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ride-stat-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .ride-stat-value {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+
+    .ride-stat-value span {
+      font-size: 10px;
+      color: var(--text-dim);
+    }
 
     .dashboard-container { flex: 1; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
     .view-pane { display: none; flex-direction: column; gap: 4px; flex: 1; min-height: 0; }
@@ -333,8 +447,15 @@
 </head>
 <body>
 
+  <!-- Minimal Black Splash Screen -->
+  <div id="splashScreen" class="splash-screen">
+    <img src="logo.png" alt="放浪" class="splash-logo">
+    <div class="splash-motto">FOR THE RESTLESS</div>
+  </div>
+
   <!-- Overlays -->
   <div id="toast" class="toast-notification">Ride Saved</div>
+  
   <div id="resetConfirmModal" class="modal-overlay">
     <div class="confirm-modal-content">
       <div class="confirm-title">Reset Ride Data?</div>
@@ -342,6 +463,52 @@
       <div class="confirm-actions">
         <button class="confirm-btn cancel" id="btnCancelReset">CANCEL</button>
         <button class="confirm-btn danger" id="btnConfirmReset">RESET</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strava-Style Ride Detail Modal -->
+  <div id="rideDetailModal" class="modal-overlay">
+    <div class="modal-content modal-content-lg">
+      <div class="modal-header">
+        <div id="detailRideTitle" class="modal-title">RIDE SUMMARY</div>
+        <button class="close-btn" id="rideDetailCloseBtn">✕</button>
+      </div>
+      
+      <div class="ride-detail-map-box">
+        <div id="rideDetailMap"></div>
+      </div>
+
+      <div class="ride-stats-grid">
+        <div class="ride-stat-card">
+          <div class="ride-stat-label">Distance</div>
+          <div id="detailDist" class="ride-stat-value">0.0 <span>km</span></div>
+        </div>
+        <div class="ride-stat-card">
+          <div class="ride-stat-label">Elapsed Time</div>
+          <div id="detailTime" class="ride-stat-value">00:00:00</div>
+        </div>
+        <div class="ride-stat-card">
+          <div class="ride-stat-label">Avg Speed</div>
+          <div id="detailAvgSpeed" class="ride-stat-value">0.0 <span>km/h</span></div>
+        </div>
+        <div class="ride-stat-card">
+          <div class="ride-stat-label">Max Speed</div>
+          <div id="detailMaxSpeed" class="ride-stat-value">0.0 <span>km/h</span></div>
+        </div>
+        <div class="ride-stat-card">
+          <div class="ride-stat-label">Elevation Gain</div>
+          <div id="detailEleGain" class="ride-stat-value">0 <span>m</span></div>
+        </div>
+        <div class="ride-stat-card">
+          <div class="ride-stat-label">Max Grade</div>
+          <div id="detailMaxGrade" class="ride-stat-value">0.0 <span>%</span></div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 6px; margin-top: 8px;">
+        <button id="btnDetailExportGpx" class="history-btn gpx-btn" style="flex: 2; padding: 8px 0; font-size: 11px;">EXPORT GPX</button>
+        <button id="btnDetailDelete" class="history-btn" style="flex: 1; padding: 8px 0; font-size: 11px; color: var(--accent-red); border-color: rgba(255, 69, 58, 0.3);">DELETE</button>
       </div>
     </div>
   </div>
@@ -520,14 +687,25 @@
 
     let gpxTrackPoints = [];
     let rideHistory = [];
-    let map = null, navMap = null;
-    let routePolyline = null, navRoutePolyline = null;
+    let selectedDetailRideId = null;
+
+    let map = null, navMap = null, rideDetailMap = null;
+    let routePolyline = null, navRoutePolyline = null, detailPolyline = null;
     let userMarker = null, navUserMarker = null;
     let stopHoldProgress = 0, stopInterval = null;
 
     const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Splash Screen Fade Out
+      setTimeout(() => {
+        const splash = document.getElementById('splashScreen');
+        if (splash) {
+          splash.classList.add('fade-out');
+          setTimeout(() => splash.style.display = 'none', 600);
+        }
+      }, 1800);
+
       document.getElementById('menuToggleBtn').onclick = () => document.getElementById('menuModal').classList.add('active');
       document.getElementById('menuCloseBtn').onclick = () => document.getElementById('menuModal').classList.remove('active');
       
@@ -550,6 +728,15 @@
       document.getElementById('resetBtn').onclick = () => document.getElementById('resetConfirmModal').classList.add('active');
       document.getElementById('btnCancelReset').onclick = () => document.getElementById('resetConfirmModal').classList.remove('active');
       document.getElementById('btnConfirmReset').onclick = confirmAndExecuteReset;
+
+      document.getElementById('rideDetailCloseBtn').onclick = () => document.getElementById('rideDetailModal').classList.remove('active');
+      document.getElementById('btnDetailExportGpx').onclick = () => { if (selectedDetailRideId) exportHistoryGPX(selectedDetailRideId); };
+      document.getElementById('btnDetailDelete').onclick = () => {
+        if (selectedDetailRideId) {
+          deleteHistoryRide(selectedDetailRideId);
+          document.getElementById('rideDetailModal').classList.remove('active');
+        }
+      };
 
       document.querySelectorAll('#reorderList input[type="checkbox"]').forEach(sw => sw.onchange = updateLayout);
 
@@ -637,6 +824,7 @@
       if (userMarker) userMarker.setStyle({ color: trackColor, fillColor: trackColor });
       if (navRoutePolyline) navRoutePolyline.setStyle({ color: navTrackColor });
       if (navUserMarker) navUserMarker.setStyle({ color: navTrackColor, fillColor: navTrackColor });
+      if (detailPolyline) detailPolyline.setStyle({ color: trackColor });
     }
 
     function loadThemePreference() { 
@@ -693,6 +881,7 @@
 
     function initMap() {
       if (typeof L === 'undefined') return;
+      const trackColor = currentTheme === 'sun' ? '#00ff66' : '#30d158';
       const navTrackColor = currentTheme === 'sun' ? '#00e5ff' : '#0a84ff';
 
       if (!map) {
@@ -705,6 +894,12 @@
         navMap = L.map('navMap', { zoomControl: false, attributionControl: false, touchZoom: 'rotate' }).setView([20, 0], 2);
         L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(navMap);
         navRoutePolyline = L.polyline([], { color: navTrackColor, weight: 8 }).addTo(navMap);
+      }
+
+      if (!rideDetailMap) {
+        rideDetailMap = L.map('rideDetailMap', { zoomControl: false, attributionControl: false });
+        L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(rideDetailMap);
+        detailPolyline = L.polyline([], { color: trackColor, weight: 5 }).addTo(rideDetailMap);
       }
     }
 
@@ -788,7 +983,6 @@
       container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 12px;">Searching ${searchPromptText} for "${input}"...</div>`;
 
       try {
-        // Dynamic ~25km city bounding box around current user GPS location worldwide
         const boundRadius = 0.25;
         const viewbox = `${userLon - boundRadius},${userLat + boundRadius},${userLon + boundRadius},${userLat - boundRadius}`;
 
@@ -892,7 +1086,6 @@
         };
         localStorage.setItem('horo_offline_route', JSON.stringify(routeOfflineData));
 
-        // Removed ~ prefix from time display
         container.innerHTML = `
           <div style="background: #0a0a0a; border: 1px solid var(--accent-green); border-radius: 8px; padding: 10px;">
             <div style="font-size: 13px; font-weight: 800; color: var(--accent-green); margin-bottom: 2px;">${title}</div>
@@ -1219,8 +1412,32 @@
 
     function saveRideToHistory() {
       const dateStr = new Date().toISOString().split('T')[0];
-      const distStr = (isMetric ? (totalDistanceMeters / 1000) : (totalDistanceMeters / 1609.34)).toFixed(2) + (isMetric ? ' km' : ' mi');
-      rideHistory.unshift({ id: Date.now(), date: dateStr, distance: distStr, time: document.getElementById('timerVal').innerText, points: [...gpxTrackPoints] });
+      const distValNum = (isMetric ? (totalDistanceMeters / 1000) : (totalDistanceMeters / 1609.34));
+      const distStr = distValNum.toFixed(2) + (isMetric ? ' km' : ' mi');
+      
+      let maxSpdVal = 0, sumSpd = 0, maxG = 0, totalEle = totalEleGain;
+      if (gpxTrackPoints.length > 0) {
+        gpxTrackPoints.forEach(pt => {
+          if (pt.speed > maxSpdVal) maxSpdVal = pt.speed;
+          sumSpd += (pt.speed || 0);
+          if (pt.grade && Math.abs(pt.grade) > maxG) maxG = Math.abs(pt.grade);
+        });
+      }
+
+      const avgSpdVal = gpxTrackPoints.length > 0 ? (sumSpd / gpxTrackPoints.length) : 0;
+
+      rideHistory.unshift({ 
+        id: Date.now(), 
+        date: dateStr, 
+        distance: distStr, 
+        time: document.getElementById('timerVal').innerText,
+        avgSpeedMps: avgSpdVal,
+        maxSpeedMps: maxSpdVal,
+        totalEleGainMeters: totalEle,
+        maxGradePercent: maxG,
+        points: [...gpxTrackPoints] 
+      });
+
       localStorage.setItem('horo_ride_history', JSON.stringify(rideHistory));
       renderRideHistory();
     }
@@ -1233,18 +1450,76 @@
     function renderRideHistory() {
       const container = document.getElementById('historyContainer');
       container.innerHTML = '';
-      if (rideHistory.length === 0) { container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 20px 0;">No saved rides found.</div>`; return; }
+      if (rideHistory.length === 0) { 
+        container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 20px 0;">No saved rides found.</div>`; 
+        return; 
+      }
+
       rideHistory.forEach(ride => {
         const item = document.createElement('div');
         item.className = 'history-item';
-        item.innerHTML = `<div><div class="history-date">${ride.date}</div><div class="history-stats">${ride.distance} • ${ride.time}</div></div><div class="history-actions"><button class="history-btn gpx-btn" onclick="exportHistoryGPX(${ride.id})">GPX</button><button class="history-btn" style="color: var(--accent-red);" onclick="deleteHistoryRide(${ride.id})">✕</button></div>`;
+        item.onclick = () => openRideDetailsModal(ride.id);
+        item.innerHTML = `
+          <div>
+            <div class="history-date">${ride.date}</div>
+            <div class="history-stats">${ride.distance} • ${ride.time}</div>
+          </div>
+          <div class="history-actions">
+            <span style="font-size: 10px; color: var(--accent-green); font-weight: 800;">VIEW ➔</span>
+          </div>
+        `;
         container.appendChild(item);
       });
     }
 
-    function deleteHistoryRide(id) { rideHistory = rideHistory.filter(r => r.id !== id); localStorage.setItem('horo_ride_history', JSON.stringify(rideHistory)); renderRideHistory(); }
+    // --- STRAVA-STYLE RIDE DETAIL MODAL ---
 
-    function exportHistoryGPX(id) { const ride = rideHistory.find(r => r.id === id); if (ride) generateGPXDownload(ride.points, `HoroGPS_${ride.date}.gpx`); }
+    function openRideDetailsModal(id) {
+      const ride = rideHistory.find(r => r.id === id);
+      if (!ride) return;
+
+      selectedDetailRideId = id;
+
+      document.getElementById('detailRideTitle').innerText = `RIDE - ${ride.date}`;
+      
+      const avgSpdConverted = isMetric ? (ride.avgSpeedMps * 3.6) : (ride.avgSpeedMps * 2.23694);
+      const maxSpdConverted = isMetric ? (ride.maxSpeedMps * 3.6) : (ride.maxSpeedMps * 2.23694);
+      const eleGainConverted = isMetric ? ride.totalEleGainMeters : ride.totalEleGainMeters * 3.28084;
+
+      document.getElementById('detailDist').innerHTML = `${ride.distance.split(' ')[0]} <span>${isMetric ? 'km' : 'mi'}</span>`;
+      document.getElementById('detailTime').innerText = ride.time;
+      document.getElementById('detailAvgSpeed').innerHTML = `${avgSpdConverted.toFixed(1)} <span>${isMetric ? 'km/h' : 'mph'}</span>`;
+      document.getElementById('detailMaxSpeed').innerHTML = `${maxSpdConverted.toFixed(1)} <span>${isMetric ? 'km/h' : 'mph'}</span>`;
+      document.getElementById('detailEleGain').innerHTML = `${Math.round(eleGainConverted)} <span>${isMetric ? 'm' : 'ft'}</span>`;
+      document.getElementById('detailMaxGrade').innerHTML = `${(ride.maxGradePercent || 0).toFixed(1)} <span>%</span>`;
+
+      document.getElementById('rideDetailModal').classList.add('active');
+
+      if (rideDetailMap && detailPolyline) {
+        setTimeout(() => {
+          rideDetailMap.invalidateSize();
+          
+          if (ride.points && ride.points.length > 0) {
+            const latLngs = ride.points.map(pt => [pt.lat, pt.lon]);
+            detailPolyline.setLatLngs(latLngs);
+            rideDetailMap.fitBounds(detailPolyline.getBounds(), { padding: [20, 20] });
+          } else {
+            detailPolyline.setLatLngs([]);
+          }
+        }, 150);
+      }
+    }
+
+    function deleteHistoryRide(id) { 
+      rideHistory = rideHistory.filter(r => r.id !== id); 
+      localStorage.setItem('horo_ride_history', JSON.stringify(rideHistory)); 
+      renderRideHistory(); 
+    }
+
+    function exportHistoryGPX(id) { 
+      const ride = rideHistory.find(r => r.id === id); 
+      if (ride) generateGPXDownload(ride.points, `HoroGPS_${ride.date}.gpx`); 
+    }
 
     function generateGPXDownload(points, filename) {
       let gpxXml = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="放浪 Bike Computer" xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">\n  <metadata><name>${filename}</name><time>${new Date().toISOString()}</time></metadata>\n  <trk><name>放浪 Ride</name><trkseg>\n`;
