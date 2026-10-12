@@ -245,13 +245,15 @@
     .share-modal-fullscreen.active { display: flex !important; }
     
     .share-layout-card {
-      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 360px; margin: 8px auto;
+      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 360px; margin: 8px auto;
       box-shadow: 0 8px 30px rgba(0,0,0,0.8); cursor: pointer; transition: border-color 0.2s;
     }
     .share-layout-card:hover { border-color: var(--accent-green); }
     .share-toggle-row { display: flex; gap: 6px; width: 100%; justify-content: center; margin-bottom: 4px; flex-wrap: wrap; }
     .share-toggle-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-dim); padding: 5px 10px; font-size: 9px; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
     .share-toggle-btn.active { background: #222; color: var(--accent-green); border-color: var(--accent-green); }
+
+    .canvas-preview-render { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border-subtle); background: #000; }
 
     .social-share-row { display: flex; gap: 16px; justify-content: center; align-items: center; margin-top: 10px; width: 100%; }
     .social-icon-btn { background: #141414; border: 1px solid var(--border-subtle); border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
@@ -279,10 +281,10 @@
     </div>
   </div>
 
-  <!-- Fullscreen Scrollable Share & 6 Layout Options Menu -->
+  <!-- Fullscreen Scrollable Share & 6 Artistic Layout Options Menu -->
   <div id="shareModal" class="share-modal-fullscreen">
     <div class="modal-header">
-      <div class="modal-title">SHARE & 6 LAYOUT OPTIONS</div>
+      <div class="modal-title">ARTISTIC SHARE LAYOUTS</div>
       <button class="close-btn" id="shareCloseBtn">✕</button>
     </div>
 
@@ -295,84 +297,35 @@
 
       <div style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;">Tap any layout to download PNG</div>
 
-      <!-- Layout 1: Logo Top Center -->
+      <!-- 6 Artistic Layout Previews Canvas Containers -->
       <div class="share-layout-card" onclick="exportAndDownloadPng(1)">
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
-          <img src="logo.png" alt="放浪" style="height: 20px; object-fit: contain;">
-          <span style="font-size: 7px; font-weight: 800; letter-spacing: 2px; color: var(--text-white);">FOR THE RESTLESS</span>
-        </div>
-        <div class="preview-map-box" style="width: 100%; height: 90px; background: #111; border-radius: 6px; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-dim);">L1: Logo Top-Center</div>
-        <div class="preview-data-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%;">
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Dist: <span class="sharePrevDistVal">0.00 km</span></div>
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Time: <span class="sharePrevTimeVal">00:00:00</span></div>
-        </div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">01 • STRAVA METRO DARK</div>
+        <canvas id="canvasPreview1" class="canvas-preview-render" width="540" height="540"></canvas>
       </div>
 
-      <!-- Layout 2: Logo Top Left -->
       <div class="share-layout-card" onclick="exportAndDownloadPng(2)">
-        <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
-          <img src="logo.png" alt="放浪" style="height: 18px; object-fit: contain;">
-          <span style="font-size: 7px; font-weight: 800; letter-spacing: 2px; color: var(--text-white);">FOR THE RESTLESS</span>
-        </div>
-        <div class="preview-map-box" style="width: 100%; height: 90px; background: #111; border-radius: 6px; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-dim);">L2: Logo Top-Left</div>
-        <div class="preview-data-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%;">
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Dist: <span class="sharePrevDistVal">0.00 km</span></div>
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Time: <span class="sharePrevTimeVal">00:00:00</span></div>
-        </div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">02 • AURA FROSTED OVERLAY</div>
+        <canvas id="canvasPreview2" class="canvas-preview-render" width="540" height="540"></canvas>
       </div>
 
-      <!-- Layout 3: Logo Top Right -->
       <div class="share-layout-card" onclick="exportAndDownloadPng(3)">
-        <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%;">
-          <span style="font-size: 7px; font-weight: 800; letter-spacing: 2px; color: var(--text-white);">FOR THE RESTLESS</span>
-          <img src="logo.png" alt="放浪" style="height: 18px; object-fit: contain;">
-        </div>
-        <div class="preview-map-box" style="width: 100%; height: 90px; background: #111; border-radius: 6px; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-dim);">L3: Logo Top-Right</div>
-        <div class="preview-data-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%;">
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Dist: <span class="sharePrevDistVal">0.00 km</span></div>
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Time: <span class="sharePrevTimeVal">00:00:00</span></div>
-        </div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">03 • STRAVA ROUTE POSTER</div>
+        <canvas id="canvasPreview3" class="canvas-preview-render" width="540" height="540"></canvas>
       </div>
 
-      <!-- Layout 4: Logo Bottom Center -->
       <div class="share-layout-card" onclick="exportAndDownloadPng(4)">
-        <div class="preview-map-box" style="width: 100%; height: 90px; background: #111; border-radius: 6px; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-dim);">L4: Logo Bottom-Center</div>
-        <div class="preview-data-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%;">
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Dist: <span class="sharePrevDistVal">0.00 km</span></div>
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Time: <span class="sharePrevTimeVal">00:00:00</span></div>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%;">
-          <img src="logo.png" alt="放浪" style="height: 18px; object-fit: contain;">
-          <span style="font-size: 7px; font-weight: 800; letter-spacing: 2px; color: var(--text-white);">FOR THE RESTLESS</span>
-        </div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">04 • AURA CYBERPUNK GRID</div>
+        <canvas id="canvasPreview4" class="canvas-preview-render" width="540" height="540"></canvas>
       </div>
 
-      <!-- Layout 5: Logo Bottom Left -->
       <div class="share-layout-card" onclick="exportAndDownloadPng(5)">
-        <div class="preview-map-box" style="width: 100%; height: 90px; background: #111; border-radius: 6px; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-dim);">L5: Logo Bottom-Left</div>
-        <div class="preview-data-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%;">
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Dist: <span class="sharePrevDistVal">0.00 km</span></div>
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Time: <span class="sharePrevTimeVal">00:00:00</span></div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
-          <img src="logo.png" alt="放浪" style="height: 16px; object-fit: contain;">
-          <span style="font-size: 7px; font-weight: 800; letter-spacing: 2px; color: var(--text-white);">FOR THE RESTLESS</span>
-        </div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">05 • MINIMAL LINE ART</div>
+        <canvas id="canvasPreview5" class="canvas-preview-render" width="540" height="540"></canvas>
       </div>
 
-      <!-- Layout 6: Watermark Corner Minimalist -->
       <div class="share-layout-card" onclick="exportAndDownloadPng(6)">
-        <div class="preview-map-box" style="width: 100%; height: 110px; background: #111; border-radius: 6px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; padding: 8px; font-size: 9px; color: var(--text-dim);">
-          <div style="display: flex; align-items: center; gap: 4px; opacity: 0.8;">
-            <img src="logo.png" alt="放浪" style="height: 14px; object-fit: contain;">
-            <span style="font-size: 6px; font-weight: 800; color: #fff;">FOR THE RESTLESS</span>
-          </div>
-          <span style="font-size: 9px; margin: auto;">L6: Watermark Minimal</span>
-        </div>
-        <div class="preview-data-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%;">
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Dist: <span class="sharePrevDistVal">0.00 km</span></div>
-          <div style="background: #111; padding: 4px; border-radius: 4px; font-size: 8px;">Time: <span class="sharePrevTimeVal">00:00:00</span></div>
-        </div>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">06 • ENDURANCE BADGE GRAPHIC</div>
+        <canvas id="canvasPreview6" class="canvas-preview-render" width="540" height="540"></canvas>
       </div>
 
       <!-- Official Inline SVG Social Media & Share Buttons -->
@@ -386,8 +339,8 @@
             </svg>
           </button>
 
-          <!-- Instagram Official SVG Button -->
-          <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram">
+          <!-- Instagram Story Official SVG Button -->
+          <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram Story">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -609,7 +562,7 @@
     let searchAbortController = null;
 
     let shareMapBgMode = true; // true = with map background, false = route line only
-    let shareElementToggles = { data: true }; // logo locked permanent
+    let shareElementToggles = { data: true };
 
     let tileVisibilityState = {
       'card-speed': true,
@@ -708,9 +661,7 @@
 
     function detectAutoDayNight() {
       const savedTheme = localStorage.getItem('horo_theme_pref');
-      if (!savedTheme) {
-        currentTheme = isNightTime() ? 'dark' : 'sun';
-      }
+      if (!savedTheme) currentTheme = isNightTime() ? 'dark' : 'sun';
     }
 
     async function requestWakeLock() {
@@ -1123,8 +1074,8 @@
             document.getElementById('statusDot').classList.remove('active');
             const playBtn = document.getElementById('playPauseBtn');
             playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
-            playBtn.classList.remove('active-play');
-            playBtn.classList.add('active-pause');
+            playBtn.classList.remove('active-pause');
+            playBtn.classList.add('active-play');
             updateDisplay({ speed: 0, altitude: lastPosition ? lastPosition.altitude : null });
           }
         } else { zeroSpeedCount = 0; movingTimeSecs++; }
@@ -1218,10 +1169,11 @@
       document.getElementById('timerVal').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    // --- SHARE & EXPORT SUITE (6 LAYOUTS WITH INDEPENDENT TOGGLES) ---
+    // --- ARTISTIC LAYOUT GENERATOR SUITE ---
 
     function openShareModal() {
       document.getElementById('shareModal').classList.add('active');
+      renderAllShareLayoutPreviews();
     }
 
     function toggleShareBgMode() {
@@ -1229,6 +1181,7 @@
       const btn = document.getElementById('toggleShareMapBg');
       if (shareMapBgMode) { btn.classList.add('active'); btn.innerText = 'Map Background'; }
       else { btn.classList.remove('active'); btn.innerText = 'Route Line Only'; }
+      renderAllShareLayoutPreviews();
     }
 
     function toggleShareElement(type) {
@@ -1236,98 +1189,208 @@
       const btn = document.getElementById(`toggleShare${type.charAt(0).toUpperCase() + type.slice(1)}`);
       if (shareElementToggles[type]) btn.classList.add('active');
       else btn.classList.remove('active');
+      renderAllShareLayoutPreviews();
     }
 
-    async function generateExportCanvas(layoutId) {
+    function drawRouteOnCanvasCtx(ctx, points, x, y, width, height, strokeColor, strokeWidth) {
+      if (!points || points.length < 2) return;
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = strokeWidth;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+
+      const lats = points.map(p => p.lat), lons = points.map(p => p.lon);
+      const minLat = Math.min(...lats), maxLat = Math.max(...lats);
+      const minLon = Math.min(...lons), maxLon = Math.max(...lons);
+
+      const latSpan = maxLat - minLat || 0.001;
+      const lonSpan = maxLon - minLon || 0.001;
+
+      points.forEach((pt, i) => {
+        const px = x + ((pt.lon - minLon) / lonSpan) * width;
+        const py = y + ((maxLat - pt.lat) / latSpan) * height;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      });
+      ctx.stroke();
+    }
+
+    async function generateArtisticCanvas(layoutId) {
       const canvas = document.createElement('canvas');
       canvas.width = 1080; canvas.height = 1080;
       const ctx = canvas.getContext('2d');
 
-      ctx.clearRect(0, 0, 1080, 1080);
-      ctx.fillStyle = '#0a0a0a';
-      ctx.beginPath(); ctx.roundRect(90, 90, 900, 900, 32); ctx.fill();
-      ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 4; ctx.stroke();
-
-      const ride = rideHistory.find(r => r.id === selectedDetailRideId);
-      const points = ride ? ride.points : gpxTrackPoints;
-
-      // Helper for drawing logo & motto
-      const drawLogoTop = () => {
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 28px "Roboto Condensed", sans-serif'; ctx.textAlign = 'center';
-        ctx.fillText('FOR THE RESTLESS', 540, 160);
-      };
-      const drawLogoBottom = () => {
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 28px "Roboto Condensed", sans-serif'; ctx.textAlign = 'center';
-        ctx.fillText('FOR THE RESTLESS', 540, 930);
-      };
-      const drawLogoLeft = () => {
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('FOR THE RESTLESS', 160, 160);
-      };
-      const drawLogoRight = () => {
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'right';
-        ctx.fillText('FOR THE RESTLESS', 920, 160);
-      };
-      const drawLogoCornerWatermark = () => {
-        ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.font = '800 20px "Roboto Condensed", sans-serif'; ctx.textAlign = 'right';
-        ctx.fillText('FOR THE RESTLESS', 900, 880);
+      const ride = rideHistory.find(r => r.id === selectedDetailRideId) || {
+        date: new Date().toISOString().split('T')[0],
+        distance: '18.4 km',
+        time: '00:48:12',
+        avgSpeedMps: 6.38,
+        maxSpeedMps: 11.2,
+        totalEleGainMeters: 240,
+        maxGradePercent: 8.5,
+        points: gpxTrackPoints
       };
 
-      // Layout Specific Logo Placement
-      if (layoutId === 1) drawLogoTop();
-      else if (layoutId === 2) drawLogoLeft();
-      else if (layoutId === 3) drawLogoRight();
-      else if (layoutId === 4) drawLogoBottom();
-      else if (layoutId === 5) drawLogoBottom();
-      else if (layoutId === 6) drawLogoCornerWatermark();
+      const points = ride.points && ride.points.length > 1 ? ride.points : [
+        { lat: 32.51, lon: -117.03 }, { lat: 32.52, lon: -117.02 }, { lat: 32.53, lon: -117.04 }, { lat: 32.54, lon: -117.01 }
+      ];
 
-      // Map Box Rendering
-      const mapBoxY = (layoutId === 4 || layoutId === 5) ? 160 : 210;
-      ctx.fillStyle = shareMapBgMode ? '#111111' : '#000000';
-      ctx.beginPath(); ctx.roundRect(150, mapBoxY, 780, 480, 20); ctx.fill();
-      ctx.strokeStyle = '#222222'; ctx.lineWidth = 2; ctx.stroke();
+      const avgSpdStr = isMetric ? `${((ride.avgSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.avgSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
+      const maxSpdStr = isMetric ? `${((ride.maxSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.maxSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
+      const eleGainStr = isMetric ? `${Math.round(ride.totalEleGainMeters || 0)} m` : `${Math.round((ride.totalEleGainMeters || 0) * 3.28084)} ft`;
+      const gradeStr = `${(ride.maxGradePercent || 0).toFixed(1)} %`;
 
-      if (points && points.length > 1) {
-        ctx.strokeStyle = '#30d158'; ctx.lineWidth = 8; ctx.beginPath();
-        const lats = points.map(p => p.lat), lons = points.map(p => p.lon);
-        const minLat = Math.min(...lats), maxLat = Math.max(...lats);
-        const minLon = Math.min(...lons), maxLon = Math.max(...lons);
-        
-        points.forEach((pt, i) => {
-          const x = 200 + ((pt.lon - minLon) / (maxLon - minLon || 1)) * 680;
-          const y = mapBoxY + 60 + ((maxLat - pt.lat) / (maxLat - minLat || 1)) * 360;
-          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        });
-        ctx.stroke();
+      // 1. STRAVA METRO DARK
+      if (layoutId === 1) {
+        ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, 1080, 1080);
+        if (shareMapBgMode) { ctx.fillStyle = '#141414'; ctx.fillRect(60, 60, 960, 960); }
+        drawRouteOnCanvasCtx(ctx, points, 120, 120, 840, 520, '#30d158', 12);
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 30px "Roboto Condensed"'; ctx.textAlign = 'left';
+        ctx.fillText('FOR THE RESTLESS • 放浪', 100, 720);
+
+        if (shareElementToggles.data) {
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 64px "Roboto Condensed"'; ctx.fillText(ride.distance, 100, 810);
+          ctx.fillStyle = '#666666'; ctx.font = '700 20px "Roboto Condensed"'; ctx.fillText('DISTANCE', 100, 840);
+
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 36px "Roboto Condensed"';
+          ctx.fillText(`TIME: ${ride.time}`, 100, 900);
+          ctx.fillText(`AVG: ${avgSpdStr}  |  MAX: ${maxSpdStr}`, 100, 950);
+          ctx.fillText(`ELEV: ${eleGainStr}  |  GRADE: ${gradeStr}`, 100, 1000);
+        }
       }
 
-      // Data Stats Box Rendering (Independent Toggle)
-      if (shareElementToggles.data && ride) {
-        const dataBoxY = (layoutId === 4 || layoutId === 5) ? 710 : 720;
-        ctx.fillStyle = '#141414';
-        ctx.beginPath(); ctx.roundRect(150, dataBoxY, 370, 160, 16); ctx.fill(); ctx.stroke();
-        ctx.fillStyle = '#666666'; ctx.font = '700 16px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('DISTANCE', 190, dataBoxY + 40);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 32px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, 190, dataBoxY + 105);
+      // 2. AURA FROSTED OVERLAY
+      else if (layoutId === 2) {
+        ctx.fillStyle = shareMapBgMode ? '#111827' : '#000000'; ctx.fillRect(0, 0, 1080, 1080);
+        drawRouteOnCanvasCtx(ctx, points, 100, 100, 880, 880, '#0a84ff', 14);
 
-        ctx.fillStyle = '#141414';
-        ctx.beginPath(); ctx.roundRect(560, dataBoxY, 370, 160, 16); ctx.fill(); ctx.stroke();
-        ctx.fillStyle = '#666666'; ctx.font = '700 16px "Roboto Condensed", sans-serif';
-        ctx.fillText('ELAPSED TIME', 600, dataBoxY + 40);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 32px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, 600, dataBoxY + 105);
+        if (shareElementToggles.data) {
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+          ctx.beginPath(); ctx.roundRect(80, 620, 920, 380, 24); ctx.fill();
+          ctx.strokeStyle = '#0a84ff'; ctx.lineWidth = 2; ctx.stroke();
+
+          ctx.fillStyle = '#ffffff'; ctx.font = '800 28px "Roboto Condensed"'; ctx.textAlign = 'center';
+          ctx.fillText('放浪 AURA TELEMETRY', 540, 670);
+
+          ctx.fillStyle = '#0a84ff'; ctx.font = '800 58px "Roboto Condensed"';
+          ctx.fillText(`${ride.distance}  •  ${ride.time}`, 540, 750);
+
+          ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed"';
+          ctx.fillText(`AVG SPD: ${avgSpdStr}   MAX SPD: ${maxSpdStr}`, 540, 830);
+          ctx.fillText(`ELE GAIN: ${eleGainStr}   MAX GRADE: ${gradeStr}`, 540, 890);
+        }
+      }
+
+      // 3. STRAVA ROUTE POSTER
+      else if (layoutId === 3) {
+        ctx.fillStyle = '#050505'; ctx.fillRect(0, 0, 1080, 1080);
+        ctx.strokeStyle = '#222222'; ctx.lineWidth = 4; ctx.strokeRect(40, 40, 1000, 1000);
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed"'; ctx.textAlign = 'center';
+        ctx.fillText('FOR THE RESTLESS', 540, 120);
+
+        drawRouteOnCanvasCtx(ctx, points, 180, 180, 720, 500, '#ff9f0a', 10);
+
+        if (shareElementToggles.data) {
+          ctx.fillStyle = '#ff9f0a'; ctx.font = '800 72px "Roboto Condensed"';
+          ctx.fillText(ride.distance, 540, 770);
+
+          ctx.fillStyle = '#ffffff'; ctx.font = '700 26px "Roboto Condensed"';
+          ctx.fillText(`ELAPSED TIME: ${ride.time}`, 540, 830);
+          ctx.fillText(`AVG SPEED: ${avgSpdStr}  •  MAX SPEED: ${maxSpdStr}`, 540, 880);
+          ctx.fillText(`ELEVATION GAIN: ${eleGainStr}  •  MAX GRADE: ${gradeStr}`, 540, 930);
+        }
+      }
+
+      // 4. AURA CYBERPUNK GRID
+      else if (layoutId === 4) {
+        ctx.fillStyle = '#000000'; ctx.fillRect(0, 0, 1080, 1080);
+        drawRouteOnCanvasCtx(ctx, points, 120, 120, 840, 460, '#ff453a', 10);
+
+        ctx.fillStyle = '#ff453a'; ctx.font = '800 28px "Roboto Condensed"'; ctx.textAlign = 'left';
+        ctx.fillText('放浪 // CYBER DASH', 80, 640);
+
+        if (shareElementToggles.data) {
+          const stats = [
+            { l: 'DISTANCE', v: ride.distance },
+            { l: 'TIME', v: ride.time },
+            { l: 'AVG SPEED', v: avgSpdStr },
+            { l: 'MAX SPEED', v: maxSpdStr },
+            { l: 'ELEVATION', v: eleGainStr },
+            { l: 'MAX GRADE', v: gradeStr }
+          ];
+
+          stats.forEach((st, idx) => {
+            const rx = 80 + (idx % 3) * 310;
+            const ry = 680 + Math.floor(idx / 3) * 160;
+            ctx.fillStyle = '#111111'; ctx.beginPath(); ctx.roundRect(rx, ry, 290, 130, 12); ctx.fill();
+            ctx.strokeStyle = '#333333'; ctx.lineWidth = 1; ctx.stroke();
+
+            ctx.fillStyle = '#666666'; ctx.font = '700 16px "Roboto Condensed"'; ctx.fillText(st.l, rx + 20, ry + 35);
+            ctx.fillStyle = '#ffffff'; ctx.font = '800 28px "Roboto Condensed"'; ctx.fillText(st.v, rx + 20, ry + 90);
+          });
+        }
+      }
+
+      // 5. MINIMAL LINE ART
+      else if (layoutId === 5) {
+        ctx.fillStyle = '#080808'; ctx.fillRect(0, 0, 1080, 1080);
+        drawRouteOnCanvasCtx(ctx, points, 140, 140, 800, 600, '#ffffff', 8);
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 32px "Roboto Condensed"'; ctx.textAlign = 'center';
+        ctx.fillText('放浪 • FOR THE RESTLESS', 540, 800);
+
+        if (shareElementToggles.data) {
+          ctx.fillStyle = '#666666'; ctx.font = '700 22px "Roboto Condensed"';
+          ctx.fillText(`${ride.distance}   |   ${ride.time}   |   AVG ${avgSpdStr}   |   ELE ${eleGainStr}`, 540, 860);
+          ctx.fillText(`MAX SPD ${maxSpdStr}   |   MAX GRADE ${gradeStr}`, 540, 900);
+        }
+      }
+
+      // 6. ENDURANCE BADGE GRAPHIC
+      else if (layoutId === 6) {
+        ctx.fillStyle = '#0d0d0d'; ctx.fillRect(0, 0, 1080, 1080);
+
+        ctx.beginPath(); ctx.arc(540, 380, 260, 0, Math.PI * 2); ctx.fillStyle = '#141414'; ctx.fill();
+        ctx.strokeStyle = '#30d158'; ctx.lineWidth = 4; ctx.stroke();
+
+        drawRouteOnCanvasCtx(ctx, points, 340, 180, 400, 400, '#30d158', 10);
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 36px "Roboto Condensed"'; ctx.textAlign = 'center';
+        ctx.fillText('ENDURANCE FINISHER', 540, 710);
+
+        if (shareElementToggles.data) {
+          ctx.fillStyle = '#30d158'; ctx.font = '800 68px "Roboto Condensed"';
+          ctx.fillText(ride.distance, 540, 800);
+
+          ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed"';
+          ctx.fillText(`TIME: ${ride.time}   •   AVG: ${avgSpdStr}`, 540, 870);
+          ctx.fillText(`MAX SPD: ${maxSpdStr}   •   ELE: ${eleGainStr}   •   GRADE: ${gradeStr}`, 540, 920);
+        }
       }
 
       return canvas;
     }
 
+    async function renderAllShareLayoutPreviews() {
+      for (let i = 1; i <= 6; i++) {
+        const previewCanvas = document.getElementById(`canvasPreview${i}`);
+        if (previewCanvas) {
+          const fullCanvas = await generateArtisticCanvas(i);
+          const pCtx = previewCanvas.getContext('2d');
+          pCtx.clearRect(0, 0, 540, 540);
+          pCtx.drawImage(fullCanvas, 0, 0, 540, 540);
+        }
+      }
+    }
+
     async function exportAndDownloadPng(layoutId) {
-      const canvas = await generateExportCanvas(layoutId);
+      const canvas = await generateArtisticCanvas(layoutId);
       canvas.toBlob((blob) => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.download = `HoroRide_Layout${layoutId}_${new Date().toISOString().split('T')[0]}.png`;
+        link.download = `HoroRide_ArtisticLayout${layoutId}_${new Date().toISOString().split('T')[0]}.png`;
         link.href = url;
         document.body.appendChild(link);
         link.click();
@@ -1337,7 +1400,7 @@
     }
 
     async function exportAndNativeShare() {
-      const canvas = await generateExportCanvas(1);
+      const canvas = await generateArtisticCanvas(1);
       canvas.toBlob(async (blob) => {
         const file = new File([blob], 'horo_ride.png', { type: 'image/png' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -1352,12 +1415,15 @@
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
 
-    function shareToInstagram() {
-      // Attempt native Instagram app deep link, fallback to web
-      window.location.href = 'instagram://app';
+    async function shareToInstagram() {
+      await exportAndDownloadPng(1);
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const instagramStoryUrl = isIOS ? 'instagram://story-camera' : 'intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end';
+      
       setTimeout(() => {
-        window.open('https://www.instagram.com/', '_blank');
-      }, 800);
+        window.location.href = instagramStoryUrl;
+        setTimeout(() => { window.open('https://www.instagram.com/', '_blank'); }, 1200);
+      }, 500);
     }
 
     function confirmAndExecuteReset() {
@@ -1476,10 +1542,6 @@
       document.getElementById('detailMaxSpeed').innerHTML = `${maxSpdConverted.toFixed(1)} <span>${isMetric ? 'km/h' : 'mph'}</span>`;
       document.getElementById('detailEleGain').innerHTML = `${Math.round(eleGainConverted)} <span>${isMetric ? 'm' : 'ft'}</span>`;
       document.getElementById('detailMaxGrade').innerHTML = `${(ride.maxGradePercent || 0).toFixed(1)} <span>%</span>`;
-
-      // Update live preview elements inside share menu
-      document.querySelectorAll('.sharePrevDistVal').forEach(el => el.innerText = ride.distance);
-      document.querySelectorAll('.sharePrevTimeVal').forEach(el => el.innerText = ride.time);
 
       document.getElementById('fullscreenMenu').classList.remove('active');
       document.getElementById('rideDetailView').classList.add('active');

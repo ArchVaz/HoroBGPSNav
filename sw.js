@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v46-6layouts-officialsvgs';
+const CACHE_NAME = 'horo-v47-artistic-story-layouts';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
