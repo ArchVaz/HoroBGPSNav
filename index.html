@@ -133,7 +133,7 @@
     }
 
     .menu-bottom-bar {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
       background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 6px; flex-shrink: 0;
     }
 
@@ -172,14 +172,12 @@
     .tab-content { display: none; flex-direction: column; gap: 6px; overflow-y: auto; flex: 1; min-height: 0; }
     .tab-content.active { display: flex; }
 
-    /* Compact Preferences Layout (No White Divider Lines) */
     .pref-row {
       display: flex; align-items: center; justify-content: space-between;
       padding: 6px 8px; background: #0a0a0a; border-radius: 6px; border: 1px solid var(--border-subtle);
     }
     .pref-label { font-size: 11px; font-weight: 700; color: var(--text-white); text-align: center; }
 
-    /* Compact Tile Cards */
     .tiles-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-flow: dense; gap: 5px; overflow-y: auto; flex: 1; padding-right: 2px;
     }
@@ -196,7 +194,7 @@
     .unit-opt { padding: 4px 8px; font-size: 10px; font-weight: 700; color: var(--text-dim); cursor: pointer; background: none; border: none; }
     .unit-opt.active { background: #222; color: #ffffff !important; }
 
-    /* History Cards */
+    /* Past Rides History Cards */
     .history-item { 
       background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer;
     }
@@ -252,13 +250,13 @@
     }
     body.theme-sun .leaflet-tile { filter: none !important; }
 
-    /* Fullscreen Nav View with Floating Search Bar & Dropdown */
+    /* Fullscreen Nav View with North-Up Locked Map & Dynamic City Search */
     .nav-map-container {
       flex: 1; position: relative; border: 1px solid var(--border-subtle); border-radius: 8px; overflow: hidden; min-height: 0; width: 100%; background: #000000;
     }
 
     #navMap {
-      width: 100%; height: 100%; background: #0d0d0d; border-radius: 8px; will-change: transform; transform-style: preserve-3d; backface-visibility: hidden; transition: transform 0.15s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+      width: 100%; height: 100%; background: #0d0d0d; border-radius: 8px;
     }
 
     .nav-user-heading-icon {
@@ -296,7 +294,7 @@
     }
     .dropdown-item:hover { background: #1a1a1a; border-color: var(--accent-green); }
 
-    /* Controls Grid (Play/Pause Combined Button) */
+    /* Controls Grid */
     .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
     .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 10px 0; font-size: 12px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; }
     
@@ -375,7 +373,7 @@
     </div>
   </div>
 
-  <!-- Full-Screen Menu with 3 Bottom Tabs -->
+  <!-- Full-Screen Menu with Restored Past Rides Tab -->
   <div id="fullscreenMenu" class="fullscreen-menu">
     <div class="modal-header">
       <div class="modal-title" id="menuHeaderTitle">TILES & PREFERENCES</div>
@@ -414,16 +412,17 @@
         </div>
       </div>
 
-      <!-- HISTORY TAB CONTENT -->
+      <!-- PAST RIDES TAB CONTENT -->
       <div id="menuTabHistory" class="tab-content">
         <div id="historyContainer" style="display: flex; flex-direction: column; gap: 6px;"></div>
       </div>
     </div>
 
-    <!-- Menu Bottom Navigation Bar (3 Tabs) -->
-    <div class="menu-bottom-bar">
+    <!-- Menu Bottom Navigation Bar (Home, Nav, Past Rides, Tiles) -->
+    <div class="menu-bottom-bar" style="grid-template-columns: repeat(4, 1fr);">
       <button id="menuNavHome" class="menu-nav-tab" onclick="switchMenuModeFromBottom('home')">Home</button>
       <button id="menuNavNav" class="menu-nav-tab" onclick="switchMenuModeFromBottom('nav')">Nav</button>
+      <button id="menuNavHistory" class="menu-nav-tab" onclick="switchMenuTab('history')">Past Rides</button>
       <button id="menuNavTiles" class="menu-nav-tab active" onclick="switchMenuTab('tiles')">Tiles</button>
     </div>
   </div>
@@ -455,19 +454,17 @@
       <div id="card-map" class="card"><div id="map"></div></div>
     </div>
 
-    <!-- NAV TAB (Fullscreen Nav with Where to? Floating Search & Live Dropdown) -->
+    <!-- NAV TAB (North-Up Locked Map & Dynamic City Search) -->
     <div id="viewNav" class="view-pane">
       <div class="nav-map-container">
-        <!-- Floating Where to? Search Bar & Live Dropdown List -->
         <div id="routePlannerSearchBox" class="route-planner-box">
           <div class="search-row">
-            <input type="text" id="destSearchInput" class="search-input" placeholder="Where to?">
+            <input type="text" id="destSearchInput" class="search-input" placeholder="Where to nearby?">
             <button id="btnSearchRoute" class="search-btn">SEARCH</button>
           </div>
           <div id="searchResultsDropdown" class="search-results-dropdown"></div>
         </div>
 
-        <!-- Turn-by-Turn Banner (Appears after route selection & start) -->
         <div id="turnBanner" class="turn-banner" style="display: none;">
           <div id="turnIcon" class="turn-icon">➔</div>
           <div class="turn-info">
@@ -482,7 +479,7 @@
 
   </div>
 
-  <!-- Controls (Combined Play/Pause Button) -->
+  <!-- Controls -->
   <div class="controls-grid">
     <button id="playPauseBtn" class="btn">▶</button>
     <button id="stopBtn" class="btn btn-stop"><div id="stopFill" class="fill-overlay"></div><span class="btn-text">STOP</span></button>
@@ -589,10 +586,28 @@
       loadLayoutPreferences();
       loadRideHistory();
       initMap();
+      fetchInitialUserLocation();
       loadOfflineRoute();
       setupHoldToStop();
       requestWakeLock();
     });
+
+    function fetchInitialUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+            lastPosition = { latitude: lat, longitude: lon, altitude: pos.coords.altitude, time: Date.now() };
+            if (map) map.setView([lat, lon], 15);
+            if (navMap) navMap.setView([lat, lon], 16);
+            detectCurrentCityName(lat, lon);
+          },
+          () => {},
+          { enableHighAccuracy: true, timeout: 5000 }
+        );
+      }
+    }
 
     function isNightTime() {
       const hrs = new Date().getHours();
@@ -647,7 +662,7 @@
       } else if (tabName === 'history') {
         document.getElementById('menuTabHistory').classList.add('active');
         document.getElementById('menuNavHistory').classList.add('active');
-        document.getElementById('menuHeaderTitle').innerText = 'RIDE HISTORY';
+        document.getElementById('menuHeaderTitle').innerText = 'PAST RIDES';
         renderRideHistory();
       }
     }
@@ -795,7 +810,8 @@
       }
 
       if (!navMap) {
-        navMap = L.map('navMap', { zoomControl: false, attributionControl: false, touchZoom: 'rotate' }).setView([20, 0], 2);
+        // Strict North-Up Map initialization
+        navMap = L.map('navMap', { zoomControl: false, attributionControl: false, tap: true }).setView([20, 0], 2);
         L.tileLayer(OSM_TILE_URL, { maxZoom: 19 }).addTo(navMap);
         navRoutePolyline = L.polyline([], { color: trackColor, weight: 8 }).addTo(navMap);
       }
@@ -822,10 +838,9 @@
       stopBtn.addEventListener('touchstart', startHold, { passive: false }); stopBtn.addEventListener('touchend', cancelHold);
     }
 
-    // --- CITY-AWARE LIVE SEARCH & DROPDOWN ---
+    // --- DYNAMIC USER CITY DETECTION & DYNAMIC SEARCH ---
 
     async function detectCurrentCityName(lat, lon) {
-      if (currentCityName) return currentCityName;
       try {
         const revUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`;
         const res = await fetch(revUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
@@ -858,16 +873,26 @@
         );
       }
 
-      const userLat = lastPosition ? lastPosition.latitude : 32.5149;
-      const userLon = lastPosition ? lastPosition.longitude : -117.0382;
+      const userLat = lastPosition ? lastPosition.latitude : 0;
+      const userLon = lastPosition ? lastPosition.longitude : 0;
 
       try {
-        const boundRadius = 0.25;
+        // Strict bounding box around exact user location
+        const boundRadius = 0.15;
         const viewbox = `${userLon - boundRadius},${userLat + boundRadius},${userLon + boundRadius},${userLat - boundRadius}`;
-        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=6&bounded=1&addressdetails=1&extratags=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
+        
+        const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=8&bounded=1&addressdetails=1&extratags=1&viewbox=${viewbox}&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(input)}`;
         
         const res = await fetch(geoUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
-        const data = await res.json();
+        let data = await res.json();
+
+        // Fallback search appending current detected city name
+        if ((!data || data.length === 0) && currentCityName) {
+          const cityQuery = `${input} ${currentCityName}`;
+          const fbUrl = `https://nominatim.openstreetmap.org/search?format=json&limit=6&addressdetails=1&lat=${userLat}&lon=${userLon}&q=${encodeURIComponent(cityQuery)}`;
+          const fbRes = await fetch(fbUrl, { headers: { 'User-Agent': 'HoroBikeNavApp/1.0' } });
+          data = await fbRes.json();
+        }
 
         if (!data || data.length === 0) {
           dropdown.classList.remove('active');
@@ -897,8 +922,6 @@
     }
 
     async function searchDestinationRoute() {
-      const input = document.getElementById('destSearchInput').value.trim();
-      if (!input) return;
       handleLiveSearchInput();
     }
 
@@ -909,8 +932,8 @@
       document.getElementById('destSearchInput').value = title;
 
       try {
-        const startLat = lastPosition ? lastPosition.latitude : 20.0;
-        const startLon = lastPosition ? lastPosition.longitude : 0.0;
+        const startLat = lastPosition ? lastPosition.latitude : 0;
+        const startLon = lastPosition ? lastPosition.longitude : 0;
 
         const osrmUrl = `https://router.project-osrm.org/route/v1/biking/${startLon},${startLat};${destLon},${destLat}?steps=true&overview=full&geometries=geojson`;
         const routeRes = await fetch(osrmUrl);
@@ -978,7 +1001,7 @@
       return '➔';
     }
 
-    // --- INTEGRATED PLAY/PAUSE CONTROLS & AUTO-PAUSE ---
+    // --- PLAY/PAUSE CONTROLS & AUTO-PAUSE ---
 
     function togglePlayPauseRide() {
       if (rideState === 'RUNNING' || rideState === 'AUTO-PAUSED') {
@@ -1083,7 +1106,6 @@
       const lat = pos.coords.latitude;
       const lon = pos.coords.longitude;
       const alt = pos.coords.altitude || (lastPosition ? lastPosition.altitude : null);
-      const heading = pos.coords.heading;
       const rawSpeed = pos.coords.speed;
       const accuracy = pos.coords.accuracy || 0;
 
@@ -1173,13 +1195,6 @@
         } else {
           navUserMarker.setLatLng([lat, lon]);
           if (rideState === 'RUNNING') navMap.panTo([lat, lon]);
-        }
-
-        if (heading !== null && heading !== undefined && !isNaN(heading)) {
-          const navMapEl = document.getElementById('navMap');
-          if (navMapEl) {
-            navMapEl.style.transform = `scale(1.4) rotate(${-heading}deg)`;
-          }
         }
       }
 
@@ -1293,7 +1308,7 @@
       const container = document.getElementById('historyContainer');
       container.innerHTML = '';
       if (rideHistory.length === 0) { 
-        container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 20px 0;">No saved rides found.</div>`; 
+        container.innerHTML = `<div style="font-size: 11px; color: var(--text-dim); text-align: center; padding: 20px 0;">No saved past rides found.</div>`; 
         return; 
       }
 
