@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v58-android-pwa-and-nav-fields';
+const CACHE_NAME = 'horo-v59-android-pwa-and-nav-fields';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
