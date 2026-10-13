@@ -330,7 +330,7 @@
       </div>
     </div>
 
-    <!-- Horizontal Side-to-Side Full Screen Swiping Track -->
+    <!-- Horizontal Side-to-Side Full Screen Swiping Track (7 Layouts) -->
     <div class="horizontal-cards-track" id="horizontalTrack">
       
       <div class="share-fullscreen-card" data-layout="1">
@@ -351,6 +351,21 @@
       <div class="share-fullscreen-card" data-layout="4">
         <canvas id="canvasPreview4" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
         <div class="card-number-overlay">004</div>
+      </div>
+
+      <div class="share-fullscreen-card" data-layout="5">
+        <canvas id="canvasPreview5" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
+        <div class="card-number-overlay">005</div>
+      </div>
+
+      <div class="share-fullscreen-card" data-layout="6">
+        <canvas id="canvasPreview6" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
+        <div class="card-number-overlay">006</div>
+      </div>
+
+      <div class="share-fullscreen-card" data-layout="7">
+        <canvas id="canvasPreview7" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
+        <div class="card-number-overlay">007</div>
       </div>
 
     </div>
@@ -1161,7 +1176,7 @@
       document.getElementById('timerVal').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    // --- FULL-SCREEN CANVAS ENGINE (NO CALORIES) ---
+    // --- FULL-SCREEN CANVAS ENGINE WITH ALL 7 OVERLAY LAYOUTS ---
 
     function openShareModal() {
       document.getElementById('shareModal').classList.add('active');
@@ -1314,7 +1329,6 @@
         const colWidth = 280;
         let startX = 100;
 
-        // Column 1
         ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
         ctx.fillText('Distance', startX, 1550);
         ctx.fillStyle = '#ffffff'; ctx.font = '800 42px "Roboto Condensed", sans-serif';
@@ -1325,7 +1339,6 @@
         ctx.fillStyle = '#ffffff'; ctx.font = '800 42px "Roboto Condensed", sans-serif';
         ctx.fillText(avgSpdStr, startX, 1710);
 
-        // Column 2
         startX += colWidth + 50;
         ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
         ctx.fillText('Elev Gain', startX, 1550);
@@ -1337,7 +1350,6 @@
         ctx.fillStyle = '#ffffff'; ctx.font = '800 42px "Roboto Condensed", sans-serif';
         ctx.fillText(maxSpdStr, startX, 1710);
 
-        // Column 3
         startX += colWidth + 50;
         ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
         ctx.fillText('Time', startX, 1550);
@@ -1345,11 +1357,88 @@
         ctx.fillText(ride.time, startX, 1600);
       }
 
+      // Layout 005: Route Trace Focus + Centered Vertical Stack[cite: 14]
+      else if (layoutIdx === 5) {
+        drawRouteOnCanvasCtx(ctx, points, 140, 320, 800, 600, primaryColor, 16);
+        drawBrandLogoOnCanvas(ctx, 540, 1020, 50, 'center');
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText('Distance', 540, 1140);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 64px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.distance, 540, 1210);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.fillText('Avg Speed', 540, 1310);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 64px "Roboto Condensed", sans-serif';
+        ctx.fillText(avgSpdStr, 540, 1380);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.fillText('Time', 540, 1480);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 64px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.time, 540, 1550);
+      }
+
+      // Layout 006: Minimalist Bottom Column Bar Overlay[cite: 15]
+      else if (layoutIdx === 6) {
+        drawBrandLogoOnCanvas(ctx, 100, 1380, 54, 'left');
+
+        const colWidth = 270;
+        let startX = 100;
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
+        ctx.fillText('Distance', startX, 1520);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.distance, startX, 1575);
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
+        ctx.fillText('Avg Speed', startX, 1640);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
+        ctx.fillText(avgSpdStr, startX, 1695);
+
+        startX += colWidth + 40;
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
+        ctx.fillText('Elev Gain', startX, 1520);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
+        ctx.fillText(eleGainStr, startX, 1575);
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
+        ctx.fillText('Max Speed', startX, 1640);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
+        ctx.fillText(maxSpdStr, startX, 1695);
+
+        startX += colWidth + 40;
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
+        ctx.fillText('Time', startX, 1520);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.time, startX, 1575);
+      }
+
+      // Layout 007: Bold GPS Route Overlay with Bottom Stats[cite: 16]
+      else if (layoutIdx === 7) {
+        drawRouteOnCanvasCtx(ctx, points, 100, 180, 880, 1000, primaryColor, 18);
+        drawBrandLogoOnCanvas(ctx, 100, 1320, 52, 'left');
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
+        ctx.fillText('Distance', 100, 1440);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.distance, 100, 1500);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
+        ctx.fillText('Time', 460, 1440);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.time, 460, 1500);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
+        ctx.fillText('Elev Gain', 780, 1440);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed", sans-serif';
+        ctx.fillText(eleGainStr, 780, 1500);
+      }
+
       return canvas;
     }
 
     async function renderAllShareLayoutPreviews() {
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 7; i++) {
         const previewCanvas = document.getElementById(`canvasPreview${i}`);
         if (previewCanvas) {
           const fullCanvas = await generateFullCanvas(i);
