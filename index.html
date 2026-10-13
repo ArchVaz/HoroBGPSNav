@@ -238,25 +238,28 @@
     .btn-stop .fill-overlay { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: rgba(255, 69, 58, 0.85); z-index: 1; pointer-events: none; transition: width 0.05s linear; }
     .btn-stop .btn-text { position: relative; z-index: 2; }
 
-    /* Share Modal Fullscreen */
+    /* Share Modal Fullscreen with Sticky Header Action Buttons */
     .share-modal-fullscreen {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-black); z-index: 999999; display: none; flex-direction: column; padding: 12px; overflow-y: auto;
     }
     .share-modal-fullscreen.active { display: flex !important; }
+
+    .sticky-share-action-bar {
+      position: sticky; top: 0; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px);
+      z-index: 10; padding: 8px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 12px;
+      display: flex; justify-content: center; align-items: center; gap: 20px; flex-shrink: 0;
+    }
     
     .share-layout-card {
-      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 360px; margin: 8px auto;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.8); cursor: pointer; transition: border-color 0.2s;
+      background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 8px;
+      display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 240px; margin: 4px auto 12px auto;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.8); cursor: pointer; transition: border-color 0.2s, transform 0.2s;
     }
-    .share-layout-card:hover { border-color: var(--accent-green); }
-    .share-toggle-row { display: flex; gap: 6px; width: 100%; justify-content: center; margin-bottom: 4px; flex-wrap: wrap; }
-    .share-toggle-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-dim); padding: 5px 10px; font-size: 9px; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
-    .share-toggle-btn.active { background: #222; color: var(--accent-green); border-color: var(--accent-green); }
+    .share-layout-card:hover { border-color: var(--accent-green); transform: translateY(-2px); }
 
-    .canvas-preview-render { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border-subtle); background: transparent; }
+    .canvas-preview-render { width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--border-subtle); background: transparent; }
 
-    .social-share-row { display: flex; gap: 16px; justify-content: center; align-items: center; margin-top: 10px; width: 100%; }
-    .social-icon-btn { background: #141414; border: 1px solid var(--border-subtle); border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .social-icon-btn { background: #141414; border: 1px solid var(--border-subtle); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
     .social-icon-btn:hover { border-color: var(--accent-green); background: #1f1f1f; }
   </style>
 </head>
@@ -288,63 +291,54 @@
       <button class="close-btn" id="shareCloseBtn">✕</button>
     </div>
 
-    <div style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 30px; align-items: center;">
-      <!-- Independent Toggles -->
-      <div class="share-toggle-row">
-        <button id="toggleShareMapBg" class="share-toggle-btn active" onclick="toggleShareBgMode()">Dark Card Canvas</button>
-        <button id="toggleShareData" class="share-toggle-btn active" onclick="toggleShareElement('data')">Data Stats</button>
-      </div>
+    <!-- Sticky Header Bar for Share Actions -->
+    <div class="sticky-share-action-bar">
+      <!-- Instagram Story Button -->
+      <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram Story">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+      </button>
 
-      <div style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;">Tap any layout to download transparent PNG</div>
+      <!-- Download Transparent PNG Button -->
+      <button class="social-icon-btn" onclick="exportAndDownloadPng(3)" title="Download PNG">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+      </button>
+    </div>
 
-      <!-- 5 Reference Layout Previews -->
+    <div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 30px; align-items: center;">
+      <div style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;">Tap any layout to download PNG</div>
+
+      <!-- 5 Compact Preview Layout Cards -->
       <div class="share-layout-card" onclick="exportAndDownloadPng(1)">
-        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">01 • PURE ROUTE VECTOR</div>
+        <div style="font-size: 8px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">01 • PURE ROUTE VECTOR</div>
         <canvas id="canvasPreview1" class="canvas-preview-render" width="540" height="960"></canvas>
       </div>
 
       <div class="share-layout-card" onclick="exportAndDownloadPng(2)">
-        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">02 • EXPANDED ROUTE ART</div>
+        <div style="font-size: 8px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">02 • EXPANDED ROUTE ART</div>
         <canvas id="canvasPreview2" class="canvas-preview-render" width="540" height="960"></canvas>
       </div>
 
       <div class="share-layout-card" onclick="exportAndDownloadPng(3)">
-        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">03 • 3-COLUMN OVERLAY</div>
+        <div style="font-size: 8px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">03 • 3-COLUMN OVERLAY</div>
         <canvas id="canvasPreview3" class="canvas-preview-render" width="540" height="960"></canvas>
       </div>
 
       <div class="share-layout-card" onclick="exportAndDownloadPng(4)">
-        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">04 • 6-GRID TELEMETRY OVERLAY</div>
+        <div style="font-size: 8px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">04 • 6-GRID TELEMETRY OVERLAY</div>
         <canvas id="canvasPreview4" class="canvas-preview-render" width="540" height="960"></canvas>
       </div>
 
       <div class="share-layout-card" onclick="exportAndDownloadPng(5)">
-        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px;">05 • WATERMARK FOOTER</div>
+        <div style="font-size: 8px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">05 • WATERMARK FOOTER</div>
         <canvas id="canvasPreview5" class="canvas-preview-render" width="540" height="960"></canvas>
-      </div>
-
-      <!-- Official Inline SVG Action Buttons -->
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 14px;">
-        <div style="font-size: 10px; color: var(--text-dim); font-weight: 700; text-transform: uppercase;">Direct Share Options</div>
-        <div class="social-share-row">
-          <!-- Instagram Story Official Button -->
-          <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram Story">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-          </button>
-
-          <!-- Download Transparent PNG Icon -->
-          <button class="social-icon-btn" onclick="exportAndDownloadPng(3)" title="Download PNG">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-          </button>
-        </div>
       </div>
     </div>
   </div>
@@ -545,9 +539,6 @@
 
     let currentCityName = '';
     let searchAbortController = null;
-
-    let shareMapBgMode = true; // true = dark card canvas, false = pure transparent
-    let shareElementToggles = { data: true };
 
     let tileVisibilityState = {
       'card-speed': true,
@@ -1157,26 +1148,10 @@
       document.getElementById('timerVal').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    // --- ACCURATE PHOTO-MATCHING TRANSPARENT LAYOUT ENGINE ---
+    // --- ACCURATE APP-MATCHING GREEN TRANSPARENT LAYOUT ENGINE ---
 
     function openShareModal() {
       document.getElementById('shareModal').classList.add('active');
-      renderAllShareLayoutPreviews();
-    }
-
-    function toggleShareBgMode() {
-      shareMapBgMode = !shareMapBgMode;
-      const btn = document.getElementById('toggleShareMapBg');
-      if (shareMapBgMode) { btn.classList.add('active'); btn.innerText = 'Dark Card Canvas'; }
-      else { btn.classList.remove('active'); btn.innerText = 'Pure Transparent'; }
-      renderAllShareLayoutPreviews();
-    }
-
-    function toggleShareElement(type) {
-      shareElementToggles[type] = !shareElementToggles[type];
-      const btn = document.getElementById(`toggleShare${type.charAt(0).toUpperCase() + type.slice(1)}`);
-      if (shareElementToggles[type]) btn.classList.add('active');
-      else btn.classList.remove('active');
       renderAllShareLayoutPreviews();
     }
 
@@ -1198,7 +1173,7 @@
       points.forEach((pt, i) => {
         const px = x + ((pt.lon - minLon) / lonSpan) * width;
         const py = y + ((maxLat - pt.lat) / latSpan) * height;
-        if (i === 0) ctx.moveTo(px, px ? py : py); else ctx.lineTo(px, py);
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
       });
       ctx.stroke();
     }
@@ -1222,18 +1197,11 @@
 
     async function generateReferenceCanvas(layoutId) {
       const canvas = document.createElement('canvas');
-      canvas.width = 1080; canvas.height = 1920; // Exact 9:16 Story Aspect
+      canvas.width = 1080; canvas.height = 1920; // 9:16 Story Aspect Ratio
       const ctx = canvas.getContext('2d');
 
-      // 100% Clear transparent canvas initialization
+      // Fully Transparent Canvas Context
       ctx.clearRect(0, 0, 1080, 1920);
-
-      // Dark translucent background canvas card if toggle enabled
-      if (shareMapBgMode) {
-        ctx.fillStyle = 'rgba(10, 10, 10, 0.88)';
-        ctx.beginPath(); ctx.roundRect(40, 40, 1000, 1840, 36); ctx.fill();
-        ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 3; ctx.stroke();
-      }
 
       const ride = rideHistory.find(r => r.id === selectedDetailRideId) || {
         date: new Date().toISOString().split('T')[0],
@@ -1247,88 +1215,79 @@
       };
 
       const points = ride.points && ride.points.length > 1 ? ride.points : gpxTrackPoints;
-      const trackColor = '#ff453a'; // Vibrant high-vis route color matching photo references
+      const appGreenTrackColor = '#30d158'; // Signature App Green Accent
 
       const avgSpdStr = isMetric ? `${((ride.avgSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.avgSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
       const maxSpdStr = isMetric ? `${((ride.maxSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.maxSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
       const eleGainStr = isMetric ? `${Math.round(ride.totalEleGainMeters || 0)} m` : `${Math.round((ride.totalEleGainMeters || 0) * 3.28084)} ft`;
 
-      // Layout 1: Centered Pure Route Vector (Reference Photo 1)
+      // Layout 1: Centered Pure Route Vector
       if (layoutId === 1) {
-        drawRouteOnCanvasCtx(ctx, points, 160, 620, 760, 680, trackColor, 16);
+        drawRouteOnCanvasCtx(ctx, points, 160, 620, 760, 680, appGreenTrackColor, 16);
       }
 
-      // Layout 2: Expanded Large Center Route (Reference Photo 2)
+      // Layout 2: Expanded Large Center Route
       else if (layoutId === 2) {
-        drawRouteOnCanvasCtx(ctx, points, 100, 480, 880, 960, trackColor, 20);
+        drawRouteOnCanvasCtx(ctx, points, 100, 480, 880, 960, appGreenTrackColor, 20);
       }
 
-      // Layout 3: Horizontal 3-Column Overlay (Reference Photo 3)
+      // Layout 3: Horizontal 3-Column Overlay
       else if (layoutId === 3) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 280, 800, 520, trackColor, 14);
+        drawRouteOnCanvasCtx(ctx, points, 140, 280, 800, 520, appGreenTrackColor, 14);
         drawBrandLogoOnCanvas(ctx, 100, 920, 54, 'left');
 
-        if (shareElementToggles.data) {
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-          ctx.fillText('Distance', 100, 1030);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-          ctx.fillText(ride.distance, 100, 1095);
+        ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
+        ctx.fillText('Distance', 100, 1030);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.distance, 100, 1095);
 
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-          ctx.fillText('Elev Gain', 460, 1030);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-          ctx.fillText(eleGainStr, 460, 1095);
+        ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.fillText('Elev Gain', 460, 1030);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
+        ctx.fillText(eleGainStr, 460, 1095);
 
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-          ctx.fillText('Time', 780, 1030);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-          ctx.fillText(ride.time, 780, 1095);
-        }
+        ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.fillText('Time', 780, 1030);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.time, 780, 1095);
       }
 
-      // Layout 4: 2x3 Telemetry Grid (Reference Photo 4)
+      // Layout 4: Telemetry Overlay Grid (Calories Removed)
       else if (layoutId === 4) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 220, 800, 440, trackColor, 14);
+        drawRouteOnCanvasCtx(ctx, points, 140, 220, 800, 440, appGreenTrackColor, 14);
         drawBrandLogoOnCanvas(ctx, 100, 820, 50, 'left');
 
-        if (shareElementToggles.data) {
-          // Grid Row 1
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-          ctx.fillText('Distance', 100, 920);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-          ctx.fillText(ride.distance, 100, 980);
+        // Row 1
+        ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
+        ctx.fillText('Distance', 100, 920);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.distance, 100, 980);
 
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-          ctx.fillText('Elev Gain', 460, 920);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-          ctx.fillText(eleGainStr, 460, 980);
+        ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.fillText('Elev Gain', 460, 920);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+        ctx.fillText(eleGainStr, 460, 980);
 
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-          ctx.fillText('Cal', 780, 920);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-          ctx.fillText('813 Cal', 780, 980);
+        ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.fillText('Time', 780, 920);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.time, 780, 980);
 
-          // Grid Row 2
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-          ctx.fillText('Time', 100, 1070);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-          ctx.fillText(ride.time, 100, 1130);
+        // Row 2
+        ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.fillText('Avg Speed', 100, 1070);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+        ctx.fillText(avgSpdStr, 100, 1130);
 
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-          ctx.fillText('Speed', 460, 1070);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-          ctx.fillText(avgSpdStr, 460, 1130);
-
-          ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-          ctx.fillText('Max Speed', 780, 1070);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-          ctx.fillText(maxSpdStr, 780, 1130);
-        }
+        ctx.fillStyle = '#999999'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
+        ctx.fillText('Max Speed', 460, 1070);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
+        ctx.fillText(maxSpdStr, 460, 1130);
       }
 
-      // Layout 5: Watermark Footer (Reference Photo 5)
+      // Layout 5: Watermark Footer
       else if (layoutId === 5) {
-        drawRouteOnCanvasCtx(ctx, points, 180, 1020, 720, 560, trackColor, 16);
+        drawRouteOnCanvasCtx(ctx, points, 180, 1020, 720, 560, appGreenTrackColor, 16);
         drawBrandLogoOnCanvas(ctx, 540, 1640, 48, 'center');
       }
 
@@ -1366,7 +1325,7 @@
       canvas.toBlob(async (blob) => {
         const file = new File([blob], 'horo_ride_story.png', { type: 'image/png' });
         
-        // Native Web Share API (Triggers Instagram Story on iOS & Android)
+        // Native Web Share API (Triggers Instagram Story on Mobile)
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
