@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v62-larger-logos-clean-menu';
+const CACHE_NAME = 'horo-v63-square-tiles-white-labels';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
