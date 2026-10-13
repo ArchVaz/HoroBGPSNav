@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v54-restored-overlays-no-bike-icons';
+const CACHE_NAME = 'horo-v56-no-calories-overlays';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
