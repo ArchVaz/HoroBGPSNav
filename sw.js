@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v50-compact-sticky-green-layouts';
+const CACHE_NAME = 'horo-v51-sticky-white-text-centered-numbers';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
