@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>放浪</title>
   
+  <!-- PWA Manifest & Android Installability -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="放浪">
@@ -196,8 +200,23 @@
     }
     body.theme-sun .leaflet-tile { filter: none !important; }
 
-    .nav-map-container { flex: 1; position: relative; border: 1px solid var(--border-subtle); border-radius: 8px; overflow: hidden; min-height: 0; width: 100%; background: #000000; }
-    #navMap { width: 100%; height: 100%; background: #0d0d0d; border-radius: 8px; }
+    /* Nav Map Container & Bottom Telemetry Box Overlay */
+    .nav-map-container { flex: 1; position: relative; border: 1px solid var(--border-subtle); border-radius: 8px; overflow: hidden; min-height: 0; width: 100%; background: #000000; display: flex; flex-direction: column; }
+    #navMap { flex: 1; width: 100%; height: 100%; background: #0d0d0d; }
+
+    .nav-bottom-telemetry-bar {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: #ffffff; color: #000000;
+      border-top: 2px solid var(--accent-red); flex-shrink: 0; height: 68px;
+    }
+    .nav-bottom-card {
+      padding: 4px 10px; display: flex; flex-direction: column; justify-content: center; position: relative;
+    }
+    .nav-bottom-card:first-child { border-right: 1.5px solid var(--accent-red); }
+    .nav-bottom-label { font-size: 11px; font-weight: 700; color: #222222; text-transform: capitalize; }
+    .nav-bottom-val-row { display: flex; align-items: baseline; gap: 3px; }
+    .nav-bottom-value { font-size: 28px; font-weight: 800; line-height: 1; color: #000000; letter-spacing: -0.5px; }
+    .nav-bottom-unit { font-size: 10px; font-weight: 800; color: #000000; line-height: 0.9; text-transform: lowercase; }
 
     .nav-user-heading-icon {
       width: 24px; height: 24px; background: var(--accent-green); border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 12px var(--accent-green); position: relative; z-index: 10000;
@@ -332,42 +351,13 @@
 
     <!-- Horizontal Side-to-Side Full Screen Swiping Track (7 Layouts) -->
     <div class="horizontal-cards-track" id="horizontalTrack">
-      
-      <div class="share-fullscreen-card" data-layout="1">
-        <canvas id="canvasPreview1" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
-        <div class="card-number-overlay">001</div>
-      </div>
-
-      <div class="share-fullscreen-card" data-layout="2">
-        <canvas id="canvasPreview2" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
-        <div class="card-number-overlay">002</div>
-      </div>
-
-      <div class="share-fullscreen-card" data-layout="3">
-        <canvas id="canvasPreview3" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
-        <div class="card-number-overlay">003</div>
-      </div>
-
-      <div class="share-fullscreen-card" data-layout="4">
-        <canvas id="canvasPreview4" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
-        <div class="card-number-overlay">004</div>
-      </div>
-
-      <div class="share-fullscreen-card" data-layout="5">
-        <canvas id="canvasPreview5" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
-        <div class="card-number-overlay">005</div>
-      </div>
-
-      <div class="share-fullscreen-card" data-layout="6">
-        <canvas id="canvasPreview6" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
-        <div class="card-number-overlay">006</div>
-      </div>
-
-      <div class="share-fullscreen-card" data-layout="7">
-        <canvas id="canvasPreview7" class="canvas-fullscreen-render" width="1080" height="1920"></canvas>
-        <div class="card-number-overlay">007</div>
-      </div>
-
+      <div class="share-fullscreen-card" data-layout="1"><canvas id="canvasPreview1" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">001</div></div>
+      <div class="share-fullscreen-card" data-layout="2"><canvas id="canvasPreview2" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">002</div></div>
+      <div class="share-fullscreen-card" data-layout="3"><canvas id="canvasPreview3" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">003</div></div>
+      <div class="share-fullscreen-card" data-layout="4"><canvas id="canvasPreview4" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">004</div></div>
+      <div class="share-fullscreen-card" data-layout="5"><canvas id="canvasPreview5" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">005</div></div>
+      <div class="share-fullscreen-card" data-layout="6"><canvas id="canvasPreview6" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">006</div></div>
+      <div class="share-fullscreen-card" data-layout="7"><canvas id="canvasPreview7" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">007</div></div>
     </div>
   </div>
 
@@ -499,7 +489,7 @@
       <div id="card-map" class="card"><div id="map"></div></div>
     </div>
 
-    <!-- NAV TAB -->
+    <!-- NAV TAB WITH BOTTOM TELEMETRY BAR -->
     <div id="viewNav" class="view-pane">
       <div class="nav-map-container">
         <div id="routePlannerSearchBox" class="route-planner-box">
@@ -519,6 +509,25 @@
         </div>
 
         <div id="navMap"></div>
+
+        <!-- Dedicated Nav Telemetry Bottom Fields -->
+        <div class="nav-bottom-telemetry-bar">
+          <div class="nav-bottom-card">
+            <div class="nav-bottom-label">Speed</div>
+            <div class="nav-bottom-val-row">
+              <span id="navSpeedVal" class="nav-bottom-value">0.0</span>
+              <div id="navSpeedUnit" class="nav-bottom-unit">k<br>m<br>h</div>
+            </div>
+          </div>
+          <div class="nav-bottom-card">
+            <div class="nav-bottom-label">Distance</div>
+            <div class="nav-bottom-val-row">
+              <span id="navDistVal" class="nav-bottom-value">0.00</span>
+              <div id="navDistUnit" class="nav-bottom-unit">k<br>m</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -532,6 +541,12 @@
   </div>
 
   <script>
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js').then((reg) => reg.update()).catch(() => {});
     }
@@ -830,6 +845,10 @@
       document.getElementById('btnKm').classList.toggle('active', isMetric);
       document.getElementById('btnMi').classList.toggle('active', !isMetric);
       document.getElementById('unitLabel').innerText = isMetric ? 'KM/H' : 'MPH';
+      
+      document.getElementById('navSpeedUnit').innerHTML = isMetric ? 'k<br>m<br>h' : 'm<br>p<br>h';
+      document.getElementById('navDistUnit').innerHTML = isMetric ? 'k<br>m' : 'm<br>i';
+
       updateDisplay({ speed: smoothedSpeedMps, altitude: lastPosition ? lastPosition.altitude : null });
     }
 
@@ -1168,6 +1187,10 @@
       document.getElementById('gradeVal').innerHTML = `${currentGrade.toFixed(1)} <span>%</span>`;
       document.getElementById('eleGainVal').innerHTML = `${Math.round(eleGain)} <span>${isMetric ? 'm' : 'ft'}</span>`;
       document.getElementById('altVal').innerHTML = `${alt !== '--' ? Math.round(alt) : '--'} <span>${isMetric ? 'm' : 'ft'}</span>`;
+
+      // Update Nav Bottom Telemetry Bar
+      document.getElementById('navSpeedVal').innerText = currSpeed.toFixed(1);
+      document.getElementById('navDistVal').innerText = dist.toFixed(2);
     }
 
     function updateTimerDisplay() {
@@ -1242,13 +1265,13 @@
       };
 
       const points = ride.points && ride.points.length > 1 ? ride.points : gpxTrackPoints;
-      const primaryColor = '#30d158'; // Signature App Green Accent
+      const primaryColor = '#30d158';
 
       const avgSpdStr = isMetric ? `${((ride.avgSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.avgSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
       const maxSpdStr = isMetric ? `${((ride.maxSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.maxSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
       const eleGainStr = isMetric ? `${Math.round(ride.totalEleGainMeters || 0)} m` : `${Math.round((ride.totalEleGainMeters || 0) * 3.28084)} ft`;
 
-      // Layout 001: Horizontal 3-Column Overlay
+      // Layout 001
       if (layoutIdx === 1) {
         drawRouteOnCanvasCtx(ctx, points, 140, 280, 800, 520, primaryColor, 14);
         drawBrandLogoOnCanvas(ctx, 100, 920, 54, 'left');
@@ -1269,7 +1292,7 @@
         ctx.fillText(ride.time, 780, 1095);
       }
 
-      // Layout 002: Dual Row Telemetry Grid
+      // Layout 002
       else if (layoutIdx === 2) {
         drawRouteOnCanvasCtx(ctx, points, 140, 220, 800, 440, primaryColor, 14);
         drawBrandLogoOnCanvas(ctx, 100, 820, 50, 'left');
@@ -1300,7 +1323,7 @@
         ctx.fillText(maxSpdStr, 460, 1130);
       }
 
-      // Layout 003: Vertical Telemetry Stats Stack (Without Map, No Calories)
+      // Layout 003
       else if (layoutIdx === 3) {
         drawBrandLogoOnCanvas(ctx, 540, 280, 48, 'center');
 
@@ -1322,7 +1345,7 @@
         });
       }
 
-      // Layout 004: Bottom Horizontal Telemetry Bar (No Calories)
+      // Layout 004
       else if (layoutIdx === 4) {
         drawBrandLogoOnCanvas(ctx, 100, 1420, 52, 'left');
 
@@ -1357,7 +1380,7 @@
         ctx.fillText(ride.time, startX, 1600);
       }
 
-      // Layout 005: Route Trace Focus + Centered Vertical Stack[cite: 14]
+      // Layout 005[cite: 14]
       else if (layoutIdx === 5) {
         drawRouteOnCanvasCtx(ctx, points, 140, 320, 800, 600, primaryColor, 16);
         drawBrandLogoOnCanvas(ctx, 540, 1020, 50, 'center');
@@ -1378,7 +1401,7 @@
         ctx.fillText(ride.time, 540, 1550);
       }
 
-      // Layout 006: Minimalist Bottom Column Bar Overlay[cite: 15]
+      // Layout 006[cite: 15]
       else if (layoutIdx === 6) {
         drawBrandLogoOnCanvas(ctx, 100, 1380, 54, 'left');
 
@@ -1413,7 +1436,7 @@
         ctx.fillText(ride.time, startX, 1575);
       }
 
-      // Layout 007: Bold GPS Route Overlay with Bottom Stats[cite: 16]
+      // Layout 007[cite: 16]
       else if (layoutIdx === 7) {
         drawRouteOnCanvasCtx(ctx, points, 100, 180, 880, 1000, primaryColor, 18);
         drawBrandLogoOnCanvas(ctx, 100, 1320, 52, 'left');
@@ -1512,6 +1535,10 @@
       document.getElementById('gradeVal').innerHTML = `0.0 <span>%</span>`;
       document.getElementById('eleGainVal').innerHTML = `0 <span>${isMetric ? 'm' : 'ft'}</span>`;
       document.getElementById('altVal').innerHTML = `-- <span>${isMetric ? 'm' : 'ft'}</span>`;
+      
+      document.getElementById('navSpeedVal').innerText = "0.0";
+      document.getElementById('navDistVal').innerText = "0.00";
+
       if (routePolyline) routePolyline.setLatLngs([]);
       if (navRoutePolyline) navRoutePolyline.setLatLngs([]);
       document.getElementById('turnBanner').style.display = 'none';
