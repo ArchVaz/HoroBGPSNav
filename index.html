@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>放浪</title>
   
-  <!-- PWA Manifest & Android/iOS Theme Meta -->
+  <!-- PWA Manifest & iOS/Android Touch Icons -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="放浪">
-  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="apple-touch-icon" href="icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,10 +36,10 @@
 
     body.theme-sun {
       --border-subtle: #444444;
-      --text-dim: #b0b0b0;
-      --accent-green: #00ff66;
-      --accent-orange: #ffcc00;
-      --accent-blue: #3399ff;
+      --text-dim: #555555;
+      --accent-green: #00bf48;
+      --accent-orange: #e09000;
+      --accent-blue: #0066cc;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
@@ -49,7 +49,7 @@
       background-color: var(--bg-black);
       color: var(--text-white);
       font-family: 'Roboto Condensed', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-      display: flex; flex-direction: column; padding: 6px; gap: 4px;
+      display: flex; flex-direction: column; padding: 4px; gap: 3px;
     }
 
     .splash-screen {
@@ -134,10 +134,10 @@
     .pref-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: #0a0a0a; border-radius: 6px; border: 1px solid var(--border-subtle); }
     .pref-label { font-size: 10px; font-weight: 700; color: var(--text-white); }
 
-    .tiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; overflow-y: auto; flex: 1; padding-right: 2px; }
+    .tiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; overflow-y: auto; flex: 1; }
     .tile-square-card {
       background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 6px;
-      padding: 6px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;
+      padding: 4px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;
       aspect-ratio: 1 / 1; width: 100%;
     }
     .tile-square-card.active { background: rgba(48, 209, 88, 0.08); border-color: var(--accent-green); }
@@ -165,50 +165,50 @@
     .ride-stat-value { font-size: 15px; font-weight: 800; color: var(--text-white); }
     .ride-stat-value span { font-size: 9px; color: var(--text-dim); }
 
-    .dashboard-container { flex: 1; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
-    .view-pane { display: none; flex-direction: column; gap: 4px; flex: 1; min-height: 0; }
+    .dashboard-container { flex: 1; display: flex; flex-direction: column; gap: 3px; min-height: 0; }
+    .view-pane { display: none; flex-direction: column; gap: 3px; flex: 1; min-height: 0; }
     .view-pane.active { display: flex; }
 
-    .grid-row { display: grid; gap: 4px; width: 100%; grid-auto-flow: dense; min-height: 0; }
+    .grid-row { display: grid; gap: 3px; width: 100%; grid-auto-flow: dense; min-height: 0; flex: 1; }
     .grid-3 { grid-template-columns: repeat(3, 1fr); }
     .grid-2 { grid-template-columns: repeat(2, 1fr); }
     .grid-1 { grid-template-columns: 1fr; }
 
-    .card { background-color: var(--card-bg); border-radius: 8px; padding: 4px 6px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; }
+    .card { background-color: var(--card-bg); border-radius: 6px; padding: 2px 4px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; flex: 1; }
     .card.hidden { display: none !important; }
 
-    .primary-metric { flex: 1.6; max-height: 25vh; min-height: 90px; padding: 2px 6px; justify-content: center; }
-    .speed-value { font-size: 112px; font-weight: 800; line-height: 0.8; letter-spacing: -2px; }
-    body.map-disabled .primary-metric { flex: 2.0; max-height: 32vh; }
-    body.map-disabled .speed-value { font-size: 135px; }
+    .primary-metric { flex: 1.8; min-height: 0; padding: 2px 4px; justify-content: center; }
+    .speed-value { font-size: 105px; font-weight: 800; line-height: 0.8; letter-spacing: -2px; }
+    body.map-disabled .primary-metric { flex: 2.2; }
+    body.map-disabled .speed-value { font-size: 125px; }
     body.theme-sun .speed-value { color: var(--accent-green); }
 
-    .metric-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 2px; }
-    .unit-label { font-size: 12px; color: var(--text-dim); font-weight: 800; margin-top: 2px; }
+    .metric-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 1px; }
+    .unit-label { font-size: 11px; color: var(--text-dim); font-weight: 800; margin-top: 1px; }
 
-    .sub-metric { text-align: center; padding: 4px; flex: 1; min-height: 52px; }
-    .sub-value { font-size: 19px; font-weight: 800; line-height: 1; }
-    .sub-value span { font-size: 10px; color: var(--text-dim); }
+    .sub-metric { text-align: center; padding: 2px; flex: 1; min-height: 0; }
+    .sub-value { font-size: 17px; font-weight: 800; line-height: 1; }
+    .sub-value span { font-size: 9px; color: var(--text-dim); }
 
-    .card-time-container { flex: 0.6; min-height: 40px; }
-    .time-display { font-size: 24px; font-weight: 800; text-align: center; line-height: 1; }
+    .card-time-container { flex: 0.6; min-height: 0; }
+    .time-display { font-size: 22px; font-weight: 800; text-align: center; line-height: 1; }
 
-    #card-map { flex: 1.1; min-height: 90px; padding: 0; overflow: hidden; }
-    #map { width: 100%; height: 100%; border-radius: 8px; background: #0d0d0d; }
+    #card-map { flex: 1.2; min-height: 0; padding: 0; overflow: hidden; }
+    #map { width: 100%; height: 100%; border-radius: 6px; background: #0d0d0d; }
 
     body:not(.theme-sun) .leaflet-tile {
       filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7) !important;
     }
     body.theme-sun .leaflet-tile { filter: none !important; }
 
-    /* Nav Map Container & Centered App-Themed Nav Bottom Bar */
-    .nav-map-container { flex: 1; position: relative; border: 1px solid var(--border-subtle); border-radius: 8px; overflow: hidden; min-height: 0; width: 100%; background: #000000; display: flex; flex-direction: column; }
+    /* Nav Map Container & Centered App-Themed Nav Bottom Bar (Day Mode Green Text Support) */
+    .nav-map-container { flex: 1; position: relative; border: 1px solid var(--border-subtle); border-radius: 6px; overflow: hidden; min-height: 0; width: 100%; background: #000000; display: flex; flex-direction: column; }
     #navMap { flex: 1; width: 100%; height: 100%; background: #0d0d0d; }
 
     .nav-bottom-telemetry-bar {
       display: grid; grid-template-columns: 1fr 1fr;
       background: #000000; color: #ffffff;
-      border-top: 1px solid var(--border-subtle); flex-shrink: 0; height: 68px;
+      border-top: 1px solid var(--border-subtle); flex-shrink: 0; height: 64px;
     }
     .nav-bottom-card {
       padding: 4px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;
@@ -216,9 +216,14 @@
     }
     .nav-bottom-card:last-child { border-right: none; }
     .nav-bottom-label { font-size: 10px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; text-align: center; }
+    body.theme-sun .nav-bottom-label { color: var(--accent-green); }
+
     .nav-bottom-val-row { display: flex; align-items: baseline; justify-content: center; gap: 4px; }
-    .nav-bottom-value { font-size: 26px; font-weight: 800; line-height: 1; color: var(--text-white); letter-spacing: -0.5px; text-align: center; }
-    .nav-bottom-unit { font-size: 10px; font-weight: 800; color: var(--text-dim); line-height: 1; text-transform: lowercase; }
+    .nav-bottom-value { font-size: 26px; font-weight: 800; line-height: 1; color: var(--text-white); letter-spacing: -0.5px; text-align: center; font-family: 'Roboto Condensed', sans-serif; }
+    body.theme-sun .nav-bottom-value { color: var(--accent-green); }
+
+    .nav-bottom-unit { font-size: 10px; font-weight: 800; color: var(--text-dim); line-height: 1; text-transform: lowercase; font-family: 'Roboto Condensed', sans-serif; text-align: center; }
+    body.theme-sun .nav-bottom-unit { color: var(--accent-green); }
 
     .nav-user-heading-icon {
       width: 24px; height: 24px; background: var(--accent-green); border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 12px var(--accent-green); position: relative; z-index: 10000;
@@ -246,8 +251,8 @@
     .dropdown-item { background: #111111; border: 1px solid var(--border-subtle); border-radius: 5px; padding: 6px 8px; font-size: 11px; color: var(--text-white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
     .dropdown-item:hover { background: #1a1a1a; border-color: var(--accent-green); }
 
-    .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
-    .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 10px 0; font-size: 14px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
+    .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: var(--text-white); padding: 8px 0; font-size: 13px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .btn.active-play { border-color: var(--accent-green) !important; color: var(--accent-green) !important; background-color: rgba(48, 209, 88, 0.1) !important; }
     
     .pause-icon-css { display: inline-flex; gap: 4px; align-items: center; justify-content: center; height: 14px; }
@@ -303,7 +308,7 @@
 
   <!-- Splash Screen -->
   <div id="splashScreen" class="splash-screen">
-    <img src="logo.png" alt="放浪" class="splash-logo">
+    <img src="icon.png" alt="放浪" class="splash-logo">
     <div class="splash-motto">FOR THE RESTLESS</div>
   </div>
 
@@ -322,13 +327,9 @@
 
   <!-- Fullscreen Horizontal Swiping Share Layouts Menu -->
   <div id="shareModal" class="share-modal-fullscreen">
-    
-    <!-- Floating Top Header -->
     <div class="floating-top-header">
       <div class="modal-title" style="letter-spacing: 1px;">EXPORT OVERLAYS</div>
-      
       <div class="floating-actions-row">
-        <!-- Instagram Story Button -->
         <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram Story">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -336,8 +337,6 @@
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
           </svg>
         </button>
-
-        <!-- Download PNG Button -->
         <button class="social-icon-btn" onclick="exportCurrentActivePng()" title="Download PNG">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -345,13 +344,10 @@
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
         </button>
-
-        <!-- Close Button -->
         <button class="close-btn" id="shareCloseBtn" style="font-size: 18px; margin-left: 4px;">✕</button>
       </div>
     </div>
 
-    <!-- Horizontal Side-to-Side Full Screen Swiping Track (7 Layouts) -->
     <div class="horizontal-cards-track" id="horizontalTrack">
       <div class="share-fullscreen-card" data-layout="1"><canvas id="canvasPreview1" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">001</div></div>
       <div class="share-fullscreen-card" data-layout="2"><canvas id="canvasPreview2" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">002</div></div>
@@ -378,11 +374,7 @@
         </svg>
       </button>
     </div>
-    
-    <div class="ride-detail-map-box">
-      <div id="rideDetailMap"></div>
-    </div>
-
+    <div class="ride-detail-map-box"><div id="rideDetailMap"></div></div>
     <div class="ride-stats-grid">
       <div class="ride-stat-card"><div class="ride-stat-label">Distance</div><div id="detailDist" class="ride-stat-value">0.0 <span>km</span></div></div>
       <div class="ride-stat-card"><div class="ride-stat-label">Elapsed Time</div><div id="detailTime" class="ride-stat-value">00:00:00</div></div>
@@ -391,7 +383,6 @@
       <div class="ride-stat-card"><div class="ride-stat-label">Elevation Gain</div><div id="detailEleGain" class="ride-stat-value">0 <span>m</span></div></div>
       <div class="ride-stat-card"><div class="ride-stat-label">Max Grade</div><div id="detailMaxGrade" class="ride-stat-value">0.0 <span>%</span></div></div>
     </div>
-
     <div style="display: flex; gap: 6px; margin-top: 4px; flex-shrink: 0;">
       <button id="btnDetailExportGpx" class="history-btn gpx-btn" style="flex: 2; padding: 10px 0; font-size: 11px;">EXPORT GPX</button>
       <button id="btnDetailDelete" class="history-btn" style="flex: 1; padding: 10px 0; font-size: 11px; color: var(--accent-red); border-color: rgba(255, 69, 58, 0.3);">DELETE</button>
@@ -400,13 +391,11 @@
 
   <!-- Header -->
   <div class="header">
-    <img src="logo.png" alt="放浪" class="logo-img">
-    
+    <img src="icon.png" alt="放浪" class="logo-img">
     <div class="app-mode-switch">
       <button id="btnModeDash" class="app-mode-btn active">DASHBOARD</button>
       <button id="btnModeNav" class="app-mode-btn">NAV</button>
     </div>
-
     <div class="header-actions">
       <div class="status-badge">
         <div id="statusDot" class="status-dot"></div>
@@ -422,7 +411,6 @@
       <div class="modal-title" id="menuHeaderTitle">TILES & PREFERENCES</div>
       <button class="close-btn" id="menuCloseBtn">✕</button>
     </div>
-
     <div class="menu-main-content">
       <div id="menuTabTiles" class="tab-content active">
         <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px; flex-shrink: 0;">
@@ -453,12 +441,10 @@
           <div class="tile-square-card active" data-card="card-map" onclick="toggleTileCard('card-map')"><div class="tile-card-title">GPS Map View</div><div class="tile-card-status">ACTIVE</div></div>
         </div>
       </div>
-
       <div id="menuTabHistory" class="tab-content">
         <div id="historyContainer" style="display: flex; flex-direction: column; gap: 6px;"></div>
       </div>
     </div>
-
     <div class="menu-bottom-bar" style="grid-template-columns: repeat(4, 1fr);">
       <button id="menuNavHome" class="menu-nav-tab" onclick="switchMenuModeFromBottom('home')">Home</button>
       <button id="menuNavNav" class="menu-nav-tab" onclick="switchMenuModeFromBottom('nav')">Nav</button>
@@ -491,7 +477,7 @@
       <div id="card-map" class="card"><div id="map"></div></div>
     </div>
 
-    <!-- NAV TAB WITH APP-THEMED CENTERED BOTTOM BAR -->
+    <!-- NAV TAB -->
     <div id="viewNav" class="view-pane">
       <div class="nav-map-container">
         <div id="routePlannerSearchBox" class="route-planner-box">
@@ -512,7 +498,7 @@
 
         <div id="navMap"></div>
 
-        <!-- Dedicated Centered Nav Telemetry Bottom Bar -->
+        <!-- Centered Nav Telemetry Bottom Bar -->
         <div class="nav-bottom-telemetry-bar">
           <div class="nav-bottom-card">
             <div class="nav-bottom-label">Speed</div>
@@ -529,10 +515,8 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
 
   <!-- Controls -->
@@ -607,7 +591,7 @@
     let stopHoldProgress = 0, stopInterval = null;
 
     let loadedBrandLogoImg = new Image();
-    loadedBrandLogoImg.src = 'logo.png';
+    loadedBrandLogoImg.src = 'icon.png';
 
     const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
@@ -1160,8 +1144,16 @@
 
       const trackColor = '#30d158';
       if (isMapTileEnabled && map) {
-        if (!userMarker) { userMarker = L.circleMarker([lat, lon], { radius: 6, color: trackColor, fillColor: trackColor, fillOpacity: 1 }).addTo(map); map.setView([lat, lon], 16); }
-        else { userMarker.setLatLng([lat, lon]); if (rideState === 'RUNNING') map.panTo([lat, lon]); }
+        if (!userMarker) { 
+          userMarker = L.circleMarker([lat, lon], { radius: 6, color: trackColor, fillColor: trackColor, fillOpacity: 1 }).addTo(map); 
+          map.setView([lat, lon], 16); 
+        } else { 
+          userMarker.setLatLng([lat, lon]); 
+          if (rideState === 'RUNNING') map.panTo([lat, lon]); 
+        }
+        if (routePolyline && gpxTrackPoints.length > 0) {
+          routePolyline.setLatLngs(gpxTrackPoints.map(pt => [pt.lat, pt.lon]));
+        }
       }
       if (navMap) {
         if (!navUserMarker) {
@@ -1190,7 +1182,6 @@
       document.getElementById('eleGainVal').innerHTML = `${Math.round(eleGain)} <span>${isMetric ? 'm' : 'ft'}</span>`;
       document.getElementById('altVal').innerHTML = `${alt !== '--' ? Math.round(alt) : '--'} <span>${isMetric ? 'm' : 'ft'}</span>`;
 
-      // Update Nav Bottom Bar
       document.getElementById('navSpeedVal').innerText = currSpeed.toFixed(1);
       document.getElementById('navDistVal').innerText = dist.toFixed(2);
     }

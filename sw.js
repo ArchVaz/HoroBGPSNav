@@ -1,11 +1,11 @@
-const CACHE_NAME = 'horo-v59-android-pwa-and-nav-fields';
+const CACHE_NAME = 'horo-v60-responsive-and-nav-fix';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './logo.png',
+  './icon.png',
   'https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;0,800;1,700&display=swap',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'
