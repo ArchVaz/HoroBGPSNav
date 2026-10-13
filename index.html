@@ -108,7 +108,7 @@
     .ride-detail-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px; flex-shrink: 0; }
     .back-btn { background: #181818; border: 1px solid var(--border-subtle); color: var(--text-white); font-size: 11px; font-weight: 800; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
 
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px; flex-shrink: 0; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px; flex-shrink: 0; }
     .modal-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; }
     .close-btn { background: none; border: none; color: var(--text-dim); font-size: 16px; cursor: pointer; }
 
@@ -246,24 +246,25 @@
 
     .sticky-share-header-bar {
       position: sticky; top: 0; background: rgba(0, 0, 0, 0.96); backdrop-filter: blur(12px);
-      z-index: 100; padding: 12px 0 8px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 10px;
-      display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;
+      z-index: 100; padding: 10px 0 6px 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 8px;
+      display: flex; flex-direction: column; gap: 6px; flex-shrink: 0;
     }
 
     .sticky-action-row {
-      display: flex; justify-content: center; align-items: center; gap: 20px; width: 100%; margin-top: 2px;
+      display: flex; justify-content: center; align-items: center; gap: 16px; width: 100%;
     }
     
+    /* Device-responsive Square Layout Cards with Tight Spacing */
     .share-layout-card {
       background: #0a0a0a; border: 1px solid var(--accent-green); border-radius: 8px; padding: 4px;
-      display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 210px; margin: 2px auto 10px auto;
+      display: flex; flex-direction: column; gap: 2px; width: 100%; max-width: 280px; aspect-ratio: 1 / 1; margin: 2px auto 8px auto;
       box-shadow: 0 4px 16px rgba(0,255,102,0.15); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
     }
     .share-layout-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,255,102,0.25); }
 
-    .canvas-preview-render { width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-subtle); background: transparent; }
+    .canvas-preview-render { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 4px; border: 1px solid var(--border-subtle); background: transparent; }
 
-    .social-icon-btn { background: #141414; border: 1px solid var(--border-subtle); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+    .social-icon-btn { background: #141414; border: 1px solid var(--border-subtle); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
     .social-icon-btn:hover { border-color: var(--accent-green); background: #1f1f1f; }
   </style>
 </head>
@@ -291,7 +292,7 @@
   <!-- Fullscreen Scrollable Share Layouts Menu -->
   <div id="shareModal" class="share-modal-fullscreen">
     
-    <!-- Complete Sticky Top Header Container (Title + Close + Actions + Subtitle Stay Sticky When Scrolling) -->
+    <!-- Sticky Header Bar -->
     <div class="sticky-share-header-bar">
       <div class="modal-header" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
         <div class="modal-title">EXPORT TRANSPARENT LAYOUTS</div>
@@ -301,7 +302,7 @@
       <div class="sticky-action-row">
         <!-- Instagram Story Button -->
         <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram Story">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -309,8 +310,8 @@
         </button>
 
         <!-- Download Transparent PNG Button -->
-        <button class="social-icon-btn" onclick="exportAndDownloadPng(3)" title="Download PNG">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <button class="social-icon-btn" onclick="exportAndDownloadPng(1)" title="Download PNG">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -318,35 +319,25 @@
         </button>
       </div>
 
-      <div style="font-size: 9px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; text-align: center; margin-top: 2px;">Tap any layout to download PNG</div>
+      <div style="font-size: 8px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; text-align: center; margin-top: 1px;">Tap any layout to download PNG</div>
     </div>
 
-    <!-- Scrollable Layout Cards Container -->
+    <!-- Scrollable Square Layout Cards Container (Layouts 001, 002, 003) -->
     <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 30px; align-items: center;">
       
       <div class="share-layout-card" onclick="exportAndDownloadPng(1)">
-        <div style="font-size: 10px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">001</div>
-        <canvas id="canvasPreview1" class="canvas-preview-render" width="540" height="960"></canvas>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">001</div>
+        <canvas id="canvasPreview1" class="canvas-preview-render" width="1080" height="1080"></canvas>
       </div>
 
       <div class="share-layout-card" onclick="exportAndDownloadPng(2)">
-        <div style="font-size: 10px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">002</div>
-        <canvas id="canvasPreview2" class="canvas-preview-render" width="540" height="960"></canvas>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">002</div>
+        <canvas id="canvasPreview2" class="canvas-preview-render" width="1080" height="1080"></canvas>
       </div>
 
       <div class="share-layout-card" onclick="exportAndDownloadPng(3)">
-        <div style="font-size: 10px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">003</div>
-        <canvas id="canvasPreview3" class="canvas-preview-render" width="540" height="960"></canvas>
-      </div>
-
-      <div class="share-layout-card" onclick="exportAndDownloadPng(4)">
-        <div style="font-size: 10px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">004</div>
-        <canvas id="canvasPreview4" class="canvas-preview-render" width="540" height="960"></canvas>
-      </div>
-
-      <div class="share-layout-card" onclick="exportAndDownloadPng(5)">
-        <div style="font-size: 10px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">005</div>
-        <canvas id="canvasPreview5" class="canvas-preview-render" width="540" height="960"></canvas>
+        <div style="font-size: 9px; font-weight: 800; color: var(--accent-green); letter-spacing: 1px; text-align: center;">003</div>
+        <canvas id="canvasPreview3" class="canvas-preview-render" width="1080" height="1080"></canvas>
       </div>
 
     </div>
@@ -1157,14 +1148,14 @@
       document.getElementById('timerVal').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    // --- ACCURATE TRANSPARENT CANVAS RENDER ENGINE WITH WHITE TEXT & BIGGER LOGO ---
+    // --- SQUARE 1:1 TRANSPARENT CANVAS RENDER ENGINE (LAYOUTS 001, 002, 003) ---
 
     function openShareModal() {
       document.getElementById('shareModal').classList.add('active');
       renderAllShareLayoutPreviews();
     }
 
-    function drawRouteOnCanvasCtx(ctx, points, x, y, width, height, strokeColor, strokeWidth) {
+    function drawRouteOnSquareCanvasCtx(ctx, points, x, y, width, height, strokeColor, strokeWidth) {
       if (!points || points.length < 2) return;
       ctx.strokeStyle = strokeColor;
       ctx.lineWidth = strokeWidth;
@@ -1187,8 +1178,8 @@
       ctx.stroke();
     }
 
-    function drawBrandLogoOnCanvas(ctx, x, y, height, align = 'left') {
-      const logoHeightPlus2 = height + 2; // Made logo 2 pixels bigger
+    function drawBrandLogoOnSquareCanvas(ctx, x, y, height, align = 'left') {
+      const logoHeightPlus2 = height + 2;
       const aspect = loadedBrandLogoImg.width ? (loadedBrandLogoImg.width / loadedBrandLogoImg.height) : 3.5;
       const width = logoHeightPlus2 * aspect;
       let drawX = x;
@@ -1199,19 +1190,18 @@
         ctx.drawImage(loadedBrandLogoImg, drawX, y, width, logoHeightPlus2);
       } else {
         ctx.fillStyle = '#ffffff';
-        ctx.font = '800 34px "Roboto Condensed", sans-serif';
+        ctx.font = '800 30px "Roboto Condensed", sans-serif';
         ctx.textAlign = align;
         ctx.fillText('放浪', x, y + logoHeightPlus2);
       }
     }
 
-    async function generateReferenceCanvas(layoutId) {
+    async function generateSquareReferenceCanvas(layoutIdx) {
       const canvas = document.createElement('canvas');
-      canvas.width = 1080; canvas.height = 1920; // 9:16 Story Aspect
+      canvas.width = 1080; canvas.height = 1080; // Perfect Square 1:1 Aspect Ratio
       const ctx = canvas.getContext('2d');
 
-      // Fully Transparent Canvas Context
-      ctx.clearRect(0, 0, 1080, 1920);
+      ctx.clearRect(0, 0, 1080, 1080);
 
       const ride = rideHistory.find(r => r.id === selectedDetailRideId) || {
         date: new Date().toISOString().split('T')[0],
@@ -1225,103 +1215,93 @@
       };
 
       const points = ride.points && ride.points.length > 1 ? ride.points : gpxTrackPoints;
-      const appGreenTrackColor = '#30d158'; // Signature App Green Accent
+      const appGreenTrackColor = '#30d158';
 
       const avgSpdStr = isMetric ? `${((ride.avgSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.avgSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
       const maxSpdStr = isMetric ? `${((ride.maxSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.maxSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
       const eleGainStr = isMetric ? `${Math.round(ride.totalEleGainMeters || 0)} m` : `${Math.round((ride.totalEleGainMeters || 0) * 3.28084)} ft`;
 
-      // Layout 001: Centered Pure Route Vector
-      if (layoutId === 1) {
-        drawRouteOnCanvasCtx(ctx, points, 160, 620, 760, 680, appGreenTrackColor, 16);
+      // Layout 001 (Previously Layout 003): Horizontal 3-Column Overlay
+      if (layoutIdx === 1) {
+        drawRouteOnSquareCanvasCtx(ctx, points, 120, 140, 840, 420, appGreenTrackColor, 14);
+        drawBrandLogoOnSquareCanvas(ctx, 80, 640, 48, 'left');
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
+        ctx.fillText('Distance', 80, 730);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.distance, 80, 780);
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
+        ctx.fillText('Elev Gain', 440, 730);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
+        ctx.fillText(eleGainStr, 440, 780);
+
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
+        ctx.fillText('Time', 780, 730);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.time, 780, 780);
       }
 
-      // Layout 002: Expanded Large Center Route
-      else if (layoutId === 2) {
-        drawRouteOnCanvasCtx(ctx, points, 100, 480, 880, 960, appGreenTrackColor, 20);
-      }
-
-      // Layout 003: Horizontal 3-Column Overlay (WHITE TEXT)
-      else if (layoutId === 3) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 280, 800, 520, appGreenTrackColor, 14);
-        drawBrandLogoOnCanvas(ctx, 100, 920, 56, 'left'); // 54 + 2 = 56px
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('Distance', 100, 1030);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, 100, 1095);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Elev Gain', 460, 1030);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-        ctx.fillText(eleGainStr, 460, 1095);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Time', 780, 1030);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, 780, 1095);
-      }
-
-      // Layout 004: Telemetry Grid (WHITE TEXT)
-      else if (layoutId === 4) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 220, 800, 440, appGreenTrackColor, 14);
-        drawBrandLogoOnCanvas(ctx, 100, 820, 52, 'left'); // 50 + 2 = 52px
+      // Layout 002 (Previously Layout 004): Telemetry Grid
+      else if (layoutIdx === 2) {
+        drawRouteOnSquareCanvasCtx(ctx, points, 120, 110, 840, 360, appGreenTrackColor, 14);
+        drawBrandLogoOnSquareCanvas(ctx, 80, 540, 44, 'left');
 
         // Row 1
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('Distance', 100, 920);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, 100, 980);
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 20px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
+        ctx.fillText('Distance', 80, 620);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 38px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.distance, 80, 670);
 
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Elev Gain', 460, 920);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(eleGainStr, 460, 980);
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 20px "Roboto Condensed", sans-serif';
+        ctx.fillText('Elev Gain', 440, 620);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 38px "Roboto Condensed", sans-serif';
+        ctx.fillText(eleGainStr, 440, 670);
 
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Time', 780, 920);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, 780, 980);
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 20px "Roboto Condensed", sans-serif';
+        ctx.fillText('Time', 780, 620);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 38px "Roboto Condensed", sans-serif';
+        ctx.fillText(ride.time, 780, 670);
 
         // Row 2
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Avg Speed', 100, 1070);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(avgSpdStr, 100, 1130);
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 20px "Roboto Condensed", sans-serif';
+        ctx.fillText('Avg Speed', 80, 750);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 38px "Roboto Condensed", sans-serif';
+        ctx.fillText(avgSpdStr, 80, 800);
 
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Max Speed', 460, 1070);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(maxSpdStr, 460, 1130);
+        ctx.fillStyle = '#ffffff'; ctx.font = '700 20px "Roboto Condensed", sans-serif';
+        ctx.fillText('Max Speed', 440, 750);
+        ctx.fillStyle = '#ffffff'; ctx.font = '800 38px "Roboto Condensed", sans-serif';
+        ctx.fillText(maxSpdStr, 440, 800);
       }
 
-      // Layout 005: Watermark Footer
-      else if (layoutId === 5) {
-        drawRouteOnCanvasCtx(ctx, points, 180, 1020, 720, 560, appGreenTrackColor, 16);
-        drawBrandLogoOnCanvas(ctx, 540, 1640, 50, 'center'); // 48 + 2 = 50px
+      // Layout 003 (Previously Layout 005): Watermark Footer
+      else if (layoutIdx === 3) {
+        drawRouteOnSquareCanvasCtx(ctx, points, 140, 180, 800, 620, appGreenTrackColor, 16);
+        drawBrandLogoOnSquareCanvas(ctx, 540, 900, 46, 'center');
       }
 
       return canvas;
     }
 
     async function renderAllShareLayoutPreviews() {
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i <= 3; i++) {
         const previewCanvas = document.getElementById(`canvasPreview${i}`);
         if (previewCanvas) {
-          const fullCanvas = await generateReferenceCanvas(i);
+          const fullCanvas = await generateSquareReferenceCanvas(i);
           const pCtx = previewCanvas.getContext('2d');
-          pCtx.clearRect(0, 0, 540, 960);
-          pCtx.drawImage(fullCanvas, 0, 0, 540, 960);
+          pCtx.clearRect(0, 0, 1080, 1080);
+          pCtx.drawImage(fullCanvas, 0, 0, 1080, 1080);
         }
       }
     }
 
-    async function exportAndDownloadPng(layoutId) {
-      const canvas = await generateReferenceCanvas(layoutId);
+    async function exportAndDownloadPng(layoutIdx) {
+      const canvas = await generateSquareReferenceCanvas(layoutIdx);
       canvas.toBlob((blob) => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.download = `HoroRide_Layout00${layoutId}_${new Date().toISOString().split('T')[0]}.png`;
+        link.download = `HoroRide_Layout00${layoutIdx}_${new Date().toISOString().split('T')[0]}.png`;
         link.href = url;
         document.body.appendChild(link);
         link.click();
@@ -1331,11 +1311,10 @@
     }
 
     async function shareToInstagram() {
-      const canvas = await generateReferenceCanvas(3);
+      const canvas = await generateSquareReferenceCanvas(1);
       canvas.toBlob(async (blob) => {
         const file = new File([blob], 'horo_ride_story.png', { type: 'image/png' });
         
-        // Native Web Share API (Triggers Instagram Story on Mobile)
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
@@ -1347,8 +1326,7 @@
           } catch (err) {}
         }
 
-        // Direct Deep-Link Camera Fallback
-        exportAndDownloadPng(3);
+        exportAndDownloadPng(1);
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         const instagramUrl = isIOS ? 'instagram-stories://share' : 'instagram://story-camera';
         setTimeout(() => {
