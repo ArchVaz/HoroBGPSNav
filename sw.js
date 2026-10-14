@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v65-large-labels-no-share';
+const CACHE_NAME = 'horo-v66-grade-fix-settings-icon';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
