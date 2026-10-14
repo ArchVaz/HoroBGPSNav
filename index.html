@@ -61,17 +61,13 @@
     .splash-motto { font-size: 14px; font-weight: 800; letter-spacing: 4px; color: #ffffff; text-transform: uppercase; }
 
     /* Header */
-    .header { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px; flex-shrink: 0; height: 48px; }
-    .logo-img { height: 40px; width: auto; object-fit: contain; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px; flex-shrink: 0; height: 52px; }
+    .logo-img { height: 48px; width: auto; object-fit: contain; }
     .header-actions { display: flex; align-items: center; gap: 6px; }
 
     .app-mode-switch { display: flex; background: #0d0d0d; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 2px; }
     .app-mode-btn { background: none; border: none; color: #888888; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; }
     .app-mode-btn.active { background: #222222; color: #ffffff; }
-
-    .status-badge { font-size: 10px; letter-spacing: 1px; color: #888888; font-weight: 700; display: flex; align-items: center; gap: 5px; text-transform: uppercase; }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background-color: #888888; }
-    .status-dot.active { background-color: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
 
     .menu-btn { background: none; border: none; color: #ffffff; cursor: pointer; padding: 2px 4px; display: flex; align-items: center; justify-content: center; }
 
@@ -132,8 +128,8 @@
     .tab-content { display: none; flex-direction: column; gap: 4px; overflow: hidden; flex: 1; min-height: 0; }
     .tab-content.active { display: flex; }
 
-    .pref-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 4px; background: transparent; border: none; }
-    .pref-label { font-size: 10px; font-weight: 700; color: #ffffff !important; }
+    .pref-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 4px; background: transparent; border: none; }
+    .pref-label { font-size: 10px; font-weight: 700; color: #ffffff !important; text-transform: uppercase; letter-spacing: 0.5px; }
 
     .tiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; flex: 1; min-height: 0; overflow: hidden; align-content: start; }
     .tile-square-card {
@@ -157,14 +153,14 @@
     .history-btn { background: #181818; border: 1px solid var(--border-subtle); color: #ffffff; padding: 4px 6px; font-size: 9px; font-weight: 700; border-radius: 4px; cursor: pointer; }
     .history-btn.gpx-btn { color: var(--accent-green); border-color: rgba(48, 209, 88, 0.3); }
 
-    .ride-detail-map-box { width: 100%; height: 220px; border-radius: 8px; overflow: hidden; background: #0d0d0d; border: 1px solid var(--border-subtle); flex-shrink: 0; }
+    .ride-detail-map-box { width: 100%; height: 200px; border-radius: 8px; overflow: hidden; background: #0d0d0d; border: 1px solid var(--border-subtle); flex-shrink: 0; }
     #rideDetailMap { width: 100%; height: 100%; }
 
-    .ride-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; overflow-y: auto; flex: 1; padding-right: 2px; }
-    .ride-stat-card { background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 6px; display: flex; flex-direction: column; justify-content: center; }
-    .ride-stat-label { font-size: 8px; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-    .ride-stat-value { font-size: 15px; font-weight: 800; color: #ffffff; }
-    .ride-stat-value span { font-size: 9px; color: #888888; }
+    .ride-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; overflow-y: auto; flex: 1; padding-right: 2px; }
+    .ride-stat-card { background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 6px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    .ride-stat-label { font-size: 10px; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; text-align: center; width: 100%; }
+    .ride-stat-value { font-size: 22px; font-weight: 800; color: #ffffff; text-align: center; width: 100%; line-height: 1; }
+    .ride-stat-value span { font-size: 11px; color: #ffffff; font-weight: 700; }
 
     .dashboard-container { flex: 1; display: flex; flex-direction: column; gap: 2px; min-height: 0; }
     .view-pane { display: none; flex-direction: column; gap: 2px; flex: 1; min-height: 0; }
@@ -178,14 +174,12 @@
     .card { background-color: var(--card-bg); border-radius: 6px; padding: 2px 4px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; flex: 1; }
     .card.hidden { display: none !important; }
 
-    /* Primary Speed display */
     .primary-metric { flex: 1.8; min-height: 0; padding: 2px 4px; justify-content: center; }
     .speed-value { font-size: 105px; font-weight: 800; line-height: 0.8; letter-spacing: -2px; color: #ffffff; }
     body.theme-sun .speed-value { color: var(--accent-green); }
     body.map-disabled .primary-metric { flex: 2.2; }
     body.map-disabled .speed-value { font-size: 125px; }
 
-    /* Optimized labels & numbers for high readability sitting closer to speed field */
     .metric-label { font-size: 12px; font-weight: 800; letter-spacing: 1px; color: #ffffff !important; text-transform: uppercase; margin-bottom: 1px; }
     .unit-label { font-size: 12px; color: #ffffff !important; font-weight: 800; margin-top: 1px; }
 
@@ -254,11 +248,13 @@
 
     .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; max-width: 400px; width: 100%; margin: 0 auto; flex-shrink: 0; }
     .btn { position: relative; background-color: #0c0c0c; border: 1px solid var(--border-subtle); color: #ffffff; padding: 8px 0; font-size: 13px; font-weight: 800; border-radius: 6px; cursor: pointer; text-align: center; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    
+    /* Play/Pause Button States */
     .btn.active-play { border-color: var(--accent-green) !important; color: var(--accent-green) !important; background-color: rgba(48, 209, 88, 0.1) !important; }
+    .btn.active-pause { border-color: var(--accent-orange) !important; color: var(--accent-orange) !important; background-color: rgba(255, 159, 10, 0.1) !important; }
     
     .pause-icon-css { display: inline-flex; gap: 4px; align-items: center; justify-content: center; height: 14px; }
-    .pause-icon-css span { display: block; width: 4px; height: 14px; background-color: var(--accent-orange); border-radius: 1px; }
-    .btn.active-pause { border-color: var(--accent-orange) !important; background-color: transparent !important; }
+    .pause-icon-css span { display: block; width: 4px; height: 14px; background-color: var(--accent-green); border-radius: 1px; }
     
     .btn-reset { border-color: #2a1a1a; color: var(--accent-red); }
 
@@ -278,11 +274,11 @@
   
   <div id="resetConfirmModal" class="modal-overlay">
     <div class="confirm-modal-content">
-      <div class="confirm-title">Reset Ride Data?</div>
-      <div class="confirm-desc">Are you sure you want to clear current speed, distance, time, and telemetry data?</div>
+      <div class="confirm-title" data-i18n="modal_reset_title">Reset Ride Data?</div>
+      <div class="confirm-desc" data-i18n="modal_reset_desc">Are you sure you want to clear current speed, distance, time, and telemetry data?</div>
       <div class="confirm-actions">
-        <button class="confirm-btn cancel" id="btnCancelReset">CANCEL</button>
-        <button class="confirm-btn danger" id="btnConfirmReset">RESET</button>
+        <button class="confirm-btn cancel" id="btnCancelReset" data-i18n="btn_cancel">CANCEL</button>
+        <button class="confirm-btn danger" id="btnConfirmReset" data-i18n="btn_reset">RESET</button>
       </div>
     </div>
   </div>
@@ -290,22 +286,22 @@
   <!-- Full-Screen Saved Ride Detail View -->
   <div id="rideDetailView" class="fullscreen-ride-view">
     <div class="ride-detail-header">
-      <button class="back-btn" id="btnRideDetailBack">← BACK</button>
+      <button class="back-btn" id="btnRideDetailBack" data-i18n="btn_back">← BACK</button>
       <div id="detailRideTitle" class="modal-title">RIDE SUMMARY</div>
       <div style="width: 40px;"></div>
     </div>
     <div class="ride-detail-map-box"><div id="rideDetailMap"></div></div>
     <div class="ride-stats-grid">
-      <div class="ride-stat-card"><div class="ride-stat-label">Distance</div><div id="detailDist" class="ride-stat-value">0.0 <span>km</span></div></div>
-      <div class="ride-stat-card"><div class="ride-stat-label">Elapsed Time</div><div id="detailTime" class="ride-stat-value">00:00:00</div></div>
-      <div class="ride-stat-card"><div class="ride-stat-label">Avg Speed</div><div id="detailAvgSpeed" class="ride-stat-value">0.0 <span>km/h</span></div></div>
-      <div class="ride-stat-card"><div class="ride-stat-label">Max Speed</div><div id="detailMaxSpeed" class="ride-stat-value">0.0 <span>km/h</span></div></div>
-      <div class="ride-stat-card"><div class="ride-stat-label">Elevation Gain</div><div id="detailEleGain" class="ride-stat-value">0 <span>m</span></div></div>
-      <div class="ride-stat-card"><div class="ride-stat-label">Max Grade</div><div id="detailMaxGrade" class="ride-stat-value">0.0 <span>%</span></div></div>
+      <div class="ride-stat-card"><div class="ride-stat-label" data-i18n="lbl_distance">Distance</div><div id="detailDist" class="ride-stat-value">0.0 <span>km</span></div></div>
+      <div class="ride-stat-card"><div class="ride-stat-label" data-i18n="lbl_elapsed_time">Elapsed Time</div><div id="detailTime" class="ride-stat-value">00:00:00</div></div>
+      <div class="ride-stat-card"><div class="ride-stat-label" data-i18n="lbl_avg_speed">Avg Speed</div><div id="detailAvgSpeed" class="ride-stat-value">0.0 <span>km/h</span></div></div>
+      <div class="ride-stat-card"><div class="ride-stat-label" data-i18n="lbl_max_speed">Max Speed</div><div id="detailMaxSpeed" class="ride-stat-value">0.0 <span>km/h</span></div></div>
+      <div class="ride-stat-card"><div class="ride-stat-label" data-i18n="lbl_elevation_gain">Elevation Gain</div><div id="detailEleGain" class="ride-stat-value">0 <span>m</span></div></div>
+      <div class="ride-stat-card"><div class="ride-stat-label" data-i18n="lbl_max_grade">Max Grade</div><div id="detailMaxGrade" class="ride-stat-value">0.0 <span>%</span></div></div>
     </div>
     <div style="display: flex; gap: 6px; margin-top: 4px; flex-shrink: 0;">
-      <button id="btnDetailExportGpx" class="history-btn gpx-btn" style="flex: 2; padding: 12px 0; font-size: 12px; font-weight: 800;">EXPORT GPX</button>
-      <button id="btnDetailDelete" class="history-btn" style="flex: 1; padding: 12px 0; font-size: 12px; font-weight: 800; color: var(--accent-red); border-color: rgba(255, 69, 58, 0.3);">DELETE</button>
+      <button id="btnDetailExportGpx" class="history-btn gpx-btn" style="flex: 2; padding: 12px 0; font-size: 12px; font-weight: 800;" data-i18n="btn_export_gpx">EXPORT GPX</button>
+      <button id="btnDetailDelete" class="history-btn" style="flex: 1; padding: 12px 0; font-size: 12px; font-weight: 800; color: var(--accent-red); border-color: rgba(255, 69, 58, 0.3);" data-i18n="btn_delete">DELETE</button>
     </div>
   </div>
 
@@ -313,17 +309,12 @@
   <div class="header">
     <img src="icon.png" alt="放浪" class="logo-img">
     <div class="app-mode-switch">
-      <button id="btnModeDash" class="app-mode-btn active">DASHBOARD</button>
-      <button id="btnModeNav" class="app-mode-btn">NAV</button>
+      <button id="btnModeDash" class="app-mode-btn active" data-i18n="mode_dashboard">DASHBOARD</button>
+      <button id="btnModeNav" class="app-mode-btn" data-i18n="mode_nav">NAV</button>
     </div>
     <div class="header-actions">
-      <div class="status-badge">
-        <div id="statusDot" class="status-dot"></div>
-        <span id="statusText">READY</span>
-      </div>
-      <!-- Settings Gear Icon -->
       <button class="menu-btn" id="menuToggleBtn" title="Settings">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
           <circle cx="12" cy="12" r="3"></circle>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
         </svg>
@@ -331,24 +322,34 @@
     </div>
   </div>
 
-  <!-- Full-Screen Menu -->
+  <!-- Full-Screen Settings Menu -->
   <div id="fullscreenMenu" class="fullscreen-menu">
     <div class="modal-header">
-      <div class="modal-title" id="menuHeaderTitle">SETTINGS</div>
+      <div class="modal-title" id="menuHeaderTitle" data-i18n="menu_settings">SETTINGS</div>
       <button class="close-btn" id="menuCloseBtn">✕</button>
     </div>
     <div class="menu-main-content">
       <div id="menuTabTiles" class="tab-content active">
         <div style="display: flex; flex-direction: column; gap: 2px; margin-bottom: 4px; flex-shrink: 0;">
+          <!-- Language Selection -->
           <div class="pref-row">
-            <span class="pref-label">Color Scheme</span>
+            <span class="pref-label" data-i18n="pref_language">Language</span>
             <div class="unit-selector">
-              <button id="btnThemeDark" class="unit-opt active">NIGHT</button>
-              <button id="btnThemeSun" class="unit-opt">DAY</button>
+              <button id="btnLangEn" class="unit-opt active">ENGLISH</button>
+              <button id="btnLangEs" class="unit-opt">ESPAÑOL</button>
             </div>
           </div>
+          <!-- Color Scheme -->
           <div class="pref-row">
-            <span class="pref-label">Speed Units</span>
+            <span class="pref-label" data-i18n="pref_color_scheme">Color Scheme</span>
+            <div class="unit-selector">
+              <button id="btnThemeDark" class="unit-opt active" data-i18n="theme_night">NIGHT</button>
+              <button id="btnThemeSun" class="unit-opt" data-i18n="theme_day">DAY</button>
+            </div>
+          </div>
+          <!-- Speed Units -->
+          <div class="pref-row">
+            <span class="pref-label" data-i18n="pref_speed_units">Speed Units</span>
             <div class="unit-selector">
               <button id="btnKm" class="unit-opt active">KM/H</button>
               <button id="btnMi" class="unit-opt">MPH</button>
@@ -356,15 +357,15 @@
           </div>
         </div>
         <div class="tiles-grid" id="tilesGridContainer">
-          <div class="tile-square-card active" data-card="card-speed" onclick="toggleTileCard('card-speed')"><div class="tile-card-title">Speed</div><div class="tile-card-status">ACTIVE</div></div>
-          <div class="tile-square-card active" data-card="card-dist" onclick="toggleTileCard('card-dist')"><div class="tile-card-title">Distance</div><div class="tile-card-status">ACTIVE</div></div>
-          <div class="tile-square-card active" data-card="card-avg" onclick="toggleTileCard('card-avg')"><div class="tile-card-title">Average Speed</div><div class="tile-card-status">ACTIVE</div></div>
-          <div class="tile-square-card active" data-card="card-max" onclick="toggleTileCard('card-max')"><div class="tile-card-title">Max Speed</div><div class="tile-card-status">ACTIVE</div></div>
-          <div class="tile-square-card active" data-card="card-grade" onclick="toggleTileCard('card-grade')"><div class="tile-card-title">Inclination Grade</div><div class="tile-card-status">ACTIVE</div></div>
-          <div class="tile-square-card active" data-card="card-ele" onclick="toggleTileCard('card-ele')"><div class="tile-card-title">Elevation Gain</div><div class="tile-card-status">ACTIVE</div></div>
-          <div class="tile-square-card active" data-card="card-alt" onclick="toggleTileCard('card-alt')"><div class="tile-card-title">Current Altitude</div><div class="tile-card-status">ACTIVE</div></div>
-          <div class="tile-square-card active" data-card="card-time" onclick="toggleTileCard('card-time')"><div class="tile-card-title">Elapsed Time</div><div class="tile-card-status">ACTIVE</div></div>
-          <div class="tile-square-card active" data-card="card-map" onclick="toggleTileCard('card-map')"><div class="tile-card-title">GPS Map View</div><div class="tile-card-status">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-speed" onclick="toggleTileCard('card-speed')"><div class="tile-card-title" data-i18n="tile_speed">Speed</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-dist" onclick="toggleTileCard('card-dist')"><div class="tile-card-title" data-i18n="tile_distance">Distance</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-avg" onclick="toggleTileCard('card-avg')"><div class="tile-card-title" data-i18n="tile_avg_speed">Average Speed</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-max" onclick="toggleTileCard('card-max')"><div class="tile-card-title" data-i18n="tile_max_speed">Max Speed</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-grade" onclick="toggleTileCard('card-grade')"><div class="tile-card-title" data-i18n="tile_grade">Inclination Grade</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-ele" onclick="toggleTileCard('card-ele')"><div class="tile-card-title" data-i18n="tile_ele_gain">Elevation Gain</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-alt" onclick="toggleTileCard('card-alt')"><div class="tile-card-title" data-i18n="tile_altitude">Current Altitude</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-time" onclick="toggleTileCard('card-time')"><div class="tile-card-title" data-i18n="tile_time">Elapsed Time</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
+          <div class="tile-square-card active" data-card="card-map" onclick="toggleTileCard('card-map')"><div class="tile-card-title" data-i18n="tile_map">GPS Map View</div><div class="tile-card-status" data-i18n="status_active">ACTIVE</div></div>
         </div>
       </div>
       <div id="menuTabHistory" class="tab-content">
@@ -372,32 +373,32 @@
       </div>
     </div>
     <div class="menu-bottom-bar" style="grid-template-columns: repeat(4, 1fr);">
-      <button id="menuNavHome" class="menu-nav-tab" onclick="switchMenuModeFromBottom('home')">Home</button>
-      <button id="menuNavNav" class="menu-nav-tab" onclick="switchMenuModeFromBottom('nav')">Nav</button>
-      <button id="menuNavHistory" class="menu-nav-tab" onclick="switchMenuTab('history')">Past Rides</button>
-      <button id="menuNavTiles" class="menu-nav-tab active" onclick="switchMenuTab('tiles')">Tiles</button>
+      <button id="menuNavHome" class="menu-nav-tab" onclick="switchMenuModeFromBottom('home')" data-i18n="nav_home">Home</button>
+      <button id="menuNavNav" class="menu-nav-tab" onclick="switchMenuModeFromBottom('nav')" data-i18n="nav_nav">Nav</button>
+      <button id="menuNavHistory" class="menu-nav-tab" onclick="switchMenuTab('history')" data-i18n="nav_past_rides">Past Rides</button>
+      <button id="menuNavTiles" class="menu-nav-tab active" onclick="switchMenuTab('tiles')" data-i18n="nav_settings">Settings</button>
     </div>
   </div>
 
   <div class="dashboard-container">
     <div id="viewDashboard" class="view-pane active">
       <div id="card-speed" class="card primary-metric">
-        <div class="metric-label">SPEED</div>
+        <div class="metric-label" data-i18n="lbl_speed">SPEED</div>
         <div id="speedVal" class="speed-value">0.0</div>
         <div id="unitLabel" class="unit-label">KM/H</div>
       </div>
       <div id="row-stats" class="grid-row grid-3">
-        <div id="card-dist" class="card sub-metric"><div class="metric-label">Distance</div><div id="distVal" class="sub-value">0.00 <span>km</span></div></div>
-        <div id="card-avg" class="card sub-metric"><div class="metric-label">Avg Speed</div><div id="avgSpeedVal" class="sub-value">0.0 <span>km/h</span></div></div>
-        <div id="card-max" class="card sub-metric"><div class="metric-label">Max Speed</div><div id="maxSpeedVal" class="sub-value">0.0 <span>km/h</span></div></div>
+        <div id="card-dist" class="card sub-metric"><div class="metric-label" data-i18n="lbl_distance">Distance</div><div id="distVal" class="sub-value">0.00 <span>km</span></div></div>
+        <div id="card-avg" class="card sub-metric"><div class="metric-label" data-i18n="lbl_avg_speed">Avg Speed</div><div id="avgSpeedVal" class="sub-value">0.0 <span>km/h</span></div></div>
+        <div id="card-max" class="card sub-metric"><div class="metric-label" data-i18n="lbl_max_speed">Max Speed</div><div id="maxSpeedVal" class="sub-value">0.0 <span>km/h</span></div></div>
       </div>
       <div id="row-elevation" class="grid-row grid-3">
-        <div id="card-grade" class="card sub-metric"><div class="metric-label">Grade</div><div id="gradeVal" class="sub-value">0.0 <span>%</span></div></div>
-        <div id="card-ele" class="card sub-metric"><div class="metric-label">Elevation</div><div id="eleGainVal" class="sub-value">0 <span>m</span></div></div>
-        <div id="card-alt" class="card sub-metric"><div class="metric-label">Altitude</div><div id="altVal" class="sub-value">-- <span>m</span></div></div>
+        <div id="card-grade" class="card sub-metric"><div class="metric-label" data-i18n="lbl_grade">Grade</div><div id="gradeVal" class="sub-value">0.0 <span>%</span></div></div>
+        <div id="card-ele" class="card sub-metric"><div class="metric-label" data-i18n="lbl_elevation">Elevation</div><div id="eleGainVal" class="sub-value">0 <span>m</span></div></div>
+        <div id="card-alt" class="card sub-metric"><div class="metric-label" data-i18n="lbl_altitude">Altitude</div><div id="altVal" class="sub-value">-- <span>m</span></div></div>
       </div>
       <div id="card-time" class="card sub-metric card-time-container">
-        <div class="metric-label">Elapsed Time</div>
+        <div class="metric-label" data-i18n="lbl_elapsed_time">Elapsed Time</div>
         <div id="timerVal" class="time-display">00:00:00</div>
       </div>
       <div id="card-map" class="card"><div id="map"></div></div>
@@ -408,8 +409,8 @@
       <div class="nav-map-container">
         <div id="routePlannerSearchBox" class="route-planner-box">
           <div class="search-row">
-            <input type="text" id="destSearchInput" class="search-input" placeholder="Search address, landmark, store...">
-            <button id="btnSearchRoute" class="search-btn">SEARCH</button>
+            <input type="text" id="destSearchInput" class="search-input" placeholder="Search address, landmark, store..." data-i18n-ph="ph_search">
+            <button id="btnSearchRoute" class="search-btn" data-i18n="btn_search">SEARCH</button>
           </div>
           <div id="searchResultsDropdown" class="search-results-dropdown"></div>
         </div>
@@ -426,14 +427,14 @@
 
         <div class="nav-bottom-telemetry-bar">
           <div class="nav-bottom-card">
-            <div class="nav-bottom-label">Speed</div>
+            <div class="nav-bottom-label" data-i18n="lbl_speed">Speed</div>
             <div class="nav-bottom-val-row">
               <span id="navSpeedVal" class="nav-bottom-value">0.0</span>
               <span id="navSpeedUnit" class="nav-bottom-unit">km/h</span>
             </div>
           </div>
           <div class="nav-bottom-card">
-            <div class="nav-bottom-label">Distance</div>
+            <div class="nav-bottom-label" data-i18n="lbl_distance">Distance</div>
             <div class="nav-bottom-val-row">
               <span id="navDistVal" class="nav-bottom-value">0.00</span>
               <span id="navDistUnit" class="nav-bottom-unit">km</span>
@@ -447,12 +448,122 @@
   <!-- Controls -->
   <div class="controls-grid">
     <button id="playPauseBtn" class="btn">▶</button>
-    <button id="stopBtn" class="btn btn-stop"><div id="stopFill" class="fill-overlay"></div><span class="btn-text">STOP</span></button>
-    <button id="resetBtn" class="btn btn-reset">RESET</button>
+    <button id="stopBtn" class="btn btn-stop"><div id="stopFill" class="fill-overlay"></div><span class="btn-text" data-i18n="btn_stop">STOP</span></button>
+    <button id="resetBtn" class="btn btn-reset" data-i18n="btn_reset">RESET</button>
   </div>
 
   <script>
+    // i18n Translations Dictionary
+    const translations = {
+      en: {
+        mode_dashboard: "DASHBOARD",
+        mode_nav: "NAV",
+        menu_settings: "SETTINGS",
+        menu_past_rides: "PAST RIDES",
+        pref_language: "Language",
+        pref_color_scheme: "Color Scheme",
+        pref_speed_units: "Speed Units",
+        theme_night: "NIGHT",
+        theme_day: "DAY",
+        tile_speed: "Speed",
+        tile_distance: "Distance",
+        tile_avg_speed: "Average Speed",
+        tile_max_speed: "Max Speed",
+        tile_grade: "Inclination Grade",
+        tile_ele_gain: "Elevation Gain",
+        tile_altitude: "Current Altitude",
+        tile_time: "Elapsed Time",
+        tile_map: "GPS Map View",
+        status_active: "ACTIVE",
+        status_disable: "DISABLE",
+        nav_home: "Home",
+        nav_nav: "Nav",
+        nav_past_rides: "Past Rides",
+        nav_settings: "Settings",
+        lbl_speed: "SPEED",
+        lbl_distance: "Distance",
+        lbl_avg_speed: "Avg Speed",
+        lbl_max_speed: "Max Speed",
+        lbl_grade: "Grade",
+        lbl_elevation: "Elevation",
+        lbl_altitude: "Altitude",
+        lbl_elapsed_time: "Elapsed Time",
+        lbl_elevation_gain: "Elevation Gain",
+        lbl_max_grade: "Max Grade",
+        ph_search: "Search address, landmark, store...",
+        btn_search: "SEARCH",
+        btn_select: "SELECT",
+        btn_stop: "STOP",
+        btn_reset: "RESET",
+        btn_cancel: "CANCEL",
+        btn_back: "← BACK",
+        btn_export_gpx: "EXPORT GPX",
+        btn_delete: "DELETE",
+        btn_view: "VIEW ➔",
+        modal_reset_title: "Reset Ride Data?",
+        modal_reset_desc: "Are you sure you want to clear current speed, distance, time, and telemetry data?",
+        ride_summary: "RIDE SUMMARY",
+        toast_ride_saved: "Ride Saved",
+        no_past_rides: "No saved past rides found.",
+        no_places_found: "No places found for"
+      },
+      es: {
+        mode_dashboard: "PANEL",
+        mode_nav: "NAVEGACIÓN",
+        menu_settings: "AJUSTES",
+        menu_past_rides: "HISTORIAL",
+        pref_language: "Idioma",
+        pref_color_scheme: "Tema Visual",
+        pref_speed_units: "Unidades",
+        theme_night: "NOCHE",
+        theme_day: "DÍA",
+        tile_speed: "Velocidad",
+        tile_distance: "Distancia",
+        tile_avg_speed: "Velocidad Media",
+        tile_max_speed: "Velocidad Máx",
+        tile_grade: "Inclinación",
+        tile_ele_gain: "Desnivel Positivo",
+        tile_altitude: "Altitud Actual",
+        tile_time: "Tiempo Transcurrido",
+        tile_map: "Mapa GPS",
+        status_active: "ACTIVO",
+        status_disable: "INACTIVO",
+        nav_home: "Inicio",
+        nav_nav: "Navegar",
+        nav_past_rides: "Historial",
+        nav_settings: "Ajustes",
+        lbl_speed: "VELOCIDAD",
+        lbl_distance: "Distancia",
+        lbl_avg_speed: "Vel. Media",
+        lbl_max_speed: "Vel. Máx",
+        lbl_grade: "Pendiente",
+        lbl_elevation: "Desnivel",
+        lbl_altitude: "Altitud",
+        lbl_elapsed_time: "Tiempo",
+        lbl_elevation_gain: "Desnivel Positivo",
+        lbl_max_grade: "Pendiente Máx",
+        ph_search: "Buscar dirección, lugar, tienda...",
+        btn_search: "BUSCAR",
+        btn_select: "ELEGIR",
+        btn_stop: "PARAR",
+        btn_reset: "REINICIAR",
+        btn_cancel: "CANCELAR",
+        btn_back: "← VOLVER",
+        btn_export_gpx: "EXPORTAR GPX",
+        btn_delete: "ELIMINAR",
+        btn_view: "VER ➔",
+        modal_reset_title: "¿Reiniciar Datos?",
+        modal_reset_desc: "¿Estás seguro de que deseas borrar la velocidad, distancia y tiempo de este recorrido?",
+        ride_summary: "RESUMEN DEL RIDE",
+        toast_ride_saved: "Ride Guardado",
+        no_past_rides: "No hay recorridos guardados.",
+        no_places_found: "No se encontraron lugares para"
+      }
+    };
+
+    let currentLang = 'en';
     let deferredPrompt;
+    
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
@@ -484,7 +595,6 @@
     let currentGrade = 0;
     let lastPosition = null;
 
-    // Moving window buffer for accurate grade computation
     let elevationBuffer = [];
     const ELEVATION_BUFFER_SIZE = 5;
 
@@ -543,6 +653,9 @@
         searchDebounceTimer = setTimeout(handleLiveSearchInput, 300);
       });
 
+      document.getElementById('btnLangEn').onclick = () => setLanguage('en');
+      document.getElementById('btnLangEs').onclick = () => setLanguage('es');
+
       document.getElementById('btnThemeDark').onclick = () => setTheme('dark');
       document.getElementById('btnThemeSun').onclick = () => setTheme('sun');
       document.getElementById('btnKm').onclick = () => setUnits('metric');
@@ -562,6 +675,7 @@
         }
       };
 
+      loadLanguagePreference();
       detectAutoDayNight();
       loadThemePreference();
       loadLayoutPreferences();
@@ -570,7 +684,46 @@
       fetchInitialUserLocation();
       setupHoldToStop();
       requestWakeLock();
+      updatePlayPauseButtonUI();
     });
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('horo_lang_pref', lang);
+      document.getElementById('btnLangEn').classList.toggle('active', lang === 'en');
+      document.getElementById('btnLangEs').classList.toggle('active', lang === 'es');
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerText = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (translations[lang] && translations[lang][key]) {
+          el.placeholder = translations[lang][key];
+        }
+      });
+
+      Object.keys(tileVisibilityState).forEach(cardId => {
+        const squareEl = document.querySelector(`.tile-square-card[data-card="${cardId}"]`);
+        if (squareEl) {
+          const statusEl = squareEl.querySelector('.tile-card-status');
+          if (statusEl) {
+            statusEl.innerText = tileVisibilityState[cardId] ? translations[lang].status_active : translations[lang].status_disable;
+          }
+        }
+      });
+
+      renderRideHistory();
+    }
+
+    function loadLanguagePreference() {
+      const savedLang = localStorage.getItem('horo_lang_pref') || 'en';
+      setLanguage(savedLang);
+    }
 
     function fetchInitialUserLocation() {
       if (navigator.geolocation) {
@@ -636,11 +789,11 @@
       if (tabName === 'tiles') {
         document.getElementById('menuTabTiles').classList.add('active');
         document.getElementById('menuNavTiles').classList.add('active');
-        document.getElementById('menuHeaderTitle').innerText = 'SETTINGS';
+        document.getElementById('menuHeaderTitle').innerText = translations[currentLang].menu_settings;
       } else if (tabName === 'history') {
         document.getElementById('menuTabHistory').classList.add('active');
         document.getElementById('menuNavHistory').classList.add('active');
-        document.getElementById('menuHeaderTitle').innerText = 'PAST RIDES';
+        document.getElementById('menuHeaderTitle').innerText = translations[currentLang].menu_past_rides;
         renderRideHistory();
       }
     }
@@ -660,10 +813,10 @@
 
       if (tileVisibilityState[cardId]) {
         if (cardEl) cardEl.classList.remove('hidden');
-        if (squareEl) { squareEl.classList.add('active'); squareEl.querySelector('.tile-card-status').innerText = 'ACTIVE'; }
+        if (squareEl) { squareEl.classList.add('active'); squareEl.querySelector('.tile-card-status').innerText = translations[currentLang].status_active; }
       } else {
         if (cardEl) cardEl.classList.add('hidden');
-        if (squareEl) { squareEl.classList.remove('active'); squareEl.querySelector('.tile-card-status').innerText = 'DISABLE'; }
+        if (squareEl) { squareEl.classList.remove('active'); squareEl.querySelector('.tile-card-status').innerText = translations[currentLang].status_disable; }
       }
 
       localStorage.setItem('horo_card_visibility_prefs', JSON.stringify(tileVisibilityState));
@@ -717,8 +870,8 @@
           const isActive = tileVisibilityState[cardId];
           if (cardEl) isActive ? cardEl.classList.remove('hidden') : cardEl.classList.add('hidden');
           if (squareEl) {
-            if (isActive) { squareEl.classList.add('active'); squareEl.querySelector('.tile-card-status').innerText = 'ACTIVE'; }
-            else { squareEl.querySelector('.tile-card-status').innerText = 'DISABLE'; }
+            if (isActive) { squareEl.classList.add('active'); squareEl.querySelector('.tile-card-status').innerText = translations[currentLang].status_active; }
+            else { squareEl.querySelector('.tile-card-status').innerText = translations[currentLang].status_disable; }
           }
         });
       }
@@ -871,7 +1024,7 @@
         let items = await fetchSearchQueryCandidates(input, userLat, userLon);
 
         if (!items || items.length === 0) {
-          dropdown.innerHTML = `<div style="padding: 8px; font-size: 11px; color: #888888; text-align: center;">No places found for "${input}". Try nearby landmarks.</div>`;
+          dropdown.innerHTML = `<div style="padding: 8px; font-size: 11px; color: #888888; text-align: center;">${translations[currentLang].no_places_found} "${input}".</div>`;
           dropdown.classList.add('active');
           return;
         }
@@ -887,7 +1040,7 @@
                 <div style="font-weight: 800; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${title}</div>
                 <div style="font-size: 9px; color: #888888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${subtitle}</div>
               </div>
-              <span style="color: var(--accent-green); font-size: 10px; font-weight: 800; flex-shrink: 0;">SELECT</span>
+              <span style="color: var(--accent-green); font-size: 10px; font-weight: 800; flex-shrink: 0;">${translations[currentLang].btn_select}</span>
             </div>
           `;
         }).join('');
@@ -971,16 +1124,29 @@
       else startRide();
     }
 
+    function updatePlayPauseButtonUI() {
+      const playBtn = document.getElementById('playPauseBtn');
+      
+      if (rideState === 'RUNNING') {
+        playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
+        playBtn.classList.add('active-play');
+        playBtn.classList.remove('active-pause');
+      } else if (rideState === 'PAUSED' || rideState === 'AUTO-PAUSED') {
+        playBtn.innerText = '▶';
+        playBtn.classList.remove('active-play');
+        playBtn.classList.add('active-pause');
+      } else {
+        playBtn.innerText = '▶';
+        playBtn.classList.remove('active-play', 'active-pause');
+      }
+    }
+
     function startRide() {
       requestWakeLock();
       if (rideState === 'RUNNING') return;
       rideState = 'RUNNING';
-      const playBtn = document.getElementById('playPauseBtn');
-      playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
-      playBtn.classList.add('active-play');
-      playBtn.classList.remove('active-pause');
-      document.getElementById('statusDot').classList.add('active');
-      document.getElementById('statusText').innerText = 'RECORDING';
+      updatePlayPauseButtonUI();
+
       startTime = Date.now() - elapsedTime;
       rideStartTimeMs = Date.now();
       lastPositionTime = Date.now();
@@ -993,12 +1159,8 @@
     function pauseRide() {
       if (rideState === 'STOPPED' || rideState === 'PAUSED') return;
       rideState = 'PAUSED';
-      const playBtn = document.getElementById('playPauseBtn');
-      playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
-      playBtn.classList.remove('active-play');
-      playBtn.classList.add('active-pause');
-      document.getElementById('statusDot').classList.remove('active');
-      document.getElementById('statusText').innerText = 'PAUSED';
+      updatePlayPauseButtonUI();
+
       smoothedSpeedMps = 0;
       updateDisplay({ speed: 0, altitude: lastPosition ? lastPosition.altitude : null });
     }
@@ -1008,12 +1170,13 @@
       rideState = 'STOPPED';
       if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
       if (watchId) { navigator.geolocation.clearWatch(watchId); watchId = null; }
-      const playBtn = document.getElementById('playPauseBtn');
-      playBtn.innerText = '▶';
-      playBtn.classList.remove('active-play', 'active-pause');
-      document.getElementById('statusDot').classList.remove('active');
-      document.getElementById('statusText').innerText = 'STOPPED';
-      if (gpxTrackPoints.length > 2) { saveRideToHistory(); showSavedToast(); }
+      
+      updatePlayPauseButtonUI();
+
+      if (gpxTrackPoints.length > 2) { 
+        saveRideToHistory(); 
+        showSavedToast(translations[currentLang].toast_ride_saved);
+      }
     }
 
     function timerTick() {
@@ -1024,12 +1187,7 @@
           zeroSpeedCount++;
           if (zeroSpeedCount >= 3) {
             rideState = 'AUTO-PAUSED';
-            document.getElementById('statusText').innerText = 'AUTO-PAUSED';
-            document.getElementById('statusDot').classList.remove('active');
-            const playBtn = document.getElementById('playPauseBtn');
-            playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
-            playBtn.classList.remove('active-pause');
-            playBtn.classList.add('active-play');
+            updatePlayPauseButtonUI();
             updateDisplay({ speed: 0, altitude: lastPosition ? lastPosition.altitude : null });
           }
         } else { zeroSpeedCount = 0; movingTimeSecs++; }
@@ -1063,18 +1221,13 @@
 
       if (rideState === 'AUTO-PAUSED' && smoothedSpeedMps >= 0.3) {
         rideState = 'RUNNING'; zeroSpeedCount = 0; startTime = Date.now() - elapsedTime;
-        document.getElementById('statusText').innerText = 'RECORDING';
-        document.getElementById('statusDot').classList.add('active');
-        const playBtn = document.getElementById('playPauseBtn');
-        playBtn.innerHTML = '<span class="pause-icon-css"><span></span><span></span></span>';
-        playBtn.classList.remove('active-pause'); playBtn.classList.add('active-play');
+        updatePlayPauseButtonUI();
       }
 
       if (rideState === 'RUNNING') {
         if (distSinceLast >= 1.2 && smoothedSpeedMps > 0) {
           totalDistanceMeters += distSinceLast;
 
-          // Robust Inclination Grade Calculation via Altitude Buffer
           if (alt !== null && lastPosition.altitude !== null) {
             const eleDiff = alt - lastPosition.altitude;
             if (eleDiff > 1.0) totalEleGain += eleDiff;
@@ -1088,10 +1241,10 @@
               const spanDist = latest.dist - oldest.dist;
               const spanEle = latest.alt - oldest.alt;
 
-              if (spanDist >= 8) { // Require at least 8 meters movement for stable grade
+              if (spanDist >= 8) {
                 let calcGrade = (spanEle / spanDist) * 100;
-                if (Math.abs(calcGrade) > 28) calcGrade = 0; // Filter unreasonable spikes
-                currentGrade = (calcGrade * 0.4) + (currentGrade * 0.6); // Smoothing
+                if (Math.abs(calcGrade) > 28) calcGrade = 0;
+                currentGrade = (calcGrade * 0.4) + (currentGrade * 0.6);
               }
             }
           } else {
@@ -1158,7 +1311,7 @@
       document.getElementById('resetConfirmModal').classList.remove('active');
       executeStopRide();
       elapsedTime = 0; movingTimeSecs = 0; totalDistanceMeters = 0; maxSpeedMps = 0; smoothedSpeedMps = 0; totalEleGain = 0; currentGrade = 0; lastPosition = null; lastPositionTime = 0; isAnchored = false; gpxTrackPoints = []; elevationBuffer = [];
-      document.getElementById('statusText').innerText = 'READY';
+      
       document.getElementById('timerVal').innerText = "00:00:00";
       document.getElementById('speedVal').innerText = "0.0";
       document.getElementById('distVal').innerHTML = `0.00 <span>${isMetric ? 'km' : 'mi'}</span>`;
@@ -1178,8 +1331,9 @@
       isNavigating = false;
     }
 
-    function showSavedToast() {
+    function showSavedToast(msg) {
       const toast = document.getElementById('toast');
+      toast.innerText = msg || translations[currentLang].toast_ride_saved;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3000);
     }
@@ -1235,7 +1389,7 @@
       const container = document.getElementById('historyContainer');
       container.innerHTML = '';
       if (rideHistory.length === 0) { 
-        container.innerHTML = `<div style="font-size: 11px; color: #888888; text-align: center; padding: 20px 0;">No saved past rides found.</div>`; 
+        container.innerHTML = `<div style="font-size: 11px; color: #888888; text-align: center; padding: 20px 0;">${translations[currentLang].no_past_rides}</div>`; 
         return; 
       }
 
@@ -1249,7 +1403,7 @@
             <div class="history-stats">${ride.distance} • ${ride.time}</div>
           </div>
           <div class="history-actions">
-            <span style="font-size: 10px; color: var(--accent-green); font-weight: 800;">VIEW ➔</span>
+            <span style="font-size: 10px; color: var(--accent-green); font-weight: 800;">${translations[currentLang].btn_view}</span>
           </div>
         `;
         container.appendChild(item);
@@ -1262,7 +1416,7 @@
 
       selectedDetailRideId = id;
 
-      document.getElementById('detailRideTitle').innerText = `RIDE - ${ride.date}`;
+      document.getElementById('detailRideTitle').innerText = `${translations[currentLang].ride_summary} - ${ride.date}`;
       
       const avgSpdConverted = isMetric ? ((ride.avgSpeedMps || 0) * 3.6) : ((ride.avgSpeedMps || 0) * 2.23694);
       const maxSpdConverted = isMetric ? ((ride.maxSpeedMps || 0) * 3.6) : ((ride.maxSpeedMps || 0) * 2.23694);
@@ -1301,14 +1455,19 @@
       if (ride) generateGPXDownload(ride.points, `HoroGPS_${ride.date}.gpx`); 
     }
 
-    function generateGPXDownload(points, filename) {
-      let gpxXml = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="放浪 Bike Computer" xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">\n  <metadata><name>${filename}</name><time>${new Date().toISOString()}</time></metadata>\n  <trk><name>放浪 Ride</name><trkseg>\n`;
+    function buildGPXString(points, name) {
+      let gpxXml = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="放浪 Bike Computer" xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">\n  <metadata><name>${name}</name><time>${new Date().toISOString()}</time></metadata>\n  <trk><name>放浪 Ride</name><trkseg>\n`;
       points.forEach(pt => {
         gpxXml += `      <trkpt lat="${pt.lat}" lon="${pt.lon}">\n        <ele>${(pt.alt || 0).toFixed(1)}</ele>\n        <time>${pt.time}</time>\n        <speed>${(pt.speed || 0).toFixed(2)}</speed>\n`;
         if (pt.distance !== undefined) gpxXml += `        <extensions><gpxtpx:TrackPointExtension><gpxtpx:distance>${pt.distance.toFixed(1)}</gpxtpx:distance></gpxtpx:TrackPointExtension></extensions>\n`;
         gpxXml += `      </trkpt>\n`;
       });
       gpxXml += `    </trkseg></trk></gpx>`;
+      return gpxXml;
+    }
+
+    function generateGPXDownload(points, filename) {
+      const gpxXml = buildGPXString(points, filename);
       const link = document.createElement('a');
       const blob = new Blob([gpxXml], { type: 'application/gpx+xml' });
       link.href = URL.createObjectURL(blob);
@@ -1322,7 +1481,9 @@
     }
 
     function handleError(err) {
-      if (rideState === 'RUNNING' || rideState === 'AUTO-PAUSED') document.getElementById('statusText').innerText = 'SEARCHING GPS';
+      if (rideState === 'RUNNING' || rideState === 'AUTO-PAUSED') {
+        // GPS Search handled internally without header text clutter
+      }
     }
   </script>
 </body>
