@@ -97,7 +97,6 @@
 
     .menu-main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; margin-bottom: 6px; }
 
-    /* Bottom menu bar remains unchanged in Day mode */
     .menu-bottom-bar {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
       background: #0a0a0a !important; border: 1px solid #1a1a1a !important; border-radius: 10px; padding: 6px; flex-shrink: 0;
@@ -105,6 +104,7 @@
     .menu-nav-tab { background: none; border: none; color: #888888; font-size: 9px; font-weight: 800; text-transform: uppercase; padding: 8px 0; border-radius: 6px; cursor: pointer; text-align: center; }
     .menu-nav-tab.active { background: #222222; color: #ffffff; }
 
+    /* Past Ride View */
     .fullscreen-ride-view {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: var(--bg-black); z-index: 99999; display: none; flex-direction: column; padding: 12px; gap: 8px;
@@ -114,7 +114,6 @@
     .ride-detail-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px; flex-shrink: 0; }
     .back-btn { background: #181818; border: 1px solid var(--border-subtle); color: #ffffff; font-size: 11px; font-weight: 800; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
 
-    /* Removed bottom line border under menu title */
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding-bottom: 4px; border-bottom: none !important; flex-shrink: 0; }
     .modal-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; color: #ffffff !important; }
     .close-btn { background: none; border: none; color: #888888; font-size: 16px; cursor: pointer; }
@@ -136,7 +135,6 @@
     .pref-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 4px; background: transparent; border: none; }
     .pref-label { font-size: 10px; font-weight: 700; color: #ffffff !important; }
 
-    /* Square tiles grid layout */
     .tiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; flex: 1; min-height: 0; overflow: hidden; align-content: start; }
     .tile-square-card {
       background: #0a0a0a; border: 1px solid var(--border-subtle); border-radius: 6px;
@@ -177,24 +175,26 @@
     .grid-2 { grid-template-columns: repeat(2, 1fr); }
     .grid-1 { grid-template-columns: 1fr; }
 
-    .card { background-color: var(--card-bg); border-radius: 6px; padding: 2px 4px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; flex: 1; }
+    .card { background-color: var(--card-bg); border-radius: 6px; padding: 4px 6px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 0; flex: 1; }
     .card.hidden { display: none !important; }
 
+    /* Primary Speed display (unchanged) */
     .primary-metric { flex: 1.8; min-height: 0; padding: 2px 4px; justify-content: center; }
     .speed-value { font-size: 105px; font-weight: 800; line-height: 0.8; letter-spacing: -2px; color: #ffffff; }
     body.theme-sun .speed-value { color: var(--accent-green); }
     body.map-disabled .primary-metric { flex: 2.2; }
     body.map-disabled .speed-value { font-size: 125px; }
 
-    .metric-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: #ffffff !important; text-transform: uppercase; margin-bottom: 1px; }
-    .unit-label { font-size: 11px; color: #ffffff !important; font-weight: 800; margin-top: 1px; }
+    /* Doubled data field labels and text sizes for high visibility while riding */
+    .metric-label { font-size: 16px; font-weight: 800; letter-spacing: 1px; color: #ffffff !important; text-transform: uppercase; margin-bottom: 2px; }
+    .unit-label { font-size: 14px; color: #ffffff !important; font-weight: 800; margin-top: 2px; }
 
-    .sub-metric { text-align: center; padding: 2px; flex: 1; min-height: 0; }
-    .sub-value { font-size: 17px; font-weight: 800; line-height: 1; color: #ffffff !important; }
-    .sub-value span { font-size: 9px; color: #ffffff !important; }
+    .sub-metric { text-align: center; padding: 4px; flex: 1; min-height: 0; }
+    .sub-value { font-size: 32px; font-weight: 800; line-height: 1; color: #ffffff !important; }
+    .sub-value span { font-size: 14px; color: #ffffff !important; font-weight: 800; }
 
-    .card-time-container { flex: 0.6; min-height: 0; }
-    .time-display { font-size: 22px; font-weight: 800; text-align: center; line-height: 1; color: #ffffff !important; }
+    .card-time-container { flex: 0.8; min-height: 0; }
+    .time-display { font-size: 38px; font-weight: 800; text-align: center; line-height: 1; color: #ffffff !important; }
 
     #card-map { flex: 1.2; min-height: 0; padding: 0; overflow: hidden; }
     #map { width: 100%; height: 100%; border-radius: 6px; background: #0d0d0d; }
@@ -210,20 +210,20 @@
     .nav-bottom-telemetry-bar {
       display: grid; grid-template-columns: 1fr 1fr;
       background: #000000; color: #ffffff;
-      border-top: 1px solid var(--border-subtle); flex-shrink: 0; height: 64px;
+      border-top: 1px solid var(--border-subtle); flex-shrink: 0; height: 68px;
     }
     .nav-bottom-card {
       padding: 4px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;
       background: #0a0a0a; border-right: 1px solid var(--border-subtle); text-align: center;
     }
     .nav-bottom-card:last-child { border-right: none; }
-    .nav-bottom-label { font-size: 10px; font-weight: 800; color: #ffffff !important; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; text-align: center; width: 100%; }
+    .nav-bottom-label { font-size: 14px; font-weight: 800; color: #ffffff !important; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; text-align: center; width: 100%; }
 
     .nav-bottom-val-row { display: flex; align-items: baseline; justify-content: center; gap: 4px; width: 100%; text-align: center; }
-    .nav-bottom-value { font-size: 26px; font-weight: 800; line-height: 1; color: #ffffff; letter-spacing: -0.5px; text-align: center; font-family: 'Roboto Condensed', sans-serif; }
+    .nav-bottom-value { font-size: 32px; font-weight: 800; line-height: 1; color: #ffffff; letter-spacing: -0.5px; text-align: center; font-family: 'Roboto Condensed', sans-serif; }
     body.theme-sun .nav-bottom-value { color: var(--accent-green) !important; }
 
-    .nav-bottom-unit { font-size: 10px; font-weight: 800; color: #ffffff; line-height: 1; text-transform: lowercase; font-family: 'Roboto Condensed', sans-serif; text-align: center; }
+    .nav-bottom-unit { font-size: 14px; font-weight: 800; color: #ffffff; line-height: 1; text-transform: lowercase; font-family: 'Roboto Condensed', sans-serif; text-align: center; }
     body.theme-sun .nav-bottom-unit { color: var(--accent-green) !important; }
 
     .nav-user-heading-icon {
@@ -264,40 +264,6 @@
 
     .btn-stop .fill-overlay { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: rgba(255, 69, 58, 0.85); z-index: 1; pointer-events: none; transition: width 0.05s linear; }
     .btn-stop .btn-text { position: relative; z-index: 2; }
-
-    .share-modal-fullscreen {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-black); z-index: 999999; display: none; flex-direction: column; overflow: hidden;
-    }
-    .share-modal-fullscreen.active { display: flex !important; }
-
-    .floating-top-header {
-      position: absolute; top: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px);
-      z-index: 1000; padding: 10px 16px; border-bottom: 1px solid var(--border-subtle);
-      display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
-    }
-
-    .floating-actions-row { display: flex; align-items: center; gap: 12px; }
-
-    .horizontal-cards-track {
-      display: flex; flex-direction: row; width: 100vw; height: 100vh; overflow-x: auto; overflow-y: hidden;
-      scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
-    }
-
-    .share-fullscreen-card {
-      flex: 0 0 100vw; width: 100vw; height: 100vh; scroll-snap-align: start; scroll-snap-stop: always;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; background: #000000;
-    }
-
-    .canvas-fullscreen-render { width: 100vw; height: 100vh; object-fit: contain; background: transparent; display: block; }
-
-    .card-number-overlay {
-      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
-      font-size: 12px; font-weight: 800; color: var(--accent-green); letter-spacing: 2px; text-transform: uppercase;
-      background: rgba(0,0,0,0.7); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(48,209,88,0.3); z-index: 500;
-    }
-
-    .social-icon-btn { background: #141414; border: 1px solid var(--border-subtle); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
-    .social-icon-btn:hover { border-color: var(--accent-green); background: #1f1f1f; }
   </style>
 </head>
 <body>
@@ -321,54 +287,12 @@
     </div>
   </div>
 
-  <!-- Fullscreen Export Overlays Menu -->
-  <div id="shareModal" class="share-modal-fullscreen">
-    <div class="floating-top-header">
-      <div class="modal-title" style="letter-spacing: 1px;">EXPORT OVERLAYS</div>
-      <div class="floating-actions-row">
-        <button class="social-icon-btn" onclick="shareToInstagram()" title="Instagram Story">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-        </button>
-        <button class="social-icon-btn" onclick="exportCurrentActivePng()" title="Download PNG">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-        </button>
-        <button class="close-btn" id="shareCloseBtn" style="font-size: 18px; margin-left: 4px;">✕</button>
-      </div>
-    </div>
-
-    <div class="horizontal-cards-track" id="horizontalTrack">
-      <div class="share-fullscreen-card" data-layout="1"><canvas id="canvasPreview1" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">001</div></div>
-      <div class="share-fullscreen-card" data-layout="2"><canvas id="canvasPreview2" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">002</div></div>
-      <div class="share-fullscreen-card" data-layout="3"><canvas id="canvasPreview3" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">003</div></div>
-      <div class="share-fullscreen-card" data-layout="4"><canvas id="canvasPreview4" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">004</div></div>
-      <div class="share-fullscreen-card" data-layout="5"><canvas id="canvasPreview5" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">005</div></div>
-      <div class="share-fullscreen-card" data-layout="6"><canvas id="canvasPreview6" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">006</div></div>
-      <div class="share-fullscreen-card" data-layout="7"><canvas id="canvasPreview7" class="canvas-fullscreen-render" width="1080" height="1920"></canvas><div class="card-number-overlay">007</div></div>
-    </div>
-  </div>
-
-  <!-- Full-Screen Saved Ride Detail View -->
+  <!-- Full-Screen Saved Ride Detail View (Clean view with export GPX and delete options) -->
   <div id="rideDetailView" class="fullscreen-ride-view">
     <div class="ride-detail-header">
       <button class="back-btn" id="btnRideDetailBack">← BACK</button>
       <div id="detailRideTitle" class="modal-title">RIDE SUMMARY</div>
-      <button id="detailShareBtn" class="share-btn-header" title="Share Ride" style="background:none; border:none; cursor:pointer; display:flex; align-items:center;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="18" cy="5" r="3"></circle>
-          <circle cx="6" cy="12" r="3"></circle>
-          <circle cx="18" cy="19" r="3"></circle>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-        </svg>
-      </button>
+      <div style="width: 40px;"></div>
     </div>
     <div class="ride-detail-map-box"><div id="rideDetailMap"></div></div>
     <div class="ride-stats-grid">
@@ -380,8 +304,8 @@
       <div class="ride-stat-card"><div class="ride-stat-label">Max Grade</div><div id="detailMaxGrade" class="ride-stat-value">0.0 <span>%</span></div></div>
     </div>
     <div style="display: flex; gap: 6px; margin-top: 4px; flex-shrink: 0;">
-      <button id="btnDetailExportGpx" class="history-btn gpx-btn" style="flex: 2; padding: 10px 0; font-size: 11px;">EXPORT GPX</button>
-      <button id="btnDetailDelete" class="history-btn" style="flex: 1; padding: 10px 0; font-size: 11px; color: var(--accent-red); border-color: rgba(255, 69, 58, 0.3);">DELETE</button>
+      <button id="btnDetailExportGpx" class="history-btn gpx-btn" style="flex: 2; padding: 12px 0; font-size: 12px; font-weight: 800;">EXPORT GPX</button>
+      <button id="btnDetailDelete" class="history-btn" style="flex: 1; padding: 12px 0; font-size: 12px; font-weight: 800; color: var(--accent-red); border-color: rgba(255, 69, 58, 0.3);">DELETE</button>
     </div>
   </div>
 
@@ -586,9 +510,6 @@
     let userMarker = null, navUserMarker = null;
     let stopHoldProgress = 0, stopInterval = null;
 
-    let loadedBrandLogoImg = new Image();
-    loadedBrandLogoImg.src = 'icon.png';
-
     const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -602,9 +523,6 @@
 
       document.getElementById('menuToggleBtn').onclick = () => document.getElementById('fullscreenMenu').classList.add('active');
       document.getElementById('menuCloseBtn').onclick = () => document.getElementById('fullscreenMenu').classList.remove('active');
-      
-      document.getElementById('detailShareBtn').onclick = openShareModal;
-      document.getElementById('shareCloseBtn').onclick = () => document.getElementById('shareModal').classList.remove('active');
 
       document.getElementById('btnModeDash').onclick = () => switchAppMode('dash');
       document.getElementById('btnModeNav').onclick = () => switchAppMode('nav');
@@ -887,15 +805,11 @@
       return currentCityName;
     }
 
-    // FUZZY LOCATION & PLACES SEARCH ENGINE (WITH ERROR/TYPO TOLERANCE)
     function triggerLiveSearchNow() { handleLiveSearchInput(); }
 
     async function fetchSearchQueryCandidates(rawQuery, lat, lon) {
       const resultsMap = new Map();
-
-      // Bounding box for proximity bias (~40km around user)
-      const latDelta = 0.35;
-      const lonDelta = 0.35;
+      const latDelta = 0.35, lonDelta = 0.35;
       const viewbox = `${lon - lonDelta},${lat + latDelta},${lon + lonDelta},${lat - latDelta}`;
 
       const apiRequests = [
@@ -956,7 +870,6 @@
           const parts = item.display_name.split(',');
           const title = parts[0].trim();
           const subtitle = parts.slice(1, 4).join(',').trim();
-          const cleanTitleEscaped = title.replace(/'/g, "\\'");
           
           return `
             <div class="dropdown-item" onclick="selectDestinationDropdown(${item.lat}, ${item.lon}, '${encodeURIComponent(title)}')">
@@ -1208,326 +1121,6 @@
       const totalSecs = Math.floor(elapsedTime / 1000);
       const hrs = Math.floor(totalSecs / 3600), mins = Math.floor((totalSecs % 3600) / 60), secs = totalSecs % 60;
       document.getElementById('timerVal').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-
-    function openShareModal() {
-      document.getElementById('shareModal').classList.add('active');
-      renderAllShareLayoutPreviews();
-    }
-
-    function drawRouteOnCanvasCtx(ctx, points, x, y, width, height, strokeColor, strokeWidth) {
-      if (!points || points.length < 2) return;
-      ctx.strokeStyle = strokeColor;
-      ctx.lineWidth = strokeWidth;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.beginPath();
-
-      const lats = points.map(p => p.lat), lons = points.map(p => p.lon);
-      const minLat = Math.min(...lats), maxLat = Math.max(...lats);
-      const minLon = Math.min(...lons), maxLon = Math.max(...lons);
-
-      const latSpan = maxLat - minLat || 0.0001;
-      const lonSpan = maxLon - minLon || 0.0001;
-
-      points.forEach((pt, i) => {
-        const px = x + ((pt.lon - minLon) / lonSpan) * width;
-        const py = y + ((maxLat - pt.lat) / latSpan) * height;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-      });
-      ctx.stroke();
-    }
-
-    function drawBrandLogoOnCanvas(ctx, x, y, height, align = 'left') {
-      const aspect = loadedBrandLogoImg.width ? (loadedBrandLogoImg.width / loadedBrandLogoImg.height) : 1.0;
-      const width = height * aspect;
-      let drawX = x;
-      if (align === 'center') drawX = x - (width / 2);
-      else if (align === 'right') drawX = x - width;
-
-      if (loadedBrandLogoImg.complete && loadedBrandLogoImg.naturalWidth > 0) {
-        ctx.drawImage(loadedBrandLogoImg, drawX, y, width, height);
-      } else {
-        ctx.fillStyle = '#ffffff';
-        ctx.font = `800 ${height}px "Roboto Condensed", sans-serif`;
-        ctx.textAlign = align;
-        ctx.fillText('放浪', x, y + height);
-      }
-    }
-
-    async function generateFullCanvas(layoutIdx) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1080; canvas.height = 1920;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, 1080, 1920);
-
-      const ride = rideHistory.find(r => r.id === selectedDetailRideId) || {
-        date: new Date().toISOString().split('T')[0],
-        distance: '33.58 km',
-        time: '1h 50m',
-        avgSpeedMps: 5.08,
-        maxSpeedMps: 10.22,
-        totalEleGainMeters: 94,
-        maxGradePercent: 6.2,
-        points: gpxTrackPoints
-      };
-
-      const points = ride.points && ride.points.length > 1 ? ride.points : gpxTrackPoints;
-      const primaryColor = '#30d158';
-
-      const avgSpdStr = isMetric ? `${((ride.avgSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.avgSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
-      const maxSpdStr = isMetric ? `${((ride.maxSpeedMps || 0) * 3.6).toFixed(1)} km/h` : `${((ride.maxSpeedMps || 0) * 2.23694).toFixed(1)} mph`;
-      const eleGainStr = isMetric ? `${Math.round(ride.totalEleGainMeters || 0)} m` : `${Math.round((ride.totalEleGainMeters || 0) * 3.28084)} ft`;
-
-      // Layout 001
-      if (layoutIdx === 1) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 240, 800, 500, primaryColor, 14);
-        drawBrandLogoOnCanvas(ctx, 100, 820, 140, 'left');
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('Distance', 100, 1030);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, 100, 1095);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Elev Gain', 460, 1030);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-        ctx.fillText(eleGainStr, 460, 1095);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Time', 780, 1030);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, 780, 1095);
-      }
-
-      // Layout 002
-      else if (layoutIdx === 2) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 180, 800, 420, primaryColor, 14);
-        drawBrandLogoOnCanvas(ctx, 100, 720, 145, 'left');
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('Distance', 100, 920);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, 100, 980);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Elev Gain', 460, 920);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(eleGainStr, 460, 980);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Time', 780, 920);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, 780, 980);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Avg Speed', 100, 1070);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(avgSpdStr, 100, 1130);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Max Speed', 460, 1070);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 48px "Roboto Condensed", sans-serif';
-        ctx.fillText(maxSpdStr, 460, 1130);
-      }
-
-      // Layout 003
-      else if (layoutIdx === 3) {
-        drawBrandLogoOnCanvas(ctx, 540, 220, 160, 'center');
-
-        const metrics = [
-          { label: 'Distance', val: ride.distance },
-          { label: 'Elev Gain', val: eleGainStr },
-          { label: 'Time', val: ride.time },
-          { label: 'Speed', val: avgSpdStr },
-          { label: 'Max Speed', val: maxSpdStr }
-        ];
-
-        let startY = 480;
-        metrics.forEach(m => {
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'center';
-          ctx.fillText(m.label, 540, startY);
-          ctx.fillStyle = '#ffffff'; ctx.font = '800 56px "Roboto Condensed", sans-serif';
-          ctx.fillText(m.val, 540, startY + 68);
-          startY += 200;
-        });
-      }
-
-      // Layout 004
-      else if (layoutIdx === 4) {
-        drawBrandLogoOnCanvas(ctx, 100, 1310, 150, 'left');
-
-        const colWidth = 280;
-        let startX = 100;
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('Distance', startX, 1550);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 42px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, startX, 1600);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Speed', startX, 1660);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 42px "Roboto Condensed", sans-serif';
-        ctx.fillText(avgSpdStr, startX, 1710);
-
-        startX += colWidth + 50;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Elev Gain', startX, 1550);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 42px "Roboto Condensed", sans-serif';
-        ctx.fillText(eleGainStr, startX, 1600);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Max Speed', startX, 1660);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 42px "Roboto Condensed", sans-serif';
-        ctx.fillText(maxSpdStr, startX, 1710);
-
-        startX += colWidth + 50;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Time', startX, 1550);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 42px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, startX, 1600);
-      }
-
-      // Layout 005
-      else if (layoutIdx === 5) {
-        drawRouteOnCanvasCtx(ctx, points, 140, 260, 800, 580, primaryColor, 16);
-        drawBrandLogoOnCanvas(ctx, 540, 930, 150, 'center');
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '700 24px "Roboto Condensed", sans-serif'; ctx.textAlign = 'center';
-        ctx.fillText('Distance', 540, 1140);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 64px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, 540, 1210);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Avg Speed', 540, 1310);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 64px "Roboto Condensed", sans-serif';
-        ctx.fillText(avgSpdStr, 540, 1380);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '700 24px "Roboto Condensed", sans-serif';
-        ctx.fillText('Time', 540, 1480);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 64px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, 540, 1550);
-      }
-
-      // Layout 006
-      else if (layoutIdx === 6) {
-        drawBrandLogoOnCanvas(ctx, 100, 1300, 155, 'left');
-
-        const colWidth = 270;
-        let startX = 100;
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('Distance', startX, 1520);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, startX, 1575);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Avg Speed', startX, 1640);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
-        ctx.fillText(avgSpdStr, startX, 1695);
-
-        startX += colWidth + 40;
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Elev Gain', startX, 1520);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
-        ctx.fillText(eleGainStr, startX, 1575);
-
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Max Speed', startX, 1640);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
-        ctx.fillText(maxSpdStr, startX, 1695);
-
-        startX += colWidth + 40;
-        ctx.fillStyle = '#ffffff'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Time', startX, 1520);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 44px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, startX, 1575);
-      }
-
-      // Layout 007
-      else if (layoutIdx === 7) {
-        drawRouteOnCanvasCtx(ctx, points, 100, 180, 880, 1000, primaryColor, 18);
-        drawBrandLogoOnCanvas(ctx, 100, 1240, 150, 'left');
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif'; ctx.textAlign = 'left';
-        ctx.fillText('Distance', 100, 1440);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.distance, 100, 1500);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Time', 460, 1440);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed", sans-serif';
-        ctx.fillText(ride.time, 460, 1500);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '700 22px "Roboto Condensed", sans-serif';
-        ctx.fillText('Elev Gain', 780, 1440);
-        ctx.fillStyle = '#ffffff'; ctx.font = '800 52px "Roboto Condensed", sans-serif';
-        ctx.fillText(eleGainStr, 780, 1500);
-      }
-
-      return canvas;
-    }
-
-    async function renderAllShareLayoutPreviews() {
-      for (let i = 1; i <= 7; i++) {
-        const previewCanvas = document.getElementById(`canvasPreview${i}`);
-        if (previewCanvas) {
-          const fullCanvas = await generateFullCanvas(i);
-          const pCtx = previewCanvas.getContext('2d');
-          pCtx.clearRect(0, 0, 1080, 1920);
-          pCtx.drawImage(fullCanvas, 0, 0, 1080, 1920);
-        }
-      }
-    }
-
-    function getCurrentlyVisibleLayoutIndex() {
-      const track = document.getElementById('horizontalTrack');
-      const scrollLeft = track.scrollLeft;
-      const cardWidth = track.clientWidth;
-      return Math.round(scrollLeft / cardWidth) + 1;
-    }
-
-    async function exportCurrentActivePng() {
-      const activeIdx = getCurrentlyVisibleLayoutIndex();
-      const canvas = await generateFullCanvas(activeIdx);
-      canvas.toBlob((blob) => {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.download = `HoroRide_Layout00${activeIdx}_${new Date().toISOString().split('T')[0]}.png`;
-        link.href = url;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-      }, 'image/png');
-    }
-
-    async function shareToInstagram() {
-      const activeIdx = getCurrentlyVisibleLayoutIndex();
-      const canvas = await generateFullCanvas(activeIdx);
-      
-      canvas.toBlob(async (blob) => {
-        const file = new File([blob], 'horo_ride_story.png', { type: 'image/png' });
-
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          try {
-            await navigator.share({
-              files: [file],
-              title: '放浪 Ride Overlay',
-              text: 'FOR THE RESTLESS'
-            });
-            return;
-          } catch (err) {}
-        }
-
-        exportCurrentActivePng();
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        const instagramUrl = isIOS ? 'instagram-stories://share' : 'instagram://story-camera';
-        
-        setTimeout(() => {
-          window.location.href = instagramUrl;
-        }, 500);
-      }, 'image/png');
     }
 
     function confirmAndExecuteReset() {

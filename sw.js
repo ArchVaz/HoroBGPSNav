@@ -1,4 +1,4 @@
-const CACHE_NAME = 'horo-v64-fuzzy-nav-search-fix';
+const CACHE_NAME = 'horo-v65-large-labels-no-share';
 const TILE_CACHE_NAME = 'horo-map-tiles-v3';
 
 const ASSETS = [
